@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Scenario Chat Client</title>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      body {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+          "Courier New", monospace;
+        margin: 0;
+        padding: 24px;
+        background: #f7f7f2;
+        color: #2a2a2a;
+      }
+      header {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+      input,
+      button,
+      select {
+        font: inherit;
+        padding: 8px 10px;
+      }
+      .grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: 1fr 1fr;
+      }
+      .panel {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 16px;
+      }
+      #log {
+        white-space: pre-wrap;
+        height: 420px;
+        overflow: auto;
+        background: #101010;
+        color: #d0f5c8;
+        padding: 12px;
+        border-radius: 8px;
+      }
+      #form-area {
+        margin-top: 12px;
+      }
+      .field {
+        display: grid;
+        gap: 6px;
+        margin-bottom: 10px;
+      }
+      .field label {
+        font-size: 13px;
+        color: #4b4b4b;
+      }
+      .actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <strong>Scenario Web Client</strong>
+      <label>Base URL <input id="base-url" value="http://localhost:8000" size="24" /></label>
+      <label>Scenario <input id="scenario-id" value="scenario01" size="12" /></label>
+      <label>Conversation <input id="conversation-id" value="conv-web" size="12" /></label>
+      <button id="start-btn">Start</button>
+    </header>
+
+    <div class="grid">
+      <div class="panel">
+        <div id="log"></div>
+      </div>
+      <div class="panel">
+        <div><strong>Input</strong></div>
+        <div id="form-title"></div>
+        <form id="form-area"></form>
+        <div id="button-area" class="actions hidden"></div>
+      </div>
+    </div>
+
+    <script>
+      const logEl = document.getElementById("log");
+      const formTitleEl = document.getElementById("form-title");
+      const formArea = document.getElementById("form-area");
+      const buttonArea = document.getElementById("button-area");
+      const startBtn = document.getElementById("start-btn");
+
+      let lastAction = null;
+
+      function log(msg) {
+        logEl.textContent += msg + "\n";
+        logEl.scrollTop = logEl.scrollHeight;
+      }
+
+      async function postSse(url, payload) {
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let buffer = "";
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          while (buffer.includes("\n\n")) {
+            const parts = buffer.split("\n\n");
+            const eventBlock = parts.shift();
+            buffer = parts.join("\n\n");
+            const lines = eventBlock.split("\n").filter(Boolean);
+            const dataLines = lines
+              .filter((l) => l.startsWith("data: "))
+              .map((l) => l.slice(6));
+            if (!dataLines.length) continue;
+            const text = dataLines.join("\n").trim();
+            if (!text) continue;
+            let payloadObj = null;
+            try {
+              payloadObj = JSON.parse(text);
+            } catch {
+              continue;
+            }
+            handleMessage(payloadObj);
+          }
+        }
+      }
+
+      function clearInputs() {
+        formTitleEl.textContent = "";
+        formArea.innerHTML = "";
+        buttonArea.innerHTML = "";
+        buttonArea.classList.add("hidden");
+      }
+
+      function handleInterrupt(data) {
+        console.log("handleInterrupt ==================> :", data);
+        clearInputs();
+        if (data.type === "button") {
+          buttonArea.classList.remove("hidden");
+          data.replies.forEach((r) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.textContent = r.display;
+            btn.onclick = () => {
+              lastAction = r.value;
+              resume();
+            };
+            buttonArea.appendChild(btn);
+          });
+          return;
+        }
+        if (data.type === "form") {
+          formTitleEl.textContent = data.data?.title || "";
+          data.data?.elements?.forEach((el) => {
+            const field = document.createElement("div");
+            field.className = "field";
+            const label = document.createElement("label");
+            label.textContent = el.label || el.name || "";
+            const input = document.createElement(el.type === "date" ? "input" : "input");
+            input.type = el.type === "date" ? "date" : "text";
+            input.name = el.name || "";
+            if (el.placeholder) input.placeholder = el.placeholder;
+            if (el.defaultValue) input.value = el.defaultValue;
+            field.appendChild(label);
+            field.appendChild(input);
+            formArea.appendChild(field);
+          });
+          const submit = document.createElement("button");
+          submit.type = "submit";
+          submit.textContent = "제출";
+          formArea.appendChild(submit);
+        }
+      }
+
+      function handleMessage(payload) {
+        log(JSON.stringify(payload, null, 2));
+        const output = payload.output || {};
+        if (output.type === "interrupt") {
+          handleInterrupt(output.data);
+        }
+      }
+
+      function buildBasePayload() {
+        return {
+          conversation_id: document.getElementById("conversation-id").value,
+          user_input: "hi",
+        };
+      }
+
+      async function start() {
+        lastAction = null;
+        clearInputs();
+        const baseUrl = document.getElementById("base-url").value;
+        const scenarioId = document.getElementById("scenario-id").value;
+        await postSse(`${baseUrl}/api/v1/chat/${scenarioId}`, buildBasePayload());
+      }
+
+      async function resume() {
+        const baseUrl = document.getElementById("base-url").value;
+        const scenarioId = document.getElementById("scenario-id").value;
+        const payload = buildBasePayload();
+        if (lastAction) {
+          payload.user_action = lastAction;
+        } else {
+          const formData = new FormData(formArea);
+          const obj = {};
+          for (const [k, v] of formData.entries()) {
+            obj[k] = v;
+          }
+          payload.user_action = obj;
+        }
+        clearInputs();
+        await postSse(`${baseUrl}/api/v1/chat/${scenarioId}`, payload);
+      }
+
+      formArea.addEventListener("submit", (e) => {
+        e.preventDefault();
+        lastAction = null;
+        resume();
+      });
+      startBtn.addEventListener("click", () => start());
+    </script>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "mock": true,
+  "node_id": "api-1762405523724-spbuhjy",
+  "url": "http://202.20.84.65:8080/oceans/api/agt/agt9001/searchCargoTrackingInfo",
+  "result": {
+    "vvdFullName": "dummy-vvdFullName"
+  }
+}

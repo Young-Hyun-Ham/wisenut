@@ -1,0 +1,25 @@
+{
+  "mock": true,
+  "node_id": "api-1760665507699-hfevj86",
+  "url": "http://202.20.84.65:8080/oceans/api/agt/agt9001/searchBkgInfo",
+  "result": {
+    "bkdCore": {
+      "bkgPolCd": "dummy-fmPolCd",
+      "bkgPodCd": "dummy-fmPodCd",
+      "applDt": "dummy-fmPolEtdDt",
+      "bkgPolFclCd": "dummy-bkgPolFclCd",
+      "polCdOld": "dummy-polCdOld",
+      "cmdtyCd": "dummy-cmdtyCd",
+      "actlWt": "dummy-actlWt"
+    },
+    "bkdQty": [
+      {"oprContQty": "dummy-oprContQty"}
+    ],
+    "bkdQtyDtl": [
+      {"rcvTrmCd": "dummy-rcvTrmCd"}
+    ],
+    "bkdCustCntct": {
+      "sCustId": "dummy-sCustId"
+    }
+  }
+}

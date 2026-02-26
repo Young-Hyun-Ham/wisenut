@@ -1,0 +1,8 @@
+{
+  "mock": true,
+  "node_id": "api-1761813655660-ve31lfz",
+  "url": "http://202.20.84.65:8080/oceans/api/agt/agt9001/createBlCharge",
+  "result": {
+    "isSuccess": {}
+  }
+}

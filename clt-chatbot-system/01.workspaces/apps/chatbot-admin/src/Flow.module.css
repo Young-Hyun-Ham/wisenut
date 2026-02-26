@@ -1,0 +1,221 @@
+.flowContainer {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background-color: #f0f2f5;
+  overflow: hidden;
+}
+
+.leftSidebar {
+  width: 220px;
+  flex-shrink: 0;
+  padding: 15px;
+  background-color: #e7e7e7;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.sidebarHeader h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.globalColorSettingButton {
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.globalColorSettingButton:hover {
+  background-color: #e0e0e0;
+}
+
+.colorSettingsPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  background-color: #fff;
+}
+
+.colorSettingItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.colorInputs {
+  display: flex;
+  gap: 5px;
+}
+
+.colorSettingItem input[type="color"] {
+  width: 30px;
+  height: 24px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 2px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+/* --- 💡 수정된 부분 시작 --- */
+.sidebarButton {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: grab;
+  transition: opacity 0.2s;
+}
+
+.sidebarButton:active {
+  cursor: grabbing;
+}
+/* --- 💡 수정된 부분 끝 --- */
+
+.sidebarButton:hover {
+  opacity: 0.9;
+}
+
+.duplicateButton {
+  background-color: #7f8c8d;
+  width: 100%;
+}
+
+.separator {
+  border-bottom: 1px solid #e0e0e0;
+  margin: 10px 0;
+}
+
+.mainContent {
+  flex-grow: 1;
+  position: relative;
+  height: 100%;
+  min-width: 300px;
+}
+
+/* --- 💡 추가된 부분 시작 --- */
+.mainContent :global(.react-flow__minimap) {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  left: auto;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+/* --- 💡 추가된 부분 끝 --- */
+
+.topRightControls {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 10;
+  display: flex;
+}
+
+.controlButton {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #aaaaaa;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.saveButton {
+  bottom: 15px;
+  right: 15px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.controllerPanel {
+  width: 0;
+  overflow: hidden;
+  transition: width 0.3s ease-in-out;
+  background-color: #f8f9fa;
+  flex-shrink: 0;
+  height: 100%;
+  border-right: 1px solid transparent;
+}
+
+.controllerPanel.visible {
+  width: 380px;
+  border-right-color: #e0e0e0;
+}
+
+.rightContainer {
+  flex-shrink: 0;
+  display: flex;
+  width: 0;
+  overflow: hidden;
+  transition: width 0.3s ease-in-out;
+}
+
+.rightContainer.visible {
+  /* The width is now controlled by inline styles in Flow.jsx */
+}
+
+.resizerV {
+  background-color: #e0e0e0;
+  flex-shrink: 0;
+  transition: width 0.3s ease-in-out;
+  width: 0;
+  cursor: col-resize;
+}
+
+.resizerV.visible {
+    width: 5px;
+}
+
+.resizerV:hover {
+  background-color: #3498db;
+}
+
+.panel {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.botButton {
+  bottom: 15px;
+  right: 15px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.botButtonHidden {
+  bottom: 15px;
+  right: 15px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}

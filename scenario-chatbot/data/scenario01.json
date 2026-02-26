@@ -1,0 +1,3910 @@
+{
+  "edges": [
+    {
+      "targetHandle": null,
+      "source": "api-1758268293735-8qwr58l",
+      "sourceHandle": "onSuccess",
+      "target": "branch-1758514588608-x4adjdj",
+      "id": "reactflow__edge-api-1758268293735-8qwr58lonSuccess-branch-1758514588608-x4adjdj"
+    },
+    {
+      "targetHandle": null,
+      "id": "reactflow__edge-branch-1758528172321-zkke8vmcond_1758526955864-branch-1758528362524-ynbem3o",
+      "source": "branch-1758528172321-zkke8vm",
+      "sourceHandle": "cond_1758526955864",
+      "target": "branch-1758528362524-ynbem3o"
+    },
+    {
+      "source": "branch-1758528362524-ynbem3o",
+      "target": "branch-1758528548453-fx4ecvt",
+      "id": "reactflow__edge-branch-1758528362524-ynbem3ocond_1758526955865-branch-1758528548453-fx4ecvt",
+      "sourceHandle": "cond_1758526955865",
+      "targetHandle": null
+    },
+    {
+      "source": "message-1760418837297-gx0f3r7",
+      "target": "branch-1760575494983-krsf6dm",
+      "sourceHandle": null,
+      "id": "reactflow__edge-message-1760418837297-gx0f3r7-branch-1760575494983-krsf6dm",
+      "targetHandle": null
+    },
+    {
+      "targetHandle": null,
+      "sourceHandle": "cond_1758516037390-13f97f4",
+      "source": "branch-1760575494983-krsf6dm",
+      "target": "message-1760575534768-s4sbf34",
+      "id": "reactflow__edge-branch-1760575494983-krsf6dmcond_1758516037390-13f97f4-message-1760575534768-s4sbf34"
+    },
+    {
+      "target": "api-1760611122805-0m3y67h",
+      "targetHandle": null,
+      "source": "branch-1760611822382-n68mcie",
+      "id": "reactflow__edge-branch-1760611822382-n68mciecond_1758514588608-api-1760611122805-0m3y67h",
+      "sourceHandle": "cond_1758514588608"
+    },
+    {
+      "target": "branch-1760612347090-tw0s7do",
+      "sourceHandle": "cond_1758514588609",
+      "id": "reactflow__edge-branch-1760611822382-n68mciecond_1758514588609-branch-1760612347090-tw0s7do",
+      "source": "branch-1760611822382-n68mcie",
+      "targetHandle": null
+    },
+    {
+      "targetHandle": null,
+      "source": "branch-1758523985228-82zvnrd",
+      "target": "message-1758526654658-kn90fpp",
+      "id": "reactflow__edge-branch-1758523985228-82zvnrdcond_1758523985228-message-1758526654658-kn90fpp",
+      "sourceHandle": "cond_1758523985228"
+    },
+    {
+      "sourceHandle": null,
+      "source": "message-1758526654658-kn90fpp",
+      "id": "reactflow__edge-message-1758526654658-kn90fpp-form-1760613232028-ycfn6i1",
+      "target": "form-1760613232028-ycfn6i1",
+      "targetHandle": null
+    },
+    {
+      "id": "reactflow__edge-api-1760418742666-fkzjojponSuccess-api-1760665507699-hfevj86",
+      "target": "api-1760665507699-hfevj86",
+      "targetHandle": null,
+      "source": "api-1760418742666-fkzjojp",
+      "sourceHandle": "onSuccess"
+    },
+    {
+      "targetHandle": null,
+      "id": "reactflow__edge-api-1760418742666-fkzjojponError-message-1760418837297-gx0f3r7",
+      "sourceHandle": "onError",
+      "source": "api-1760418742666-fkzjojp",
+      "target": "message-1760418837297-gx0f3r7"
+    },
+    {
+      "source": "branch-1760948490014-h3206mf",
+      "id": "reactflow__edge-branch-1760948490014-h3206mfcond_1760948490014-setSlot-1760948518439-984uhdl",
+      "target": "setSlot-1760948518439-984uhdl",
+      "sourceHandle": "cond_1760948490014",
+      "targetHandle": null
+    },
+    {
+      "sourceHandle": null,
+      "source": "setSlot-1760948518439-984uhdl",
+      "targetHandle": null,
+      "id": "reactflow__edge-setSlot-1760948518439-984uhdl-api-1760418742666-fkzjojp",
+      "target": "api-1760418742666-fkzjojp"
+    },
+    {
+      "target": "branch-1760949117534-5r0q1nb",
+      "id": "reactflow__edge-setSlot-1760948543569-sij1t11-branch-1760949117534-5r0q1nb",
+      "source": "setSlot-1760948543569-sij1t11",
+      "sourceHandle": null,
+      "targetHandle": null
+    },
+    {
+      "id": "reactflow__edge-branch-1760949117534-5r0q1nbcond_1760949117534-api-1760418742666-fkzjojp",
+      "source": "branch-1760949117534-5r0q1nb",
+      "targetHandle": null,
+      "target": "api-1760418742666-fkzjojp",
+      "sourceHandle": "cond_1760949117534"
+    },
+    {
+      "target": "message-1760949218353-hh0xbpc",
+      "sourceHandle": "cond_1760949117535",
+      "targetHandle": null,
+      "source": "branch-1760949117534-5r0q1nb",
+      "id": "reactflow__edge-branch-1760949117534-5r0q1nbcond_1760949117535-message-1760949218353-hh0xbpc"
+    },
+    {
+      "targetHandle": null,
+      "id": "reactflow__edge-form-1760613232028-ycfn6i1-api-1760925258003-mrxtbcu",
+      "target": "api-1760925258003-mrxtbcu",
+      "source": "form-1760613232028-ycfn6i1",
+      "sourceHandle": null
+    },
+    {
+      "target": "branch-1760957633805-rvl3y00",
+      "targetHandle": null,
+      "source": "api-1760925258003-mrxtbcu",
+      "id": "reactflow__edge-api-1760925258003-mrxtbcuonSuccess-branch-1760957633805-rvl3y00",
+      "sourceHandle": "onSuccess"
+    },
+    {
+      "id": "reactflow__edge-branch-1760957633805-rvl3y00cond_1760957633805-link-1760957722213-o6yl6bg",
+      "source": "branch-1760957633805-rvl3y00",
+      "targetHandle": null,
+      "target": "link-1760957722213-o6yl6bg",
+      "sourceHandle": "cond_1760957633805"
+    },
+    {
+      "id": "reactflow__edge-link-1760957722213-o6yl6bg-branch-1758526955864-4o4z6gq",
+      "target": "branch-1758526955864-4o4z6gq",
+      "sourceHandle": null,
+      "source": "link-1760957722213-o6yl6bg",
+      "targetHandle": null
+    },
+    {
+      "sourceHandle": null,
+      "targetHandle": null,
+      "target": "setSlot-1761020213258-yc2i9ei",
+      "id": "reactflow__edge-form-1761012980853-7p8hjsx-setSlot-1761020213258-yc2i9ei",
+      "source": "form-1761012980853-7p8hjsx"
+    },
+    {
+      "target": "api-1760611122805-0m3y67h",
+      "id": "reactflow__edge-setSlot-1761020213258-yc2i9ei-api-1760611122805-0m3y67h",
+      "source": "setSlot-1761020213258-yc2i9ei",
+      "sourceHandle": null,
+      "targetHandle": null
+    },
+    {
+      "id": "reactflow__edge-branch-1761026031604-pxb0kfacond_1760957633805-link-1761026015309-18ahkc3",
+      "sourceHandle": "cond_1760957633805",
+      "source": "branch-1761026031604-pxb0kfa",
+      "targetHandle": null,
+      "target": "link-1761026015309-18ahkc3"
+    },
+    {
+      "sourceHandle": "cond_1760957633806",
+      "target": "message-1761026085085-1ot57tz",
+      "source": "branch-1761026031604-pxb0kfa",
+      "id": "reactflow__edge-branch-1761026031604-pxb0kfacond_1760957633806-message-1761026085085-1ot57tz",
+      "targetHandle": null
+    },
+    {
+      "target": "message-1758528130066-65dyx98",
+      "id": "reactflow__edge-api-1761026338422-n08ttz1onSuccess-message-1758528130066-65dyx98",
+      "targetHandle": null,
+      "source": "api-1761026338422-n08ttz1",
+      "sourceHandle": "onSuccess"
+    },
+    {
+      "sourceHandle": "cond_1758526955864",
+      "source": "branch-1758528362524-ynbem3o",
+      "id": "reactflow__edge-branch-1758528362524-ynbem3ocond_1758526955864-link-1761026899883-24nxbgk",
+      "targetHandle": null,
+      "target": "link-1761026899883-24nxbgk"
+    },
+    {
+      "target": "message-1758528570094-t5ol544",
+      "sourceHandle": "onSuccess",
+      "targetHandle": null,
+      "source": "api-1761026942868-61c9vzi",
+      "id": "reactflow__edge-api-1761026942868-61c9vzionSuccess-message-1758528570094-t5ol544"
+    },
+    {
+      "id": "reactflow__edge-branch-1758528548453-fx4ecvtcond_1758526955865-message-1761026987995-eeqd5sd",
+      "target": "message-1761026987995-eeqd5sd",
+      "targetHandle": null,
+      "sourceHandle": "cond_1758526955865",
+      "source": "branch-1758528548453-fx4ecvt"
+    },
+    {
+      "target": "message-1761027071349-ci9u81r",
+      "source": "link-1761026899883-24nxbgk",
+      "id": "reactflow__edge-link-1761026899883-24nxbgk-message-1761027071349-ci9u81r",
+      "targetHandle": null,
+      "sourceHandle": null
+    },
+    {
+      "source": "branch-1760957633805-rvl3y00",
+      "target": "branch-1758526955864-4o4z6gq",
+      "id": "reactflow__edge-branch-1760957633805-rvl3y00cond_1760957633806-branch-1758526955864-4o4z6gq",
+      "sourceHandle": "cond_1760957633806",
+      "targetHandle": null
+    },
+    {
+      "source": "branch-1760948490014-h3206mf",
+      "sourceHandle": "cond_1760948502041-tiziwha",
+      "targetHandle": null,
+      "target": "message-1760418837297-gx0f3r7",
+      "id": "reactflow__edge-branch-1760948490014-h3206mfcond_1760948502041-tiziwha-message-1760418837297-gx0f3r7"
+    },
+    {
+      "targetHandle": null,
+      "id": "reactflow__edge-form-1760610678381-2m7z8g0-api-1760689111105-jgcwlsw",
+      "source": "form-1760610678381-2m7z8g0",
+      "sourceHandle": null,
+      "target": "api-1760689111105-jgcwlsw"
+    },
+    {
+      "id": "reactflow__edge-form-1761099838690-9hxe3na-api-1761026338422-n08ttz1",
+      "sourceHandle": null,
+      "targetHandle": null,
+      "target": "api-1761026338422-n08ttz1",
+      "source": "form-1761099838690-9hxe3na"
+    },
+    {
+      "targetHandle": null,
+      "source": "form-1761100118123-wtsng1j",
+      "sourceHandle": null,
+      "target": "api-1761026942868-61c9vzi",
+      "id": "reactflow__edge-form-1761100118123-wtsng1j-api-1761026942868-61c9vzi"
+    },
+    {
+      "target": "form-1761100118123-wtsng1j",
+      "targetHandle": null,
+      "sourceHandle": "cond_1758526955864",
+      "id": "reactflow__edge-branch-1758528548453-fx4ecvtcond_1758526955864-form-1761100118123-wtsng1j",
+      "source": "branch-1758528548453-fx4ecvt"
+    },
+    {
+      "source": "form-1761119972962-rmboqwu",
+      "id": "reactflow__edge-form-1761119972962-rmboqwu-branch-1760948490014-h3206mf",
+      "sourceHandle": null,
+      "target": "branch-1760948490014-h3206mf",
+      "targetHandle": null
+    },
+    {
+      "targetHandle": null,
+      "target": "branch-1760611822382-n68mcie",
+      "sourceHandle": null,
+      "id": "reactflow__edge-form-1761120472751-dexjk3t-branch-1760611822382-n68mcie",
+      "source": "form-1761120472751-dexjk3t"
+    },
+    {
+      "source": "api-1760689111105-jgcwlsw",
+      "sourceHandle": "onSuccess",
+      "target": "branch-1761700161937-9xpjhy4",
+      "id": "reactflow__edge-api-1760689111105-jgcwlswonSuccess-branch-1761700161937-9xpjhy4",
+      "targetHandle": null
+    },
+    {
+      "id": "reactflow__edge-branch-1761700161937-9xpjhy4cond_1761700161937-branch-1761700224526-llxbj6e",
+      "selected": false,
+      "target": "branch-1761700224526-llxbj6e",
+      "source": "branch-1761700161937-9xpjhy4",
+      "sourceHandle": "cond_1761700161937",
+      "targetHandle": null
+    },
+    {
+      "sourceHandle": "default",
+      "target": "form-1761012980853-7p8hjsx",
+      "source": "branch-1761700161937-9xpjhy4",
+      "id": "reactflow__edge-branch-1761700161937-9xpjhy4default-form-1761012980853-7p8hjsx",
+      "targetHandle": null
+    },
+    {
+      "sourceHandle": "cond_1761700240008-otkq2vp",
+      "target": "message-1761700405906-atflju2",
+      "source": "branch-1761700224526-llxbj6e",
+      "id": "reactflow__edge-branch-1761700224526-llxbj6econd_1761700240008-otkq2vp-message-1761700405906-atflju2",
+      "targetHandle": null
+    },
+    {
+      "target": "setSlot-1761701792056-fg9702a",
+      "id": "reactflow__edge-branch-1760612347090-tw0s7docond_1758514588608-setSlot-1761701792056-fg9702a",
+      "targetHandle": null,
+      "sourceHandle": "cond_1758514588608",
+      "source": "branch-1760612347090-tw0s7do"
+    },
+    {
+      "source": "setSlot-1761701792056-fg9702a",
+      "targetHandle": null,
+      "target": "form-1760610678381-2m7z8g0",
+      "sourceHandle": null,
+      "id": "reactflow__edge-setSlot-1761701792056-fg9702a-form-1760610678381-2m7z8g0"
+    },
+    {
+      "source": "branch-1761700224526-llxbj6e",
+      "sourceHandle": "cond_1761700224526",
+      "id": "reactflow__edge-branch-1761700224526-llxbj6econd_1761700224526-setSlot-1761701792056-fg9702a",
+      "targetHandle": null,
+      "target": "setSlot-1761701792056-fg9702a"
+    },
+    {
+      "id": "reactflow__edge-form-1761094139307-zo8hr98-api-1761785382118-ghtm7lq",
+      "target": "api-1761785382118-ghtm7lq",
+      "source": "form-1761094139307-zo8hr98",
+      "targetHandle": null,
+      "sourceHandle": null
+    },
+    {
+      "selected": false,
+      "targetHandle": null,
+      "source": "api-1761785382118-ghtm7lq",
+      "id": "reactflow__edge-api-1761785382118-ghtm7lqonSuccess-delay-1761698160640-d7i8l7f",
+      "sourceHandle": "onSuccess",
+      "target": "delay-1761698160640-d7i8l7f"
+    },
+    {
+      "target": "delay-1761787428697-fyaq6h0",
+      "targetHandle": null,
+      "id": "reactflow__edge-branch-1761787199945-bxt08wadefault-delay-1761787428697-fyaq6h0",
+      "sourceHandle": "default",
+      "source": "branch-1761787199945-bxt08wa"
+    },
+    {
+      "targetHandle": null,
+      "sourceHandle": null,
+      "id": "reactflow__edge-delay-1761787428697-fyaq6h0-api-1761787525968-ugv3rbq",
+      "target": "api-1761787525968-ugv3rbq",
+      "source": "delay-1761787428697-fyaq6h0"
+    },
+    {
+      "source": "api-1761787525968-ugv3rbq",
+      "target": "delay-1761787689392-1tjrn8i",
+      "targetHandle": null,
+      "sourceHandle": "onSuccess",
+      "id": "reactflow__edge-api-1761787525968-ugv3rbqonSuccess-delay-1761787689392-1tjrn8i"
+    },
+    {
+      "targetHandle": null,
+      "source": "branch-1761787700512-s4eni2s",
+      "id": "reactflow__edge-branch-1761787700512-s4eni2sdefault-delay-1761787805720-10qmqqj",
+      "target": "delay-1761787805720-10qmqqj",
+      "sourceHandle": "default"
+    },
+    {
+      "id": "reactflow__edge-delay-1761787805720-10qmqqj-api-1761787825778-wk07ext",
+      "targetHandle": null,
+      "source": "delay-1761787805720-10qmqqj",
+      "sourceHandle": null,
+      "target": "api-1761787825778-wk07ext"
+    },
+    {
+      "targetHandle": null,
+      "target": "delay-1761788065674-jl3003y",
+      "source": "api-1761787825778-wk07ext",
+      "id": "reactflow__edge-api-1761787825778-wk07extonSuccess-delay-1761788065674-jl3003y",
+      "sourceHandle": "onSuccess"
+    },
+    {
+      "target": "branch-1761026031604-pxb0kfa",
+      "targetHandle": null,
+      "id": "reactflow__edge-delay-1761788208546-s3ym92x-branch-1761026031604-pxb0kfa",
+      "source": "delay-1761788208546-s3ym92x",
+      "sourceHandle": null
+    },
+    {
+      "id": "reactflow__edge-branch-1761787199945-bxt08wacond_1761792145675-vu5bhmd-message-1761787441257-lklo4tw",
+      "sourceHandle": "cond_1761792145675-vu5bhmd",
+      "source": "branch-1761787199945-bxt08wa",
+      "target": "message-1761787441257-lklo4tw",
+      "targetHandle": null
+    },
+    {
+      "sourceHandle": null,
+      "id": "reactflow__edge-delay-1761698160640-d7i8l7f-message-1761805020226-9lr77dt",
+      "targetHandle": null,
+      "source": "delay-1761698160640-d7i8l7f",
+      "target": "message-1761805020226-9lr77dt"
+    },
+    {
+      "source": "message-1761805020226-9lr77dt",
+      "sourceHandle": null,
+      "id": "reactflow__edge-message-1761805020226-9lr77dt-branch-1761787199945-bxt08wa",
+      "target": "branch-1761787199945-bxt08wa",
+      "targetHandle": null
+    },
+    {
+      "target": "message-1761805063618-piuvful",
+      "source": "delay-1761787689392-1tjrn8i",
+      "sourceHandle": null,
+      "id": "reactflow__edge-delay-1761787689392-1tjrn8i-message-1761805063618-piuvful",
+      "targetHandle": null
+    },
+    {
+      "source": "message-1761805063618-piuvful",
+      "target": "branch-1761787700512-s4eni2s",
+      "targetHandle": null,
+      "sourceHandle": null,
+      "id": "reactflow__edge-message-1761805063618-piuvful-branch-1761787700512-s4eni2s"
+    },
+    {
+      "source": "delay-1761788065674-jl3003y",
+      "target": "message-1761805102577-u3y0m8r",
+      "targetHandle": null,
+      "id": "reactflow__edge-delay-1761788065674-jl3003y-message-1761805102577-u3y0m8r",
+      "sourceHandle": null
+    },
+    {
+      "sourceHandle": null,
+      "source": "message-1761805102577-u3y0m8r",
+      "id": "reactflow__edge-message-1761805102577-u3y0m8r-delay-1761788208546-s3ym92x",
+      "targetHandle": null,
+      "target": "delay-1761788208546-s3ym92x"
+    },
+    {
+      "id": "reactflow__edge-branch-1760575494983-krsf6dmcond_1758505976734-form-1761119972962-rmboqwu",
+      "source": "branch-1760575494983-krsf6dm",
+      "target": "form-1761119972962-rmboqwu",
+      "sourceHandle": "cond_1758505976734",
+      "targetHandle": null
+    },
+    {
+      "target": "form-1761099838690-9hxe3na",
+      "source": "message-1761813142486-r56zcm0",
+      "id": "reactflow__edge-message-1761813142486-r56zcm0-form-1761099838690-9hxe3na",
+      "sourceHandle": null,
+      "targetHandle": null
+    },
+    {
+      "targetHandle": null,
+      "target": "branch-1758528172321-zkke8vm",
+      "id": "reactflow__edge-link-1761026015309-18ahkc3-branch-1758528172321-zkke8vm",
+      "sourceHandle": null,
+      "source": "link-1761026015309-18ahkc3"
+    },
+    {
+      "target": "branch-1758528172321-zkke8vm",
+      "targetHandle": null,
+      "id": "reactflow__edge-message-1761026085085-1ot57tz-branch-1758528172321-zkke8vm",
+      "sourceHandle": null,
+      "source": "message-1761026085085-1ot57tz"
+    },
+    {
+      "source": "message-1758528130066-65dyx98",
+      "targetHandle": null,
+      "id": "reactflow__edge-message-1758528130066-65dyx98-branch-1758528172321-zkke8vm",
+      "sourceHandle": null,
+      "target": "branch-1758528172321-zkke8vm"
+    },
+    {
+      "targetHandle": null,
+      "sourceHandle": "cond_1761814247962-p5n7576",
+      "id": "reactflow__edge-branch-1761193705842-0z2s0hqcond_1761814247962-p5n7576-message-1761814257738-vqwrh2z",
+      "target": "message-1761814257738-vqwrh2z",
+      "source": "branch-1761193705842-0z2s0hq"
+    },
+    {
+      "targetHandle": null,
+      "id": "reactflow__edge-branch-1761193705842-0z2s0hqcond_1758526955864-link-1761814266965-cgtptdb",
+      "source": "branch-1761193705842-0z2s0hq",
+      "target": "link-1761814266965-cgtptdb",
+      "sourceHandle": "cond_1758526955864"
+    },
+    {
+      "id": "reactflow__edge-link-1761814266965-cgtptdb-message-1761814279614-uh5kqlo",
+      "targetHandle": null,
+      "target": "message-1761814279614-uh5kqlo",
+      "sourceHandle": null,
+      "source": "link-1761814266965-cgtptdb"
+    },
+    {
+      "id": "reactflow__edge-branch-1761874586667-64hbqbjcond_1761874586668-message-1761874639975-d3sr6vn",
+      "targetHandle": null,
+      "source": "branch-1761874586667-64hbqbj",
+      "target": "message-1761874639975-d3sr6vn",
+      "sourceHandle": "cond_1761874586668"
+    },
+    {
+      "target": "branch-1761193705842-0z2s0hq",
+      "source": "branch-1761874586667-64hbqbj",
+      "sourceHandle": "default",
+      "id": "reactflow__edge-branch-1761874586667-64hbqbjdefault-branch-1761193705842-0z2s0hq",
+      "targetHandle": null
+    },
+    {
+      "id": "reactflow__edge-message-1758266740991-6fu820s-delay-1761874892607-dqoe2du",
+      "target": "delay-1761874892607-dqoe2du",
+      "source": "message-1758266740991-6fu820s",
+      "sourceHandle": null,
+      "targetHandle": null
+    },
+    {
+      "target": "api-1758268293735-8qwr58l",
+      "id": "reactflow__edge-delay-1761874892607-dqoe2du-api-1758268293735-8qwr58l",
+      "source": "delay-1761874892607-dqoe2du",
+      "targetHandle": null,
+      "sourceHandle": null
+    },
+    {
+      "targetHandle": null,
+      "selected": false,
+      "id": "reactflow__edge-delay-1761874926385-6p4g3op-message-1760418837297-gx0f3r7",
+      "sourceHandle": null,
+      "target": "message-1760418837297-gx0f3r7",
+      "source": "delay-1761874926385-6p4g3op"
+    },
+    {
+      "targetHandle": null,
+      "id": "reactflow__edge-branch-1758528172321-zkke8vmcond_1758526955865-api-1761813655660-ve31lfz",
+      "sourceHandle": "cond_1758526955865",
+      "source": "branch-1758528172321-zkke8vm",
+      "target": "api-1761813655660-ve31lfz"
+    },
+    {
+      "sourceHandle": "cond_1758514588609",
+      "source": "branch-1761816299002-5pqh4qa",
+      "target": "delay-1761885417030-huk74tq",
+      "id": "reactflow__edge-branch-1761816299002-5pqh4qacond_1758514588609-delay-1761885417030-huk74tq",
+      "targetHandle": null
+    },
+    {
+      "target": "delay-1761886681416-5aa78sb",
+      "id": "reactflow__edge-branch-1761816299002-5pqh4qacond_1758514606520-i3hjegh-delay-1761886681416-5aa78sb",
+      "sourceHandle": "cond_1758514606520-i3hjegh",
+      "targetHandle": null,
+      "source": "branch-1761816299002-5pqh4qa"
+    },
+    {
+      "sourceHandle": "cond_1758514702879-cu13m5p",
+      "targetHandle": null,
+      "id": "reactflow__edge-branch-1760611822382-n68mciecond_1758514702879-cu13m5p-api-1760611122805-0m3y67h",
+      "target": "api-1760611122805-0m3y67h",
+      "source": "branch-1760611822382-n68mcie"
+    },
+    {
+      "id": "reactflow__edge-branch-1760948490014-h3206mfcond_1761029120811-3v1fp9x-setSlot-1760948543569-sij1t11",
+      "targetHandle": null,
+      "sourceHandle": "cond_1761029120811-3v1fp9x",
+      "target": "setSlot-1760948543569-sij1t11",
+      "source": "branch-1760948490014-h3206mf"
+    },
+    {
+      "source": "branch-1760948490014-h3206mf",
+      "sourceHandle": "cond_1760948490015",
+      "id": "reactflow__edge-branch-1760948490014-h3206mfcond_1760948490015-setSlot-1760948518439-984uhdl",
+      "target": "setSlot-1760948518439-984uhdl",
+      "targetHandle": null
+    },
+    {
+      "targetHandle": null,
+      "target": "delay-1761888968625-x0d7522",
+      "sourceHandle": "default",
+      "id": "reactflow__edge-branch-1760611822382-n68mciedefault-delay-1761888968625-x0d7522",
+      "source": "branch-1760611822382-n68mcie"
+    },
+    {
+      "source": "delay-1761888968625-x0d7522",
+      "targetHandle": null,
+      "target": "branch-1760612347090-tw0s7do",
+      "id": "reactflow__edge-delay-1761888968625-x0d7522-branch-1760612347090-tw0s7do",
+      "sourceHandle": null
+    },
+    {
+      "target": "delay-1761888991531-th9rsq4",
+      "sourceHandle": "onSuccess",
+      "targetHandle": null,
+      "id": "reactflow__edge-api-1760611122805-0m3y67honSuccess-delay-1761888991531-th9rsq4",
+      "source": "api-1760611122805-0m3y67h"
+    },
+    {
+      "id": "reactflow__edge-delay-1761888991531-th9rsq4-branch-1758523985228-82zvnrd",
+      "sourceHandle": null,
+      "targetHandle": null,
+      "target": "branch-1758523985228-82zvnrd",
+      "source": "delay-1761888991531-th9rsq4"
+    },
+    {
+      "targetHandle": null,
+      "source": "branch-1760948490014-h3206mf",
+      "id": "reactflow__edge-branch-1760948490014-h3206mfdefault-delay-1761874926385-6p4g3op",
+      "sourceHandle": "default",
+      "target": "delay-1761874926385-6p4g3op"
+    },
+    {
+      "id": "reactflow__edge-message-1761884971184-1z5aven-delay-1761891053406-rx7u8in",
+      "source": "message-1761884971184-1z5aven",
+      "sourceHandle": null,
+      "targetHandle": null,
+      "target": "delay-1761891053406-rx7u8in"
+    },
+    {
+      "targetHandle": null,
+      "id": "reactflow__edge-delay-1761891053406-rx7u8in-form-1761120472751-dexjk3t",
+      "target": "form-1761120472751-dexjk3t",
+      "sourceHandle": null,
+      "source": "delay-1761891053406-rx7u8in"
+    },
+    {
+      "target": "delay-1761891703403-g1wubkx",
+      "sourceHandle": null,
+      "source": "message-1761891687599-oaj6owy",
+      "targetHandle": null,
+      "id": "reactflow__edge-message-1761891687599-oaj6owy-delay-1761891703403-g1wubkx"
+    },
+    {
+      "id": "reactflow__edge-delay-1761891703403-g1wubkx-message-1761816746453-83gj20z",
+      "targetHandle": null,
+      "target": "message-1761816746453-83gj20z",
+      "source": "delay-1761891703403-g1wubkx",
+      "sourceHandle": null
+    },
+    {
+      "targetHandle": null,
+      "source": "delay-1761885390966-5c27e0s",
+      "id": "reactflow__edge-delay-1761885390966-5c27e0s-branch-1761816299002-5pqh4qa",
+      "target": "branch-1761816299002-5pqh4qa",
+      "sourceHandle": null
+    },
+    {
+      "sourceHandle": "cond_1758514588609",
+      "targetHandle": null,
+      "id": "reactflow__edge-branch-1758514588608-x4adjdjcond_1758514588609-delay-1761885390966-5c27e0s",
+      "source": "branch-1758514588608-x4adjdj",
+      "target": "delay-1761885390966-5c27e0s"
+    },
+    {
+      "target": "delay-1761885390966-5c27e0s",
+      "source": "branch-1758514588608-x4adjdj",
+      "id": "reactflow__edge-branch-1758514588608-x4adjdjcond_1758514606520-i3hjegh-delay-1761885390966-5c27e0s",
+      "sourceHandle": "cond_1758514606520-i3hjegh",
+      "targetHandle": null
+    },
+    {
+      "source": "delay-1761886681416-5aa78sb",
+      "target": "message-1761884971184-1z5aven",
+      "id": "reactflow__edge-delay-1761886681416-5aa78sb-message-1761884971184-1z5aven",
+      "sourceHandle": null,
+      "targetHandle": null
+    },
+    {
+      "targetHandle": null,
+      "sourceHandle": "onSuccess",
+      "id": "reactflow__edge-api-1761813655660-ve31lfzonSuccess-delay-1761889397647-84fbt3s",
+      "source": "api-1761813655660-ve31lfz",
+      "target": "delay-1761889397647-84fbt3s"
+    },
+    {
+      "sourceHandle": null,
+      "target": "message-1761889395994-6jh5ihy",
+      "source": "delay-1761889397647-84fbt3s",
+      "targetHandle": null,
+      "id": "reactflow__edge-delay-1761889397647-84fbt3s-message-1761889395994-6jh5ihy"
+    },
+    {
+      "targetHandle": null,
+      "id": "reactflow__edge-message-1761889395994-6jh5ihy-delay-1761898707057-x3wn59s",
+      "sourceHandle": null,
+      "source": "message-1761889395994-6jh5ihy",
+      "target": "delay-1761898707057-x3wn59s"
+    },
+    {
+      "source": "delay-1761898707057-x3wn59s",
+      "target": "branch-1761874586667-64hbqbj",
+      "sourceHandle": null,
+      "id": "reactflow__edge-delay-1761898707057-x3wn59s-branch-1761874586667-64hbqbj",
+      "targetHandle": null
+    },
+    {
+      "source": "delay-1761885417030-huk74tq",
+      "id": "reactflow__edge-delay-1761885417030-huk74tq-message-1761891687599-oaj6owy",
+      "targetHandle": null,
+      "target": "message-1761891687599-oaj6owy",
+      "sourceHandle": null
+    },
+    {
+      "id": "reactflow__edge-branch-1758526955864-4o4z6gqcond_1762241385285-e9kkyc1-message-1758527046097-6xqm31x",
+      "target": "message-1758527046097-6xqm31x",
+      "targetHandle": null,
+      "sourceHandle": "cond_1762241385285-e9kkyc1",
+      "source": "branch-1758526955864-4o4z6gq"
+    },
+    {
+      "source": "branch-1758526955864-4o4z6gq",
+      "targetHandle": null,
+      "sourceHandle": "cond_1761810371236-se6c8yo",
+      "target": "message-1761813142486-r56zcm0",
+      "id": "reactflow__edge-branch-1758526955864-4o4z6gqcond_1761810371236-se6c8yo-message-1761813142486-r56zcm0"
+    },
+    {
+      "target": "branch-1758528172321-zkke8vm",
+      "sourceHandle": "cond_1762332862434",
+      "id": "reactflow__edge-branch-1762332862434-313o7v3cond_1762332862434-branch-1758528172321-zkke8vm",
+      "source": "branch-1762332862434-313o7v3",
+      "targetHandle": null
+    },
+    {
+      "targetHandle": null,
+      "id": "reactflow__edge-branch-1761026031604-pxb0kfacond_1762333074011-slvl7xn-branch-1758526955864-4o4z6gq",
+      "source": "branch-1761026031604-pxb0kfa",
+      "target": "branch-1758526955864-4o4z6gq",
+      "sourceHandle": "cond_1762333074011-slvl7xn"
+    },
+    {
+      "source": "api-1762332799109-i7h3o9u",
+      "sourceHandle": "onSuccess",
+      "targetHandle": null,
+      "id": "reactflow__edge-api-1762332799109-i7h3o9uonSuccess-delay-1762391133966-a01ehwf",
+      "target": "delay-1762391133966-a01ehwf"
+    },
+    {
+      "sourceHandle": null,
+      "id": "reactflow__edge-delay-1762391133966-a01ehwf-branch-1762332862434-313o7v3",
+      "targetHandle": null,
+      "source": "delay-1762391133966-a01ehwf",
+      "target": "branch-1762332862434-313o7v3"
+    },
+    {
+      "sourceHandle": "cond_1758526955865",
+      "targetHandle": null,
+      "id": "reactflow__edge-branch-1758526955864-4o4z6gqcond_1758526955865-message-1762394566354-jk3iouh",
+      "source": "branch-1758526955864-4o4z6gq",
+      "target": "message-1762394566354-jk3iouh"
+    },
+    {
+      "source": "message-1762394566354-jk3iouh",
+      "id": "reactflow__edge-message-1762394566354-jk3iouh-api-1762332799109-i7h3o9u",
+      "target": "api-1762332799109-i7h3o9u",
+      "sourceHandle": null,
+      "targetHandle": null
+    },
+    {
+      "target": "api-1760611122805-0m3y67h",
+      "sourceHandle": "cond_1761886759009-zwrdshi",
+      "targetHandle": null,
+      "id": "reactflow__edge-branch-1760611822382-n68mciecond_1761886759009-zwrdshi-api-1760611122805-0m3y67h",
+      "source": "branch-1760611822382-n68mcie"
+    },
+    {
+      "sourceHandle": "cond_1762394697373-zs1tsfu",
+      "source": "branch-1760611822382-n68mcie",
+      "id": "reactflow__edge-branch-1760611822382-n68mciecond_1762394697373-zs1tsfu-api-1760611122805-0m3y67h",
+      "target": "api-1760611122805-0m3y67h",
+      "targetHandle": null
+    },
+    {
+      "sourceHandle": "onSuccess",
+      "targetHandle": null,
+      "target": "api-1762405523724-spbuhjy",
+      "source": "api-1760665507699-hfevj86",
+      "id": "reactflow__edge-api-1760665507699-hfevj86onSuccess-api-1762405523724-spbuhjy"
+    },
+    {
+      "target": "message-1758266740991-6fu820s",
+      "id": "reactflow__edge-api-1762405523724-spbuhjyonSuccess-message-1758266740991-6fu820s",
+      "targetHandle": null,
+      "source": "api-1762405523724-spbuhjy",
+      "sourceHandle": "onSuccess"
+    },
+    {
+      "source": "branch-1758514588608-x4adjdj",
+      "id": "reactflow__edge-branch-1758514588608-x4adjdjdefault-message-1762414872377-dsbn463",
+      "sourceHandle": "default",
+      "targetHandle": null,
+      "target": "message-1762414872377-dsbn463"
+    },
+    {
+      "id": "reactflow__edge-branch-1761816299002-5pqh4qadefault-message-1762414903069-oe2txi8",
+      "sourceHandle": "default",
+      "targetHandle": null,
+      "source": "branch-1761816299002-5pqh4qa",
+      "target": "message-1762414903069-oe2txi8"
+    },
+    {
+      "target": "form-1761094139307-zo8hr98",
+      "source": "branch-1758526955864-4o4z6gq",
+      "sourceHandle": "cond_1758526955864",
+      "id": "reactflow__edge-branch-1758526955864-4o4z6gqcond_1758526955864-form-1761094139307-zo8hr98",
+      "targetHandle": null
+    }
+  ],
+  "startNodeId": "form-1761119972962-rmboqwu",
+  "description": "PoC#1,2",
+  "lastUsedAt": {
+    "type": "firestore/timestamp/1.0",
+    "seconds": 1766453265,
+    "nanoseconds": 323000000
+  },
+  "job": "Process",
+  "name": "대화흐름 방식 | JO 단건 (BL Charge)",
+  "createdAt": {
+    "type": "firestore/timestamp/1.0",
+    "seconds": 1763619202,
+    "nanoseconds": 382000000
+  },
+  "updatedAt": {
+    "type": "firestore/timestamp/1.0",
+    "seconds": 1763691853,
+    "nanoseconds": 593000000
+  },
+  "nodes": [
+    {
+      "id": "message-1758266740991-6fu820s",
+      "selected": false,
+      "position": {
+        "x": -430,
+        "y": -130
+      },
+      "data": {
+        "content": "Booking의 Vessel Voyage 변경을 위하여 몇 가지 조건을 확인하겠습니다.",
+        "replies": [],
+        "chainNext": true,
+        "id": "message-1758266740991-6fu820s"
+      },
+      "type": "message",
+      "dragging": false,
+      "width": 252,
+      "positionAbsolute": {
+        "y": -130,
+        "x": -430
+      },
+      "height": 215
+    },
+    {
+      "type": "api",
+      "width": 252,
+      "data": {
+        "headers": "{\"Content-Type\":\"application/json\",\n\"Accept\":\"application/json\",\n\"X-API-KEY\": \"6458f478e47abbea0079a1fe7e5f1417\",\n\"X-TEN-ID\":\"2000\"\n}",
+        "id": "api-1758268293735-8qwr58l",
+        "responseMapping": [
+          {
+            "slot": "sailingDtCondition",
+            "path": "result.sailingDtCondition"
+          },
+          {
+            "slot": "cntrCondition",
+            "path": "result.cntrCondition"
+          },
+          {
+            "path": "result.contMvtSts",
+            "slot": "contMvtSts"
+          },
+          {
+            "path": "result.contNr",
+            "slot": "contNr"
+          }
+        ],
+        "method": "POST",
+        "body": "{\n    \"bkdBlCondDto\": {\n        \"blNr\" : \"{{blNr}}\",\n        \"dspBlNr\" : \"{{dspBlNr}}\",\n        \"bkgNr\" : \"{{bkgNr}}\"\n    }\n}",
+        "errorMappingEnabled": true,
+        "url": "http://202.20.84.65:8080/oceans/api/agt/agt9001/checkBkgCntrSts"
+      },
+      "dragging": false,
+      "height": 193,
+      "positionAbsolute": {
+        "x": 304.5299855691319,
+        "y": -57.86279099846615
+      },
+      "position": {
+        "y": -57.86279099846615,
+        "x": 304.5299855691319
+      },
+      "id": "api-1758268293735-8qwr58l",
+      "selected": false
+    },
+    {
+      "position": {
+        "x": 717.3355644779331,
+        "y": -135.0507399780165
+      },
+      "type": "branch",
+      "selected": false,
+      "height": 289,
+      "data": {
+        "evaluationType": "CONDITION",
+        "replies": [
+          {
+            "display": "Condition 2",
+            "value": "cond_1758514588609"
+          },
+          {
+            "value": "cond_1758514606520-i3hjegh",
+            "display": "Condition 2"
+          },
+          {
+            "value": "cond_1758514702879-cu13m5p",
+            "display": "Condition 4"
+          }
+        ],
+        "conditions": [
+          {
+            "operator": "==",
+            "value": "N",
+            "id": "cond-1758514606520-4svjm5e",
+            "slot": "sailingDtCondition"
+          },
+          {
+            "operator": "==",
+            "value": "Y",
+            "id": "cond-1758514607632-eoiz4dm",
+            "slot": "sailingDtCondition"
+          }
+        ],
+        "id": "branch-1758514588608-x4adjdj",
+        "content": ""
+      },
+      "positionAbsolute": {
+        "y": -135.0507399780165,
+        "x": 717.3355644779331
+      },
+      "id": "branch-1758514588608-x4adjdj",
+      "dragging": false,
+      "width": 252
+    },
+    {
+      "width": 252,
+      "dragging": false,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 4778,
+        "y": 463
+      },
+      "position": {
+        "y": 463,
+        "x": 4778
+      },
+      "id": "branch-1758523985228-82zvnrd",
+      "height": 289,
+      "data": {
+        "content": "Vessel Voyage Full Name : {{vvdFullName}}\nVessel Voyage Code         : {{vslVoyDir}}\nETD                                       : {{fmPolEtdDt}}\nPOL                                       : {{fmPolCd}}\nTerminal                               : {{terminal}}\n\n위와 같이 변경 하시겠습니까?",
+        "conditions": [
+          {
+            "operator": "==",
+            "id": "cond-1758523985228",
+            "value": "",
+            "slot": ""
+          }
+        ],
+        "evaluationType": "BUTTON",
+        "id": "branch-1758523985228-82zvnrd",
+        "replies": [
+          {
+            "display": "예",
+            "value": "cond_1758523985228"
+          },
+          {
+            "value": "cond_1758523985229",
+            "display": "아니오"
+          }
+        ]
+      },
+      "type": "branch"
+    },
+    {
+      "dragging": false,
+      "id": "message-1758526654658-kn90fpp",
+      "position": {
+        "y": 560,
+        "x": 5148
+      },
+      "type": "message",
+      "height": 215,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 5148,
+        "y": 560
+      },
+      "width": 252,
+      "data": {
+        "replies": [],
+        "content": "{{vslVoyDir}} 의 Reasons for changing Vessel Voyage 를 선택해 주세요.",
+        "id": "message-1758526654658-kn90fpp"
+      }
+    },
+    {
+      "dragging": false,
+      "selected": false,
+      "id": "branch-1758526955864-4o4z6gq",
+      "height": 378,
+      "position": {
+        "y": 168,
+        "x": 7375.999999999999
+      },
+      "width": 252,
+      "positionAbsolute": {
+        "y": 168,
+        "x": 7375.999999999999
+      },
+      "data": {
+        "conditions": [
+          {
+            "value": "",
+            "slot": "",
+            "id": "cond-1758526955864",
+            "operator": "=="
+          }
+        ],
+        "id": "branch-1758526955864-4o4z6gq",
+        "content": "TRX Module의 Shuttle J/O(Job Order)를 진행 하시겠습니까?",
+        "replies": [
+          {
+            "value": "cond_1758526955864",
+            "display": "단건 생성하기"
+          },
+          {
+            "display": "다량 건 생성하기",
+            "value": "cond_1758526955865"
+          },
+          {
+            "value": "cond_1761810371236-se6c8yo",
+            "display": "담당자 메일 송부하기"
+          },
+          {
+            "value": "cond_1762241385285-e9kkyc1",
+            "display": "시나리오 종료"
+          }
+        ],
+        "evaluationType": "BUTTON"
+      },
+      "type": "branch"
+    },
+    {
+      "data": {
+        "id": "message-1758527046097-6xqm31x",
+        "content": "시나리오를 종료합니다.",
+        "replies": []
+      },
+      "dragging": false,
+      "type": "message",
+      "selected": false,
+      "id": "message-1758527046097-6xqm31x",
+      "positionAbsolute": {
+        "y": 970,
+        "x": 7704
+      },
+      "height": 215,
+      "width": 252,
+      "position": {
+        "y": 970,
+        "x": 7704
+      }
+    },
+    {
+      "id": "message-1758528130066-65dyx98",
+      "dragging": false,
+      "type": "message",
+      "selected": false,
+      "zIndex": 5,
+      "height": 215,
+      "positionAbsolute": {
+        "y": 970.7999999999997,
+        "x": 9647.199999999999
+      },
+      "position": {
+        "x": 9647.199999999999,
+        "y": 970.7999999999997
+      },
+      "width": 252,
+      "data": {
+        "replies": [],
+        "id": "message-1758527046097-6xqm31x",
+        "content": "From : {{email_from}}\nTo : {{email_to}}\n메일을 전송 하였습니다."
+      }
+    },
+    {
+      "type": "branch",
+      "zIndex": 6,
+      "data": {
+        "conditions": [
+          {
+            "slot": "",
+            "operator": "==",
+            "value": "",
+            "id": "cond-1758526955864"
+          }
+        ],
+        "evaluationType": "BUTTON",
+        "id": "branch-1758526955864-4o4z6gq",
+        "content": "하주에게 징수 할 비용은 하주의 요청에 따라 TPL 또는 B/L Charge 쪽 Manual을 입력하여 징수하게 됩니다.\n\n원하시는 방식을 선택해 주세요.",
+        "replies": [
+          {
+            "display": "TPL Creation",
+            "value": "cond_1758526955864"
+          },
+          {
+            "display": "B/L Charge",
+            "value": "cond_1758526955865"
+          }
+        ]
+      },
+      "dragging": false,
+      "width": 252,
+      "position": {
+        "x": 11336,
+        "y": 254
+      },
+      "positionAbsolute": {
+        "x": 11336,
+        "y": 254
+      },
+      "height": 289,
+      "id": "branch-1758528172321-zkke8vm",
+      "selected": false
+    },
+    {
+      "data": {
+        "conditions": [
+          {
+            "value": "",
+            "operator": "==",
+            "slot": "",
+            "id": "cond-1758526955864"
+          }
+        ],
+        "evaluationType": "BUTTON",
+        "content": "# TPL 청구는 T-Code 4701 Handle Third Party Liability 화면에서 진행할 수 있습니다.\n\n**<TPL 청구 방법>**\n · T-Code 4701 Handle Third Party Liability 화면에 필수 정보를 입력하여 저장 및 Invoice Creation 을 합니다.\n · Creation 된 Invoice 를 FAR Interface 버튼을 클릭합니다.\n · FAR 에 데이터를 넘겨 Customer 로 부터 비용을 징수 할 수 있도록 합니다.\n · Preview 버튼을 이용하여 Invoice Preview 팝업에서 Customer 에게 해당 비용에 대한 Invoice 를 E-mail 로 전송하여 줍니다.\n",
+        "replies": [
+          {
+            "value": "cond_1758526955864",
+            "display": "ALLEGRO NX 연결"
+          },
+          {
+            "display": "E-Mail 보내기",
+            "value": "cond_1758526955865"
+          }
+        ],
+        "id": "branch-1758526955864-4o4z6gq"
+      },
+      "selected": false,
+      "position": {
+        "x": 12836,
+        "y": 198
+      },
+      "type": "branch",
+      "dragging": false,
+      "id": "branch-1758528362524-ynbem3o",
+      "width": 252,
+      "height": 289,
+      "positionAbsolute": {
+        "x": 12836,
+        "y": 198
+      },
+      "zIndex": 8
+    },
+    {
+      "position": {
+        "y": 306,
+        "x": 13308
+      },
+      "dragging": false,
+      "height": 289,
+      "data": {
+        "replies": [
+          {
+            "display": "예",
+            "value": "cond_1758526955864"
+          },
+          {
+            "display": "아니오",
+            "value": "cond_1758526955865"
+          }
+        ],
+        "evaluationType": "BUTTON",
+        "id": "branch-1758526955864-4o4z6gq",
+        "content": "E-mail로 통지 하시겠습니까?",
+        "conditions": [
+          {
+            "id": "cond-1758526955864",
+            "operator": "==",
+            "slot": "",
+            "value": ""
+          }
+        ]
+      },
+      "id": "branch-1758528548453-fx4ecvt",
+      "selected": false,
+      "zIndex": 11,
+      "type": "branch",
+      "positionAbsolute": {
+        "x": 13308,
+        "y": 306
+      },
+      "width": 252
+    },
+    {
+      "zIndex": 13,
+      "dragging": false,
+      "selected": false,
+      "width": 252,
+      "data": {
+        "id": "message-1758527046097-6xqm31x",
+        "content": "From : {{email_from}}\nTo : {{email_to}}\n메일을 전송 하였습니다.\n\n시나리오를 종료합니다.",
+        "replies": []
+      },
+      "position": {
+        "x": 14454.8,
+        "y": 427.147657117629
+      },
+      "type": "message",
+      "id": "message-1758528570094-t5ol544",
+      "positionAbsolute": {
+        "x": 14454.8,
+        "y": 427.147657117629
+      },
+      "height": 215
+    },
+    {
+      "data": {
+        "id": "api-1760418742666-fkzjojp",
+        "isMulti": false,
+        "method": "POST",
+        "url": "http://202.20.84.65:8080/oceans/api/agt/agt9001/udcBiz",
+        "apis": [],
+        "body": "{\n    \"comUDCInDto\": {\n        \"bizType\": \"bizKeyCombo\",\n        \"bizKey\": \"bizBkdTotalBkdNoCombo\",\n        \"bizModule\": \"BKD\",\n        \"obj01\": \"{{bkgNr}}\", \n        \"obj03\": \"{{bkgNr}}\"\n    }\n}",
+        "responseMapping": [
+          {
+            "slot": "bkgNr",
+            "path": "result.outUdcDtos[0].value01"
+          },
+          {
+            "path": "result.outUdcDtos[0].value02",
+            "slot": "blNr"
+          },
+          {
+            "slot": "dspBlNr",
+            "path": "result.outUdcDtos[0].value03"
+          }
+        ],
+        "headers": "{\"Content-Type\":\"application/json\",\n\"Accept\":\"application/json\",\n\"X-API-KEY\":\"6458f478e47abbea0079a1fe7e5f1417\",\n\"X-TEN-ID\":\"2000\"\n}"
+      },
+      "width": 252,
+      "dragging": false,
+      "positionAbsolute": {
+        "y": -82,
+        "x": -1368
+      },
+      "id": "api-1760418742666-fkzjojp",
+      "type": "api",
+      "height": 193,
+      "selected": false,
+      "position": {
+        "x": -1368,
+        "y": -82
+      }
+    },
+    {
+      "data": {
+        "content": "해당 {{number}} Booking No.는 존재하지 않습니다.",
+        "replies": [],
+        "id": "message-1760418837297-gx0f3r7"
+      },
+      "height": 215,
+      "dragging": false,
+      "positionAbsolute": {
+        "y": 306,
+        "x": -804
+      },
+      "id": "message-1760418837297-gx0f3r7",
+      "width": 252,
+      "type": "message",
+      "position": {
+        "y": 306,
+        "x": -804
+      },
+      "selected": false
+    },
+    {
+      "dragging": false,
+      "width": 252,
+      "position": {
+        "x": -165.3317131852691,
+        "y": 267.8546674644281
+      },
+      "zIndex": 16,
+      "id": "branch-1760575494983-krsf6dm",
+      "data": {
+        "id": "branch-1758505976734-12v9st4",
+        "content": "Booking No. 또는 Container No. 를 다시 조회 하시겠습니까?",
+        "evaluationType": "BUTTON",
+        "conditions": [
+          {
+            "slot": "",
+            "operator": "==",
+            "value": "",
+            "id": "cond-1758505976734"
+          }
+        ],
+        "replies": [
+          {
+            "display": "조회하기",
+            "value": "cond_1758505976734"
+          },
+          {
+            "value": "cond_1758516037390-13f97f4",
+            "display": "시나리오 종료"
+          }
+        ]
+      },
+      "height": 289,
+      "type": "branch",
+      "positionAbsolute": {
+        "x": -165.3317131852691,
+        "y": 267.8546674644281
+      },
+      "selected": false
+    },
+    {
+      "data": {
+        "id": "message-1758506308560-fke7wfj",
+        "content": "시나리오를 종료합니다.",
+        "replies": []
+      },
+      "zIndex": 18,
+      "dragging": false,
+      "type": "message",
+      "positionAbsolute": {
+        "y": 409.55904329563873,
+        "x": 255.32520632417163
+      },
+      "height": 215,
+      "width": 252,
+      "position": {
+        "x": 255.32520632417163,
+        "y": 409.55904329563873
+      },
+      "selected": false,
+      "id": "message-1760575534768-s4sbf34"
+    },
+    {
+      "dragging": false,
+      "selected": false,
+      "type": "form",
+      "position": {
+        "x": 3536,
+        "y": 656
+      },
+      "width": 322,
+      "data": {
+        "dataSource": "",
+        "title": "VVD Inquiry",
+        "id": "form-1760610678381-2m7z8g0",
+        "elements": [
+          {
+            "placeholder": "Vessel Voyage",
+            "label": "VVD",
+            "id": "input-1761194263168-iai11zo",
+            "type": "input",
+            "validation": {
+              "type": "text"
+            },
+            "name": "vslVoyDir",
+            "defaultValue": "NSSJ2513S"
+          },
+          {
+            "type": "input",
+            "name": "fmPolCd",
+            "placeholder": "POL",
+            "id": "input-1760611018479-0btyuka",
+            "defaultValue": "KRPUS",
+            "validation": {
+              "type": "text"
+            },
+            "label": "POL"
+          },
+          {
+            "defaultValue": "CNSHA",
+            "type": "input",
+            "id": "input-1761120635057-8py1xr6",
+            "validation": {
+              "type": "text"
+            },
+            "label": "POD",
+            "name": "fmPodCd",
+            "placeholder": "POD"
+          },
+          {
+            "defaultValue": "",
+            "id": "date-1760611019395-5k1r3lr",
+            "name": "fmPolEtdDt",
+            "label": "POL ETD From Date",
+            "type": "date"
+          }
+        ],
+        "dataSourceType": "json"
+      },
+      "id": "form-1760610678381-2m7z8g0",
+      "height": 361,
+      "positionAbsolute": {
+        "x": 3536,
+        "y": 656
+      }
+    },
+    {
+      "selected": false,
+      "id": "api-1760611122805-0m3y67h",
+      "data": {
+        "method": "POST",
+        "responseMapping": [
+          {
+            "path": "result.vvdInfo[0].vvd",
+            "slot": "vslVoyDir"
+          },
+          {
+            "path": "result.vvdInfo[0].pol",
+            "slot": "fmPolCd"
+          },
+          {
+            "slot": "terminal",
+            "path": "result.vvdInfo[0].terminal"
+          }
+        ],
+        "headers": "{\"Content-Type\":\"application/json\",\n\"Accept\":\"application/json\",\n\"X-API-KEY\":\"6458f478e47abbea0079a1fe7e5f1417\",\n\"X-TEN-ID\":\"2000\"\n}",
+        "id": "api-1758516478304-a8qr5lm",
+        "body": "{\n    \"bkdVvdInfoDto\": {\n        \"vslVoyDir\": \"{{vslVoyDir}}\",\n        \"fmPolEtdDt\": \"{{fmPolEtdDt}}\",\n\"fmPodCd\":\"{{fmPodCd}}\",\n        \"fmPolCd\": \"{{fmPolCd}}\"\n        \n    }\n}",
+        "errorMappingEnabled": true,
+        "url": "http://202.20.84.65:8080/oceans/api/agt/agt9001/searchVvdInfoList"
+      },
+      "positionAbsolute": {
+        "x": 4109.808901667725,
+        "y": 322.82046186211556
+      },
+      "type": "api",
+      "dragging": false,
+      "width": 252,
+      "zIndex": 19,
+      "height": 193,
+      "position": {
+        "y": 322.82046186211556,
+        "x": 4109.808901667725
+      }
+    },
+    {
+      "height": 460,
+      "dragging": false,
+      "selected": false,
+      "position": {
+        "x": 3503.335564477933,
+        "y": -327.0507399780165
+      },
+      "type": "branch",
+      "id": "branch-1760611822382-n68mcie",
+      "data": {
+        "evaluationType": "CONDITION",
+        "conditions": [
+          {
+            "id": "cond-1758514588608",
+            "value": "NSSJ2511S",
+            "operator": "==",
+            "slot": "vslVoyDir"
+          },
+          {
+            "id": "cond-1761886759009",
+            "value": "AABV5005E",
+            "operator": "==",
+            "slot": "vslVoyDir",
+            "valueType": "value"
+          },
+          {
+            "value": "NSSJ2513S",
+            "slot": "vslVoyDir",
+            "operator": "==",
+            "valueType": "value",
+            "id": "cond-1762394697373"
+          },
+          {
+            "slot": "vslVoyDir",
+            "id": "cond-1762394887119",
+            "valueType": "value",
+            "operator": "==",
+            "value": "AABV5004E"
+          }
+        ],
+        "content": "",
+        "replies": [
+          {
+            "value": "cond_1758514588608",
+            "display": "Condition 1"
+          },
+          {
+            "display": "Condition 4",
+            "value": "cond_1758514702879-cu13m5p"
+          },
+          {
+            "value": "cond_1761886759009-zwrdshi",
+            "display": "Condition 2"
+          },
+          {
+            "value": "cond_1762394697373-zs1tsfu",
+            "display": "Condition 3"
+          },
+          {
+            "display": "Condition 4",
+            "value": "cond_1762394887119-54y2e75"
+          }
+        ],
+        "id": "branch-1758514588608-x4adjdj"
+      },
+      "width": 252,
+      "zIndex": 20,
+      "positionAbsolute": {
+        "x": 3503.335564477933,
+        "y": -327.0507399780165
+      }
+    },
+    {
+      "selected": false,
+      "type": "branch",
+      "zIndex": 23,
+      "id": "branch-1760612347090-tw0s7do",
+      "dragging": false,
+      "data": {
+        "id": "branch-1758514588608-x4adjdj",
+        "evaluationType": "BUTTON",
+        "replies": [
+          {
+            "value": "cond_1758514588608",
+            "display": "예"
+          },
+          {
+            "value": "cond_1758514588609",
+            "display": "아니오"
+          }
+        ],
+        "conditions": [
+          {
+            "slot": "vvd_code",
+            "value": "NSSJ2508S",
+            "operator": "==",
+            "id": "cond-1758514588608"
+          },
+          {
+            "slot": "vvd_code",
+            "id": "cond-1758514606520-4svjm5e",
+            "operator": "!=",
+            "value": "NSSJ2508S"
+          }
+        ],
+        "content": "입력하신 \"선박({{vslVoyDir}})\"으로 변경할 수 없습니다.\n\n검색하시겠습니까?"
+      },
+      "positionAbsolute": {
+        "y": 392.3943504977759,
+        "x": 3140.561016856895
+      },
+      "height": 289,
+      "width": 252,
+      "position": {
+        "y": 392.3943504977759,
+        "x": 3140.561016856895
+      }
+    },
+    {
+      "height": 172,
+      "zIndex": 25,
+      "id": "form-1760613232028-ycfn6i1",
+      "selected": false,
+      "type": "form",
+      "dragging": false,
+      "data": {
+        "elements": [
+          {
+            "name": "customer_reason",
+            "label": "Roll over Information",
+            "type": "input",
+            "defaultValue": "Customer Request",
+            "id": "input-1763619506792-3igosu8",
+            "validation": {
+              "type": "text"
+            },
+            "placeholder": "Roll over Information"
+          }
+        ],
+        "dataSource": "",
+        "title": "Roll Over Information",
+        "dataSourceType": "json",
+        "id": "form-1760610678381-2m7z8g0"
+      },
+      "width": 322,
+      "position": {
+        "x": 5598.34275532059,
+        "y": 568.3992872441297
+      },
+      "positionAbsolute": {
+        "x": 5598.34275532059,
+        "y": 568.3992872441297
+      }
+    },
+    {
+      "zIndex": 26,
+      "height": 193,
+      "width": 252,
+      "positionAbsolute": {
+        "y": -110,
+        "x": -1048
+      },
+      "data": {
+        "apis": [],
+        "body": "{\n    \"bkdBlCondDto\": {\n        \"blNr\": \"{{blNr}}\",\n        \"dspBlNr\": \"{{dspBlNr}}\",\n        \"bkgNr\": \"{{bkgNr}}\"\n    }\n}",
+        "url": "http://202.20.84.65:8080/oceans/api/agt/agt9001/searchBkgInfo",
+        "isMulti": false,
+        "id": "api-1760418742666-fkzjojp",
+        "responseMapping": [
+          {
+            "slot": "fmPolCd",
+            "path": "result.bkdCore.bkgPolCd"
+          },
+          {
+            "path": "result.bkdCore.bkgPodCd",
+            "slot": "fmPodCd"
+          },
+          {
+            "slot": "fmPolEtdDt",
+            "path": "result.bkdCore.applDt"
+          },
+          {
+            "slot": "oprContQty",
+            "path": "result.bkdQty[0].oprContQty"
+          },
+          {
+            "slot": "rcvTrmCd",
+            "path": "result.bkdQtyDtl[0].rcvTrmCd"
+          },
+          {
+            "path": "result.bkdCustCntct.sCustId",
+            "slot": "sCustId"
+          },
+          {
+            "slot": "bkgPolFclCd",
+            "path": "result.bkdCore.bkgPolFclCd"
+          },
+          {
+            "slot": "polCdOld",
+            "path": "result.bkdCore.polCdOld"
+          },
+          {
+            "path": "result.bkdCore.cmdtyCd",
+            "slot": "cmdtyCd"
+          },
+          {
+            "path": "result.bkdCore.actlWt",
+            "slot": "actlWt"
+          }
+        ],
+        "method": "POST",
+        "headers": "{\"Content-Type\":\"application/json\",\n\"Accept\":\"application/json\",\n\"X-API-KEY\":\"6458f478e47abbea0079a1fe7e5f1417\",\n\"X-TEN-ID\":\"2000\"\n}"
+      },
+      "type": "api",
+      "selected": false,
+      "dragging": false,
+      "position": {
+        "y": -110,
+        "x": -1048
+      },
+      "id": "api-1760665507699-hfevj86"
+    },
+    {
+      "selected": false,
+      "width": 252,
+      "zIndex": 27,
+      "position": {
+        "x": 3985.523667379487,
+        "y": 797.1861847920778
+      },
+      "type": "api",
+      "height": 193,
+      "id": "api-1760689111105-jgcwlsw",
+      "positionAbsolute": {
+        "y": 797.1861847920778,
+        "x": 3985.523667379487
+      },
+      "dragging": false,
+      "data": {
+        "errorMappingEnabled": true,
+        "body": "{\n    \"bkdVvdInfoDto\": {\n        \"vslVoyDir\": \"{{vslVoyDir}}\",\n        \"fmPolEtdDt\": \"{{fmPolEtdDt}}\",\n\"toPodCd\":\"{{fmPodCd}}\",\n        \"fmPolCd\": \"{{fmPolCd}}\"\n        \n    }\n}",
+        "url": "http://202.20.84.65:8080/oceans/api/agt/agt9001/searchVvdInfoList",
+        "method": "POST",
+        "responseMapping": [
+          {
+            "path": "result.vvdInfo",
+            "slot": "vvdinfo"
+          },
+          {
+            "slot": "terminal",
+            "path": "result.vvdInfo[0].terminal"
+          },
+          {
+            "slot": "vvdInfoCount",
+            "path": "result.vvdInfoCount"
+          }
+        ],
+        "headers": "{\"Content-Type\":\"application/json\",\n\"Accept\":\"application/json\",\n\"X-API-KEY\":\"6458f478e47abbea0079a1fe7e5f1417\",\n\"X-TEN-ID\":\"2000\"\n}",
+        "id": "api-1758516478304-a8qr5lm"
+      }
+    },
+    {
+      "dragging": false,
+      "positionAbsolute": {
+        "y": 569.1861847920778,
+        "x": 6081.523667379487
+      },
+      "zIndex": 29,
+      "height": 193,
+      "position": {
+        "y": 569.1861847920778,
+        "x": 6081.523667379487
+      },
+      "width": 252,
+      "id": "api-1760925258003-mrxtbcu",
+      "type": "api",
+      "selected": false,
+      "data": {
+        "headers": "{\"Content-Type\":\"application/json\",\n\"Accept\":\"application/json\",\n\"X-API-KEY\":\"6458f478e47abbea0079a1fe7e5f1417\",\n\"X-TEN-ID\":\"2000\"\n}",
+        "url": "http://202.20.84.65:8080/oceans/api/agt/agt9001/bkgVesselChange",
+        "errorMappingEnabled": true,
+        "id": "api-1758516478304-a8qr5lm",
+        "body": "{\n    \"bkdVvdInfoDto\": {\n        \"blNr\": \"{{blNr}}\",\n        \"dspBlNr\": \"{{dspBlNr}}\",\n        \"bkgNr\": \"{{bkgNr}}\",\n        \"vslVoyDir\": \"{{vslVoyDir}}\"\n    }\n}",
+        "responseMapping": [
+          {
+            "slot": "vslVoyDir",
+            "path": "result.vvdInfo[0].vvd"
+          },
+          {
+            "slot": "fmPolEtdDt",
+            "path": "result.vvdInfo[1].updDt"
+          },
+          {
+            "slot": "fmPolCd",
+            "path": "result.vvdInfo[0].pol"
+          }
+        ],
+        "method": "POST"
+      }
+    },
+    {
+      "width": 252,
+      "positionAbsolute": {
+        "x": -2491.999999999999,
+        "y": -412
+      },
+      "type": "branch",
+      "position": {
+        "x": -2491.999999999999,
+        "y": -412
+      },
+      "data": {
+        "conditions": [
+          {
+            "operator": "contains",
+            "slot": "number",
+            "valueType": "value",
+            "value": "AL",
+            "id": "cond-1760948490014"
+          },
+          {
+            "slot": "number",
+            "id": "cond-1761886843474",
+            "valueType": "value",
+            "value": "KBCU",
+            "operator": "contains"
+          }
+        ],
+        "content": "",
+        "replies": [
+          {
+            "display": "Condition 1",
+            "value": "cond_1760948490014"
+          },
+          {
+            "display": "Condition 3",
+            "value": "cond_1761029120811-3v1fp9x"
+          },
+          {
+            "value": "cond_1761886843474-dmqp34u",
+            "display": "Condition 3"
+          }
+        ],
+        "evaluationType": "CONDITION",
+        "id": "branch-1760948490014-h3206mf"
+      },
+      "height": 289,
+      "selected": false,
+      "id": "branch-1760948490014-h3206mf",
+      "dragging": false
+    },
+    {
+      "width": 252,
+      "position": {
+        "x": -1942.17127611652,
+        "y": -187.95820360619982
+      },
+      "id": "setSlot-1760948518439-984uhdl",
+      "positionAbsolute": {
+        "x": -1942.17127611652,
+        "y": -187.95820360619982
+      },
+      "data": {
+        "id": "setSlot-1760948518439-984uhdl",
+        "assignments": [
+          {
+            "value": "{{number}}",
+            "key": "bkgNr"
+          }
+        ]
+      },
+      "type": "setSlot",
+      "dragging": false,
+      "selected": false,
+      "height": 111
+    },
+    {
+      "type": "setSlot",
+      "width": 252,
+      "id": "setSlot-1760948543569-sij1t11",
+      "position": {
+        "y": 140,
+        "x": -2090
+      },
+      "height": 151,
+      "data": {
+        "id": "setSlot-1760948543569-sij1t11",
+        "assignments": [
+          {
+            "key": "contNr",
+            "value": "{{number}}"
+          },
+          {
+            "key": "bkgNr",
+            "value": "AL0000184940"
+          }
+        ]
+      },
+      "dragging": false,
+      "selected": false,
+      "positionAbsolute": {
+        "y": 140,
+        "x": -2090
+      }
+    },
+    {
+      "position": {
+        "y": 92,
+        "x": -1736
+      },
+      "type": "branch",
+      "dragging": false,
+      "positionAbsolute": {
+        "x": -1736,
+        "y": 92
+      },
+      "selected": false,
+      "data": {
+        "replies": [
+          {
+            "display": "Vessel Voyage 변경",
+            "value": "cond_1760949117534"
+          },
+          {
+            "display": "Process 2",
+            "value": "cond_1760949117535"
+          }
+        ],
+        "conditions": [
+          {
+            "valueType": "value",
+            "id": "cond-1760949117534",
+            "slot": "",
+            "value": "",
+            "operator": "=="
+          }
+        ],
+        "content": "해당 Container No.({{number}}) 는 여러 개의 Booking No. 로 Partial Shipment 된 컨테이너입니다. 따라서, Vessel Voyage 변경 시 아래의 부킹들도 함께 변경됩니다. \n\n1.AL0000184940   2.AL0000184941   3.AL0000184942",
+        "evaluationType": "BUTTON",
+        "id": "branch-1760949117534-5r0q1nb"
+      },
+      "height": 289,
+      "id": "branch-1760949117534-5r0q1nb",
+      "width": 252
+    },
+    {
+      "dragging": false,
+      "selected": false,
+      "id": "message-1760949218353-hh0xbpc",
+      "positionAbsolute": {
+        "x": -1353.7214856764435,
+        "y": 521.1510170999693
+      },
+      "position": {
+        "y": 521.1510170999693,
+        "x": -1353.7214856764435
+      },
+      "height": 215,
+      "type": "message",
+      "data": {
+        "replies": [],
+        "content": "Process Scenario는 아직 준비되지 않았습니다.",
+        "id": "message-1760949218353-hh0xbpc"
+      },
+      "width": 252
+    },
+    {
+      "height": 289,
+      "position": {
+        "y": 491.65724467941004,
+        "x": 6500
+      },
+      "positionAbsolute": {
+        "x": 6500,
+        "y": 491.65724467941004
+      },
+      "type": "branch",
+      "dragging": false,
+      "width": 252,
+      "id": "branch-1760957633805-rvl3y00",
+      "data": {
+        "replies": [
+          {
+            "value": "cond_1760957633805",
+            "display": "예"
+          },
+          {
+            "display": "아니오",
+            "value": "cond_1760957633806"
+          }
+        ],
+        "evaluationType": "BUTTON",
+        "content": "### Vessel 변경을 완료하였습니다.\n\n{{customer_reason}} 사유인 경우,\nShuttle 관련은 Shuttle J/O로 진행되며, \n하주에게 징수 할 비용은 TPL(Third Party Liability) 또는 B/L Charge 쪽 Manual 입력하여 징수 됩니다.\n\nALLEGRO NX 에서 정정된 Booking 을 확인 하시겠습니까?",
+        "id": "branch-1760957633805-rvl3y00",
+        "conditions": [
+          {
+            "valueType": "value",
+            "value": "",
+            "operator": "==",
+            "slot": "",
+            "id": "cond-1760957633805"
+          }
+        ]
+      },
+      "selected": false
+    },
+    {
+      "dragging": false,
+      "height": 193,
+      "position": {
+        "x": 6893.142755320591,
+        "y": 218.2862233970501
+      },
+      "selected": false,
+      "width": 252,
+      "id": "link-1760957722213-o6yl6bg",
+      "type": "link",
+      "positionAbsolute": {
+        "x": 6893.142755320591,
+        "y": 218.2862233970501
+      },
+      "data": {
+        "id": "link-1760957722213-o6yl6bg",
+        "display": "Link",
+        "content": "http://172.20.130.91:9110/oceans/webfw/html/nawmain.html?pgmNr=BKD_M3201&blNr=SYS2510000000182416"
+      }
+    },
+    {
+      "id": "form-1761012980853-7p8hjsx",
+      "dragging": false,
+      "position": {
+        "y": 1040,
+        "x": 4842
+      },
+      "zIndex": 30,
+      "selected": false,
+      "type": "form",
+      "width": 322,
+      "positionAbsolute": {
+        "y": 1040,
+        "x": 4842
+      },
+      "height": 229,
+      "data": {
+        "title": "VVD Info",
+        "id": "form-1760610678381-2m7z8g0",
+        "elements": [
+          {
+            "label": "VVD_Info",
+            "displayKeys": [
+              {
+                "label": "lane",
+                "key": "lane"
+              },
+              {
+                "label": "vvd",
+                "key": "vvd"
+              },
+              {
+                "label": "pol",
+                "key": "pol"
+              },
+              {
+                "label": "terminal",
+                "key": "terminal"
+              },
+              {
+                "key": "cctDt",
+                "label": "cctDt"
+              },
+              {
+                "key": "etbDt",
+                "label": "etbDt"
+              },
+              {
+                "key": "etdDt",
+                "label": "etdDt"
+              },
+              {
+                "label": "pod",
+                "key": "pod"
+              },
+              {
+                "label": "terminal2",
+                "key": "terminal2"
+              },
+              {
+                "label": "etb2Dt",
+                "key": "etb2Dt"
+              },
+              {
+                "key": "remark",
+                "label": "remark"
+              }
+            ],
+            "rows": 2,
+            "hideNullColumns": true,
+            "columns": 2,
+            "type": "grid",
+            "data": [
+              "",
+              "",
+              "",
+              ""
+            ],
+            "id": "grid-1761019541965-lgh7hg7",
+            "optionsSlot": "vvdinfo",
+            "name": ""
+          }
+        ],
+        "dataSource": "",
+        "dataSourceType": "json"
+      }
+    },
+    {
+      "width": 252,
+      "type": "setSlot",
+      "position": {
+        "x": 5305.4055012947465,
+        "y": 1016.2282765889038
+      },
+      "positionAbsolute": {
+        "y": 1016.2282765889038,
+        "x": 5305.4055012947465
+      },
+      "data": {
+        "id": "setSlot-1761020213258-yc2i9ei",
+        "assignments": [
+          {
+            "key": "vslVoyDir",
+            "value": "{{selectedRow.vvd}}"
+          },
+          {
+            "key": "fmPolEtdDt",
+            "value": "{{selectedRow.etdDt}}"
+          },
+          {
+            "value": "{{selectedRow.pol}}",
+            "key": "fmPolCd"
+          },
+          {
+            "value": "{{selectedRow.terminal}}",
+            "key": "terminal"
+          }
+        ]
+      },
+      "dragging": false,
+      "height": 273,
+      "selected": false,
+      "id": "setSlot-1761020213258-yc2i9ei"
+    },
+    {
+      "id": "link-1761026015309-18ahkc3",
+      "data": {
+        "display": "Link",
+        "id": "link-1760957722213-o6yl6bg",
+        "content": "http://172.20.130.91:9110/oceans/webfw/html/nawmain.html?pgmNr=TRX_M2007&joNr={{joNr}}"
+      },
+      "position": {
+        "y": 305.9999999999999,
+        "x": 10348.800000000001
+      },
+      "width": 252,
+      "type": "link",
+      "height": 193,
+      "positionAbsolute": {
+        "x": 10348.800000000001,
+        "y": 305.9999999999999
+      },
+      "dragging": false,
+      "zIndex": 31,
+      "selected": false
+    },
+    {
+      "width": 252,
+      "position": {
+        "y": 195.9999999999999,
+        "x": 9835.200000000004
+      },
+      "positionAbsolute": {
+        "x": 9835.200000000004,
+        "y": 195.9999999999999
+      },
+      "type": "branch",
+      "zIndex": 32,
+      "id": "branch-1761026031604-pxb0kfa",
+      "dragging": false,
+      "data": {
+        "content": "{{bkgNr}} Job Order 를 성공적으로 생성하였습니다.\n\nALLEGRO NX 에서 확인 하시겠습니까?",
+        "conditions": [
+          {
+            "operator": "==",
+            "id": "cond-1760957633805",
+            "valueType": "value",
+            "slot": "",
+            "value": ""
+          }
+        ],
+        "replies": [
+          {
+            "value": "cond_1760957633805",
+            "display": "예"
+          },
+          {
+            "display": "아니오",
+            "value": "cond_1760957633806"
+          },
+          {
+            "display": "Other Job Order 추가",
+            "value": "cond_1762333074011-slvl7xn"
+          }
+        ],
+        "id": "branch-1760957633805-rvl3y00",
+        "evaluationType": "BUTTON"
+      },
+      "selected": false,
+      "height": 334
+    },
+    {
+      "selected": false,
+      "position": {
+        "x": 10348,
+        "y": 560
+      },
+      "width": 252,
+      "positionAbsolute": {
+        "y": 560,
+        "x": 10348
+      },
+      "data": {
+        "id": "message-1758527046097-6xqm31x",
+        "content": "추후, Allegro NX에서 확인해 보시기 바랍니다.",
+        "replies": []
+      },
+      "dragging": false,
+      "type": "message",
+      "height": 215,
+      "id": "message-1761026085085-1ot57tz",
+      "zIndex": 33
+    },
+    {
+      "positionAbsolute": {
+        "x": 9099.923667379486,
+        "y": 1009.9861847920774
+      },
+      "type": "api",
+      "dragging": false,
+      "height": 193,
+      "data": {
+        "errorMappingEnabled": true,
+        "url": "http://202.20.84.65:8080/oceans/api/agt/agt9001/sendMail",
+        "body": "{\n    \"comUDCInDto\": {\n        \"obj01\": \"JOB_ORDER_REQ\",\n        \"obj02\": \"{{email_from}}\",\n        \"obj03\": \"{{email_to}}\",\n        \"obj04\": \"AL0000184940\",\n        \"obj05\": \"HJCN0123W\",\n        \"obj06\": \"NSSJ2511S\",\n        \"obj07\": \"KRPUS\",\n        \"obj08\": \"CNSHA\",\n        \"obj09\": \"OUT\",\n        \"obj10\": \"D4\",\n        \"biz01\": \"1\",\n        \"biz02\": \"KBCU0052957\",\n        \"biz03\": \"KRPUSY1\",\n        \"biz04\": \"KRPUSHN\",\n        \"biz05\": \"Terminal Shuttle\",\n        \"biz06\": \"853934\",\n        \"biz07\": \"KR00003\",\n        \"biz08\": \"\",\n        \"biz09\": \"\",\n        \"biz10\": \"\"\n    }\n}",
+        "responseMapping": [],
+        "id": "api-1758516478304-a8qr5lm",
+        "method": "POST",
+        "headers": "{\"Content-Type\":\"application/json\",\n\"Accept\":\"application/json\",\n\"X-API-KEY\":\"6458f478e47abbea0079a1fe7e5f1417\",\n\"X-TEN-ID\":\"2000\"\n}"
+      },
+      "selected": false,
+      "width": 252,
+      "position": {
+        "x": 9099.923667379486,
+        "y": 1009.9861847920774
+      },
+      "id": "api-1761026338422-n08ttz1",
+      "zIndex": 34
+    },
+    {
+      "data": {
+        "id": "link-1760957722213-o6yl6bg",
+        "display": "Link",
+        "content": "http://172.20.130.91:9110/oceans/webfw/html/nawmain.html?pgmNr=TPL_M2001_1"
+      },
+      "positionAbsolute": {
+        "y": 55.999999999999886,
+        "x": 13312.800000000001
+      },
+      "position": {
+        "x": 13312.800000000001,
+        "y": 55.999999999999886
+      },
+      "width": 252,
+      "id": "link-1761026899883-24nxbgk",
+      "zIndex": 35,
+      "type": "link",
+      "dragging": false,
+      "selected": false,
+      "height": 193
+    },
+    {
+      "width": 252,
+      "height": 193,
+      "id": "api-1761026942868-61c9vzi",
+      "zIndex": 36,
+      "dragging": false,
+      "positionAbsolute": {
+        "y": 425.1861847920778,
+        "x": 14085.123667379487
+      },
+      "position": {
+        "y": 425.1861847920778,
+        "x": 14085.123667379487
+      },
+      "data": {
+        "body": "{\n    \"comUDCInDto\": {\n        \"obj01\": \"INV_CRE_REQ\",\n        \"obj02\": \"{{email_from}}\",\n        \"obj03\": \"{{email_to}}\",\n        \"obj04\": \"AL0000184940\",\n        \"obj05\": \"HJCN0123W\",\n        \"obj06\": \"NSSJ2511S\",\n        \"obj07\": \"KRPUS\",\n        \"obj08\": \"CNSHA\",\n        \"obj09\": \"OUT\",\n        \"obj10\": \"D4\",\n        \"biz01\": \"1\",\n        \"biz02\": \"KBCU0052957\",\n        \"biz03\": \"853934\",\n        \"biz04\": \"KR00003\",\n        \"biz05\": \"Extra Transportation\",\n        \"biz06\": \"COMM1234\",\n        \"biz07\": \"00197330\",\n        \"biz08\": \"SELJO251017007335\",\n        \"biz09\": \"200,000\",\n        \"biz10\": \"KRW\"\n    }\n}",
+        "headers": "{\"Content-Type\":\"application/json\",\n\"Accept\":\"application/json\",\n\"X-API-KEY\":\"6458f478e47abbea0079a1fe7e5f1417\",\n\"X-TEN-ID\":\"2000\"\n}",
+        "method": "POST",
+        "responseMapping": [],
+        "id": "api-1758516478304-a8qr5lm",
+        "errorMappingEnabled": true,
+        "url": "http://202.20.84.65:8080/oceans/api/agt/agt9001/sendMail"
+      },
+      "type": "api",
+      "selected": false
+    },
+    {
+      "data": {
+        "id": "message-1758527046097-6xqm31x",
+        "replies": [],
+        "content": "추후, Allegro NX에서 확인해 보시기 바랍니다.\n\n시나리오를 종료합니다."
+      },
+      "height": 215,
+      "dragging": false,
+      "positionAbsolute": {
+        "y": 666,
+        "x": 13676
+      },
+      "id": "message-1761026987995-eeqd5sd",
+      "zIndex": 37,
+      "selected": false,
+      "width": 252,
+      "type": "message",
+      "position": {
+        "x": 13676,
+        "y": 666
+      }
+    },
+    {
+      "position": {
+        "y": 46,
+        "x": 13728
+      },
+      "dragging": false,
+      "type": "message",
+      "zIndex": 39,
+      "selected": false,
+      "positionAbsolute": {
+        "y": 46,
+        "x": 13728
+      },
+      "data": {
+        "content": "시나리오를 종료합니다.",
+        "replies": [],
+        "id": "message-1758527046097-6xqm31x"
+      },
+      "width": 252,
+      "height": 215,
+      "id": "message-1761027071349-ci9u81r"
+    },
+    {
+      "type": "form",
+      "dragging": false,
+      "id": "form-1761094139307-zo8hr98",
+      "data": {
+        "title": "Job Order Elements",
+        "id": "form-1758526990848-vzxh0az",
+        "elements": [
+          {
+            "type": "input",
+            "id": "input-1763620224078-pkjcl9f",
+            "placeholder": "Container No.",
+            "validation": {
+              "type": "text"
+            },
+            "name": "eqNr",
+            "label": "Container No.",
+            "defaultValue": "{{contNr}}"
+          },
+          {
+            "label": "Quantity",
+            "name": "oprContQty",
+            "type": "input",
+            "defaultValue": "{{oprContQty}}",
+            "validation": {
+              "type": "text"
+            },
+            "placeholder": "Quantity",
+            "id": "input-1758527332653-1j3ewqj"
+          },
+          {
+            "name": "rcvTrmCd",
+            "type": "input",
+            "id": "input-1761094154869-tuqv448",
+            "label": "Service Type",
+            "validation": {
+              "type": "text"
+            },
+            "placeholder": "Service Type",
+            "defaultValue": "{{rcvTrmCd}}"
+          },
+          {
+            "type": "input",
+            "id": "input-1761094224808-af67hii",
+            "validation": {
+              "type": "text"
+            },
+            "defaultValue": "Trunk",
+            "name": "transmode",
+            "label": "Transmode",
+            "placeholder": "Transmode"
+          },
+          {
+            "validation": {
+              "type": "text"
+            },
+            "defaultValue": "OUT",
+            "label": "Bound",
+            "placeholder": "Bound",
+            "id": "input-1761094258174-ahq2a3j",
+            "type": "input",
+            "name": "bound"
+          },
+          {
+            "defaultValue": "{{sCustId}}",
+            "id": "input-1761094296676-mmrk3yt",
+            "label": "Customer Code",
+            "type": "input",
+            "placeholder": "Customer Code",
+            "name": "sCustId",
+            "validation": {
+              "type": "text"
+            }
+          },
+          {
+            "id": "input-1761094321259-e00jxw2",
+            "placeholder": "Reason",
+            "name": "reason",
+            "validation": {
+              "type": "text"
+            },
+            "defaultValue": "TERMINAL SHUTTLE",
+            "type": "input",
+            "label": "Reason"
+          },
+          {
+            "validation": {
+              "type": "text"
+            },
+            "placeholder": "From",
+            "name": "fmPolCd",
+            "label": "From",
+            "defaultValue": "{{fmPolCd}}",
+            "id": "input-1761094354460-xp3uz6r",
+            "type": "input"
+          },
+          {
+            "type": "input",
+            "defaultValue": "{{bkgPolFclCd}}",
+            "label": "Terminal(From)",
+            "name": "bkgPolFclCd",
+            "placeholder": "Terminal(From)",
+            "validation": {
+              "type": "text"
+            },
+            "id": "input-1761202107242-geu77rm"
+          },
+          {
+            "validation": {
+              "type": "text"
+            },
+            "type": "input",
+            "label": "To",
+            "placeholder": "To",
+            "name": "polCdOld",
+            "id": "input-1761094401893-7o2eaer",
+            "defaultValue": "{{polCdOld}}"
+          },
+          {
+            "type": "input",
+            "validation": {
+              "type": "text"
+            },
+            "defaultValue": "{{terminal}}",
+            "label": "Terminal(To)",
+            "name": "terminal",
+            "id": "input-1761202491248-82rf3jl",
+            "placeholder": "Terminal(To)"
+          },
+          {
+            "defaultValue": "{{actlWt}}",
+            "label": "Cargo weight(KGS)",
+            "name": "actlWt",
+            "type": "input",
+            "placeholder": "Cargo weight",
+            "validation": {
+              "type": "text"
+            },
+            "id": "input-1761094440557-dpogqqk"
+          },
+          {
+            "placeholder": "Commodity Code",
+            "label": "Commodity Code",
+            "validation": {
+              "type": "text"
+            },
+            "defaultValue": "{{cmdtyCd}}",
+            "name": "cmdtyCd",
+            "type": "input",
+            "id": "input-1761094524541-i4w4rrb"
+          },
+          {
+            "name": "eqTp",
+            "type": "input",
+            "id": "input-1763691768615-wn71mcg",
+            "validation": {
+              "type": "text"
+            },
+            "defaultValue": "D4",
+            "placeholder": "TP/SZ",
+            "label": "TP/SZ"
+          }
+        ],
+        "dataSourceType": "json",
+        "dataSource": ""
+      },
+      "height": 991,
+      "width": 322,
+      "positionAbsolute": {
+        "x": 8129.566846453574,
+        "y": -638.2332314124968
+      },
+      "zIndex": 41,
+      "selected": true,
+      "position": {
+        "y": -638.2332314124968,
+        "x": 8129.566846453574
+      }
+    },
+    {
+      "positionAbsolute": {
+        "x": 8445.867618488908,
+        "y": 976.5667685875029
+      },
+      "height": 235,
+      "id": "form-1761099838690-9hxe3na",
+      "dragging": false,
+      "zIndex": 42,
+      "width": 322,
+      "data": {
+        "dataSourceType": "json",
+        "elements": [
+          {
+            "name": "email_from",
+            "placeholder": "email_from",
+            "label": "E-Mail_From",
+            "defaultValue": "jclee@cyberlogitec.com",
+            "id": "input-1758527332653-1j3ewqj",
+            "type": "input",
+            "validation": {
+              "type": "text"
+            }
+          },
+          {
+            "id": "input-1761094154869-tuqv448",
+            "label": "E-Mail_To",
+            "validation": {
+              "type": "text"
+            },
+            "defaultValue": "jclee@cyberlogitec.com",
+            "placeholder": "email_to",
+            "type": "input",
+            "name": "email_to"
+          }
+        ],
+        "dataSource": "",
+        "title": "E-Mail Job Order",
+        "id": "form-1758526990848-vzxh0az"
+      },
+      "type": "form",
+      "selected": false,
+      "position": {
+        "y": 976.5667685875029,
+        "x": 8445.867618488908
+      }
+    },
+    {
+      "positionAbsolute": {
+        "y": 363.7667685875032,
+        "x": 13674.66761848891
+      },
+      "id": "form-1761100118123-wtsng1j",
+      "width": 322,
+      "height": 235,
+      "type": "form",
+      "dragging": false,
+      "selected": false,
+      "data": {
+        "title": "E-Mail TPL_Creation",
+        "elements": [
+          {
+            "label": "E-Mail_From",
+            "id": "input-1758527332653-1j3ewqj",
+            "validation": {
+              "type": "text"
+            },
+            "placeholder": "email_from",
+            "defaultValue": "jclee@cyberlogitec.com",
+            "type": "input",
+            "name": "email_from"
+          },
+          {
+            "placeholder": "email_to",
+            "type": "input",
+            "id": "input-1761094154869-tuqv448",
+            "name": "email_to",
+            "label": "E-Mail_To",
+            "defaultValue": "jclee@cyberlogitec.com",
+            "validation": {
+              "type": "text"
+            }
+          }
+        ],
+        "id": "form-1758526990848-vzxh0az",
+        "dataSourceType": "json",
+        "dataSource": ""
+      },
+      "zIndex": 43,
+      "position": {
+        "x": 13674.66761848891,
+        "y": 363.7667685875032
+      }
+    },
+    {
+      "data": {
+        "elements": [
+          {
+            "label": "Number",
+            "placeholder": "Number",
+            "type": "input",
+            "defaultValue": "AL0000184940",
+            "id": "input-1761119986465-ip81pgf",
+            "name": "number",
+            "validation": {
+              "type": "text"
+            }
+          }
+        ],
+        "id": "form-1761119972962-rmboqwu",
+        "dataSourceType": "json",
+        "dataSource": "",
+        "title": "Booking No. 또는 Container No.를 입력해 주세요."
+      },
+      "id": "form-1761119972962-rmboqwu",
+      "selected": false,
+      "height": 174,
+      "dragging": false,
+      "type": "form",
+      "position": {
+        "y": -126,
+        "x": -2996
+      },
+      "width": 324,
+      "positionAbsolute": {
+        "y": -126,
+        "x": -2996
+      }
+    },
+    {
+      "zIndex": 44,
+      "position": {
+        "y": -250,
+        "x": 3066
+      },
+      "positionAbsolute": {
+        "y": -250,
+        "x": 3066
+      },
+      "id": "form-1761120472751-dexjk3t",
+      "selected": false,
+      "type": "form",
+      "width": 322,
+      "data": {
+        "dataSourceType": "json",
+        "id": "form-1760600612546-trbjs72",
+        "elements": [
+          {
+            "validation": {
+              "type": "text"
+            },
+            "placeholder": "Vessel Voyage",
+            "defaultValue": "NSSJ2513S",
+            "type": "input",
+            "label": "",
+            "name": "vslVoyDir",
+            "id": "input-1761120482765-rz157h8"
+          }
+        ],
+        "dataSource": "",
+        "title": "변경 할 Vessel Voyage 정보를 입력해 주세요."
+      },
+      "dragging": false,
+      "height": 172
+    },
+    {
+      "dragging": false,
+      "selected": false,
+      "data": {
+        "evaluationType": "BUTTON",
+        "conditions": [
+          {
+            "value": "",
+            "slot": "",
+            "id": "cond-1758526955864",
+            "operator": "=="
+          }
+        ],
+        "replies": [
+          {
+            "value": "cond_1758526955864",
+            "display": "ALLEGRO NX 연결"
+          },
+          {
+            "display": "시나리오 종료",
+            "value": "cond_1761814247962-p5n7576"
+          }
+        ],
+        "id": "branch-1758526955864-4o4z6gq",
+        "content": "B/L Charge가 완료 되었습니다.\n\nALLEGRO NX 에서 확인 하시겠습니까?"
+      },
+      "position": {
+        "x": 13287.48307826646,
+        "y": 966.2030608025043
+      },
+      "type": "branch",
+      "positionAbsolute": {
+        "x": 13287.48307826646,
+        "y": 966.2030608025043
+      },
+      "id": "branch-1761193705842-0z2s0hq",
+      "width": 252,
+      "height": 289,
+      "zIndex": 45
+    },
+    {
+      "positionAbsolute": {
+        "y": -66.15618900716208,
+        "x": 9237.4
+      },
+      "type": "delay",
+      "width": 252,
+      "height": 111,
+      "dragging": false,
+      "data": {
+        "duration": 1000,
+        "id": "delay-1761698160640-d7i8l7f"
+      },
+      "id": "delay-1761698160640-d7i8l7f",
+      "selected": false,
+      "position": {
+        "x": 9237.4,
+        "y": -66.15618900716208
+      }
+    },
+    {
+      "position": {
+        "x": 4377.4,
+        "y": 817.8438109928379
+      },
+      "dragging": false,
+      "id": "branch-1761700161937-9xpjhy4",
+      "type": "branch",
+      "width": 252,
+      "height": 245,
+      "positionAbsolute": {
+        "y": 817.8438109928379,
+        "x": 4377.4
+      },
+      "selected": false,
+      "data": {
+        "conditions": [
+          {
+            "operator": "==",
+            "valueType": "value",
+            "id": "cond-1761700161937",
+            "value": "0",
+            "slot": "vvdInfoCount"
+          }
+        ],
+        "replies": [
+          {
+            "display": "Condition 1",
+            "value": "cond_1761700161937"
+          }
+        ],
+        "evaluationType": "CONDITION",
+        "id": "branch-1761700161937-9xpjhy4"
+      }
+    },
+    {
+      "height": 289,
+      "dragging": false,
+      "data": {
+        "id": "branch-1761700224526-llxbj6e",
+        "conditions": [
+          {
+            "id": "cond-1761700224526",
+            "slot": "",
+            "operator": "==",
+            "value": "",
+            "valueType": "value"
+          }
+        ],
+        "replies": [
+          {
+            "display": "예",
+            "value": "cond_1761700224526"
+          },
+          {
+            "display": "아니오",
+            "value": "cond_1761700240008-otkq2vp"
+          }
+        ],
+        "evaluationType": "BUTTON",
+        "content": "조회된 결과가 없습니다.\n\n다시 조회 하시겠습니까?"
+      },
+      "width": 252,
+      "selected": false,
+      "id": "branch-1761700224526-llxbj6e",
+      "type": "branch",
+      "positionAbsolute": {
+        "x": 4468.869491862478,
+        "y": 1267.3692229840387
+      },
+      "position": {
+        "y": 1267.3692229840387,
+        "x": 4468.869491862478
+      }
+    },
+    {
+      "type": "message",
+      "id": "message-1761700405906-atflju2",
+      "height": 215,
+      "selected": false,
+      "width": 252,
+      "positionAbsolute": {
+        "y": 1409.1244508377704,
+        "x": 4845.740886978185
+      },
+      "dragging": false,
+      "data": {
+        "replies": [],
+        "content": "시나리오를 종료합니다.",
+        "id": "message-1761700405906-atflju2"
+      },
+      "position": {
+        "x": 4845.740886978185,
+        "y": 1409.1244508377704
+      }
+    },
+    {
+      "dragging": false,
+      "selected": false,
+      "height": 111,
+      "id": "setSlot-1761701792056-fg9702a",
+      "data": {
+        "assignments": [
+          {
+            "value": "",
+            "key": "vslVoyDir"
+          }
+        ],
+        "id": "setSlot-1761701792056-fg9702a"
+      },
+      "position": {
+        "x": 3137.691701287295,
+        "y": 780.7958140062356
+      },
+      "positionAbsolute": {
+        "x": 3137.691701287295,
+        "y": 780.7958140062356
+      },
+      "type": "setSlot",
+      "width": 252
+    },
+    {
+      "data": {
+        "body": "{\n    \"otherJOGrpDto\": {\n        \"otherJO\": [\n            {\n                \"eqNr\": \"{{eqNr}}\",\n                \"eqTp\": \"D4\",\n                \"wt\": \"{{actlWt}}\",\n                \"wtUnit\": \"KGS\",\n                \"fromNode\": \"{{bkgPolFclCd}}\",\n                \"toNode\": \"KRPUSHN\",\n                \"transMode\": \"STR\",\n                \"speCgo\": \"GP\"\n            }\n        ]\n    }\n}",
+        "id": "api-1761785382118-ghtm7lq",
+        "url": "http://202.20.84.65:8080/oceans/api/agt/agt9001/verifyJobOrder",
+        "headers": "{\"Content-Type\":\"application/json\",\n\"Accept\":\"application/json\",\n\"X-API-KEY\":\"6458f478e47abbea0079a1fe7e5f1417\",\n\"X-TEN-ID\":\"2000\"\n}",
+        "method": "POST",
+        "apis": [],
+        "responseMapping": [
+          {
+            "slot": "verifyFlag",
+            "path": "result[0].verifyFlag"
+          },
+          {
+            "path": "result[0].trxContSizeGrpCd",
+            "slot": "trxContSizeGrpCd"
+          },
+          {
+            "slot": "eqTp",
+            "path": "result[0].eqTp"
+          }
+        ],
+        "isMulti": false
+      },
+      "height": 193,
+      "width": 252,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 8773.4,
+        "y": -82.9168763842149
+      },
+      "id": "api-1761785382118-ghtm7lq",
+      "type": "api",
+      "selected": false,
+      "position": {
+        "y": -82.9168763842149,
+        "x": 8773.4
+      }
+    },
+    {
+      "positionAbsolute": {
+        "y": -142.9168763842149,
+        "x": 9705.4
+      },
+      "data": {
+        "replies": [
+          {
+            "display": "Condition 1",
+            "value": "cond_1761792145675-vu5bhmd"
+          }
+        ],
+        "conditions": [
+          {
+            "id": "cond-1761792145675",
+            "slot": "verifyFlag",
+            "value": "N",
+            "valueType": "value",
+            "operator": "=="
+          }
+        ],
+        "id": "branch-1761787199945-bxt08wa",
+        "content": "",
+        "evaluationType": "CONDITION"
+      },
+      "type": "branch",
+      "position": {
+        "y": -142.9168763842149,
+        "x": 9705.4
+      },
+      "height": 245,
+      "id": "branch-1761787199945-bxt08wa",
+      "width": 252,
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "type": "delay",
+      "id": "delay-1761787428697-fyaq6h0",
+      "selected": false,
+      "zIndex": 46,
+      "height": 111,
+      "dragging": false,
+      "width": 252,
+      "positionAbsolute": {
+        "x": 10149.4,
+        "y": 33.843810992837916
+      },
+      "data": {
+        "duration": 2000,
+        "id": "delay-1761698160640-d7i8l7f"
+      },
+      "position": {
+        "x": 10149.4,
+        "y": 33.843810992837916
+      }
+    },
+    {
+      "type": "message",
+      "selected": false,
+      "dragging": false,
+      "width": 252,
+      "data": {
+        "id": "message-1758527046097-6xqm31x",
+        "content": "Verify Job Order 가 정상적으로 전달되지 않았습니다.",
+        "replies": []
+      },
+      "id": "message-1761787441257-lklo4tw",
+      "height": 215,
+      "position": {
+        "y": -284,
+        "x": 10150
+      },
+      "positionAbsolute": {
+        "x": 10150,
+        "y": -284
+      },
+      "zIndex": 47
+    },
+    {
+      "type": "api",
+      "height": 193,
+      "position": {
+        "y": -196.9168763842149,
+        "x": 10663.4
+      },
+      "selected": false,
+      "dragging": false,
+      "id": "api-1761787525968-ugv3rbq",
+      "zIndex": 48,
+      "data": {
+        "responseMapping": [
+          {
+            "slot": "bscAmt",
+            "path": "result[0].bscAmt"
+          },
+          {
+            "path": "result[0].jiSpNm",
+            "slot": "jiSpNm"
+          }
+        ],
+        "id": "api-1761785382118-ghtm7lq",
+        "url": "http://202.20.84.65:8080/oceans/api/agt/agt9001/calculateAmount",
+        "apis": [],
+        "headers": "{\"Content-Type\":\"application/json\",\n\"Accept\":\"application/json\",\n\"X-API-KEY\":\"6458f478e47abbea0079a1fe7e5f1417\",\n\"X-TEN-ID\":\"2000\"\n}",
+        "body": "{\n    \"otherJODto\": {\n        \"eqTp\": \"{{eqTp}}\",\n        \"fromNode\": \"{{bkgPolFclCd}}\",\n        \"toNode\": \"KRPUSHN\",\n        \"transMode\": \"STR\",\n        \"trxContSizeGrpCd\": \"{{trxContSizeGrpCd}}\",\n        \"cmdtyCd\": \"000000\",\n                \"cgoTp\": \"F\",\n                \"speCgo\": \"GP\"\n    }\n}",
+        "isMulti": false,
+        "method": "POST"
+      },
+      "width": 252,
+      "positionAbsolute": {
+        "x": 10663.4,
+        "y": -196.9168763842149
+      }
+    },
+    {
+      "position": {
+        "y": -218.15618900716208,
+        "x": 11139.4
+      },
+      "zIndex": 49,
+      "data": {
+        "duration": 1000,
+        "id": "delay-1761698160640-d7i8l7f"
+      },
+      "height": 111,
+      "id": "delay-1761787689392-1tjrn8i",
+      "width": 252,
+      "type": "delay",
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 11139.4,
+        "y": -218.15618900716208
+      },
+      "selected": false
+    },
+    {
+      "zIndex": 50,
+      "id": "branch-1761787700512-s4eni2s",
+      "width": 252,
+      "dragging": false,
+      "selected": false,
+      "data": {
+        "replies": [],
+        "id": "branch-1761787199945-bxt08wa",
+        "content": "",
+        "conditions": [],
+        "evaluationType": "CONDITION"
+      },
+      "positionAbsolute": {
+        "x": 11595.4,
+        "y": -354.9168763842149
+      },
+      "height": 246,
+      "position": {
+        "x": 11595.4,
+        "y": -354.9168763842149
+      },
+      "type": "branch"
+    },
+    {
+      "zIndex": 51,
+      "dragging": false,
+      "width": 252,
+      "type": "delay",
+      "position": {
+        "y": -270.1561890071621,
+        "x": 12021.4
+      },
+      "selected": false,
+      "id": "delay-1761787805720-10qmqqj",
+      "positionAbsolute": {
+        "x": 12021.4,
+        "y": -270.1561890071621
+      },
+      "height": 111,
+      "data": {
+        "duration": 2000,
+        "id": "delay-1761698160640-d7i8l7f"
+      }
+    },
+    {
+      "height": 193,
+      "dragging": false,
+      "position": {
+        "y": -310.9168763842149,
+        "x": 12457.4
+      },
+      "zIndex": 52,
+      "id": "api-1761787825778-wk07ext",
+      "selected": false,
+      "type": "api",
+      "positionAbsolute": {
+        "y": -310.9168763842149,
+        "x": 12457.4
+      },
+      "width": 252,
+      "data": {
+        "headers": "{\"Content-Type\":\"application/json\",\n\"Accept\":\"application/json\",\n\"X-API-KEY\":\"6458f478e47abbea0079a1fe7e5f1417\",\n\"X-TEN-ID\":\"2000\"\n}",
+        "body": "{\n    \"portJoDetailListDto\": {\n        \"portJoDetailList\": [\n            {\n                \"eqNr\": \"{{eqNr}}\",\n                \"eqTp\": \"{{eqTp}}\",\n                \"bnd\": \"O\",\n                \"wt\": \"{{actlWt}}\",\n                \"tareWt\": \"0\",\n                \"groWt\": \"{{actlWt}}\",\n                \"wtUnit\": \"KGS\",\n                \"jiStatus\": \"P\",\n                \"speCgo\": \"GP\",\n                \"tranJiTpCd\": \"O\",\n                \"transMode\": \"STR\",\n                \"cmdtyCd\": \"000000\",\n                \"actlCusPtrId\": \"KR000003\",\n                \"fromNode\": \"KRPUSYH\",\n                \"toNode\": \"KRPUSHN\",\n                \"jiSp\": \"00197330\",\n                \"spNm\": \"T.B.N\",\n                \"curCd\": \"KRW\",\n                \"bscAmt\": 200000,\n                \"total\": \"200000.00\",\n                \"joOthrReas\": \"TERMINAL SHUTTLE\",\n                \"kgsTareWt\": \"0\",\n                \"ctrlOfcId\": \"Y\",\n                \"cgoTp\": \"FULL\",\n                \"tranAgreNr\": \"SELAG22001364\",\n                \"tranAgreVerNr\": \"3\",\n                \"tranAgreDtlSeq\": \"1\",\n                \"actualFactory\": \"!CYBER CONSOL LOGISTICS CO.,LTD.\",\n                \"kgsWt\": \"15000\",\n                \"trxContSizeGrpCd\": \"40\",\n                \"routeChanged\": \"N\"\n            }\n        ]\n    }\n}",
+        "url": "http://202.20.84.65:8080/oceans/api/agt/agt9001/issueJobOrder",
+        "apis": [],
+        "responseMapping": [
+          {
+            "path": "result.joNr",
+            "slot": "joNr"
+          }
+        ],
+        "isMulti": false,
+        "id": "api-1761785382118-ghtm7lq",
+        "method": "POST"
+      }
+    },
+    {
+      "type": "delay",
+      "zIndex": 53,
+      "height": 111,
+      "data": {
+        "duration": 1000,
+        "id": "delay-1761698160640-d7i8l7f"
+      },
+      "width": 252,
+      "id": "delay-1761788065674-jl3003y",
+      "position": {
+        "x": 12899.4,
+        "y": -282.1561890071621
+      },
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 12899.4,
+        "y": -282.1561890071621
+      }
+    },
+    {
+      "dragging": false,
+      "selected": false,
+      "position": {
+        "y": -258.1561890071621,
+        "x": 13789.4
+      },
+      "height": 111,
+      "data": {
+        "duration": 2000,
+        "id": "delay-1761698160640-d7i8l7f"
+      },
+      "width": 252,
+      "zIndex": 55,
+      "positionAbsolute": {
+        "y": -258.1561890071621,
+        "x": 13789.4
+      },
+      "id": "delay-1761788208546-s3ym92x",
+      "type": "delay"
+    },
+    {
+      "id": "message-1761805020226-9lr77dt",
+      "width": 252,
+      "height": 215,
+      "position": {
+        "y": -467.00809339593343,
+        "x": 9702.11179556824
+      },
+      "data": {
+        "replies": [],
+        "id": "message-1761805020226-9lr77dt",
+        "chainNext": true,
+        "content": "Verify Job Order 완료"
+      },
+      "positionAbsolute": {
+        "x": 9702.11179556824,
+        "y": -467.00809339593343
+      },
+      "selected": false,
+      "type": "message",
+      "dragging": false
+    },
+    {
+      "width": 252,
+      "position": {
+        "y": -633.0080933959334,
+        "x": 11604.11179556824
+      },
+      "id": "message-1761805063618-piuvful",
+      "selected": false,
+      "positionAbsolute": {
+        "x": 11604.11179556824,
+        "y": -633.0080933959334
+      },
+      "height": 215,
+      "data": {
+        "replies": [],
+        "id": "message-1761805063618-piuvful",
+        "chainNext": true,
+        "content": "Service Provider 선택 및 Amount 완료"
+      },
+      "dragging": false,
+      "type": "message"
+    },
+    {
+      "position": {
+        "y": -607.0080933959334,
+        "x": 13340.11179556824
+      },
+      "data": {
+        "content": "### Issue Job Order 완료",
+        "id": "message-1761805102577-u3y0m8r",
+        "replies": []
+      },
+      "positionAbsolute": {
+        "x": 13340.11179556824,
+        "y": -607.0080933959334
+      },
+      "type": "message",
+      "selected": false,
+      "height": 215,
+      "width": 252,
+      "dragging": false,
+      "id": "message-1761805102577-u3y0m8r"
+    },
+    {
+      "position": {
+        "y": 672,
+        "x": 7708
+      },
+      "data": {
+        "id": "message-1758527046097-6xqm31x",
+        "content": "운송사와 계약된 운송 비용은 TPL 또는 B/L Charge Update 시 참고 할 수 있도록 E-mail로 통지됩니다.",
+        "replies": []
+      },
+      "type": "message",
+      "id": "message-1761813142486-r56zcm0",
+      "width": 252,
+      "height": 215,
+      "dragging": false,
+      "zIndex": 56,
+      "selected": false,
+      "positionAbsolute": {
+        "y": 672,
+        "x": 7708
+      }
+    },
+    {
+      "height": 193,
+      "dragging": false,
+      "type": "api",
+      "data": {
+        "headers": "{\"Content-Type\":\"application/json\",\n\"Accept\":\"application/json\",\n\"X-API-KEY\":\"6458f478e47abbea0079a1fe7e5f1417\",\n\"X-TEN-ID\":\"2000\"\n}",
+        "url": "http://202.20.84.65:8080/oceans/api/agt/agt9001/createBlCharge",
+        "isMulti": false,
+        "apis": [],
+        "id": "api-1761785382118-ghtm7lq",
+        "responseMapping": [
+          {
+            "slot": "isSuccess",
+            "path": "result.isSuccess"
+          }
+        ],
+        "body": "{\n    \"chargeInfoInDto\": {\n        \"chargeRateMainDto\": {\n            \"rtApplDt\": \"20251017\",\n            \"cgoRcvgDt\": \"20251017\",\n            \"ctrkTpCd\": \"G\",\n            \"ctrkNr\": \"C2504518\",\n            \"frtTrmCd\": \"P\",\n            \"rtBlTpCd\": \"N\",\n            \"sysCalYn\": \"N\",\n            \"ppRcvOfcCd\": \"SELSC\",\n            \"ppPyrCusPtrId\": \"KR000003\",\n            \"clctOfcCd\": \"SHASC\",\n            \"clctPyrCusPtrId\": \"CN094217\",\n            \"ppRcvOfcId\": \"000071\",\n            \"ppPtrTpCd\": \"F\",\n            \"clctOfcId\": \"001075\",\n            \"clctPtrTpCd\": \"C\",\n            \"blNr\": \"SYS2510000000182416\",\n            \"rcvTrmCd\": \"Y\",\n            \"dataPlag\": \"U\",\n            \"revRevwDt\": \"19000101\",\n            \"rtBlTpOldCd\": \"N\",\n            \"svceScpCd\": \"IAA\",\n            \"bkgNr\": \"AL0000184940\",\n            \"dspBlNr\": \"AL0000184940\",\n            \"podCd\": \"CN\"\n        },\n        \"creUsrId\": \"OPUSADM\",\n        \"updUsrId\": \"OPUSADM\",\n        \"chargeDetailDtoList\": [\n            {\n                \"chgCd\": \"MIS\",\n                \"curCd\": \"KRW\",\n                \"chgUntAmt\": \"200000\",\n                \"ratAsQty\": \"1\",\n                \"rtgUntCd\": \"D4\",\n                \"chgAmt\": 200000,\n                \"frtInclExclDivCd\": \"N\",\n                \"frtTrmCd\": \"P\",\n                \"cgoCtgyCd\": \"DR\",\n                \"rcvTrmCd\": \"Y\",\n                \"delTrmCd\": \"Y\",\n                \"autoRtgCd\": \"M\",\n                \"procFlag\": \"I\",\n                \"blNr\": \"SYS2510000000182416\",\n                \"bkgNr\": \"AL0000184940\"\n            }\n        ]\n    }\n}\n",
+        "method": "POST"
+      },
+      "positionAbsolute": {
+        "x": 11723.4,
+        "y": 577.0831236157851
+      },
+      "position": {
+        "y": 577.0831236157851,
+        "x": 11723.4
+      },
+      "id": "api-1761813655660-ve31lfz",
+      "selected": false,
+      "zIndex": 57,
+      "width": 252
+    },
+    {
+      "data": {
+        "content": "시나리오를 종료합니다.",
+        "id": "message-1758527046097-6xqm31x",
+        "replies": []
+      },
+      "height": 215,
+      "position": {
+        "y": 1302,
+        "x": 13676
+      },
+      "zIndex": 58,
+      "dragging": false,
+      "width": 252,
+      "type": "message",
+      "id": "message-1761814257738-vqwrh2z",
+      "positionAbsolute": {
+        "x": 13676,
+        "y": 1302
+      },
+      "selected": false
+    },
+    {
+      "type": "link",
+      "height": 193,
+      "width": 252,
+      "positionAbsolute": {
+        "x": 13676.800000000001,
+        "y": 1074
+      },
+      "selected": false,
+      "zIndex": 59,
+      "id": "link-1761814266965-cgtptdb",
+      "data": {
+        "display": "Link",
+        "id": "link-1760957722213-o6yl6bg",
+        "content": "http://172.20.130.91:9110/oceans/webfw/html/nawmain.html?pgmNr=BKD_M4701&blNr={{bkgNr}}"
+      },
+      "dragging": false,
+      "position": {
+        "x": 13676.800000000001,
+        "y": 1074
+      }
+    },
+    {
+      "zIndex": 60,
+      "id": "message-1761814279614-uh5kqlo",
+      "type": "message",
+      "width": 252,
+      "selected": false,
+      "height": 215,
+      "dragging": false,
+      "position": {
+        "x": 14106,
+        "y": 1064
+      },
+      "positionAbsolute": {
+        "x": 14106,
+        "y": 1064
+      },
+      "data": {
+        "replies": [],
+        "content": "시나리오를 종료합니다.",
+        "id": "message-1758527046097-6xqm31x"
+      }
+    },
+    {
+      "positionAbsolute": {
+        "x": 1741.335564477933,
+        "y": -149.0507399780165
+      },
+      "dragging": false,
+      "width": 252,
+      "id": "branch-1761816299002-5pqh4qa",
+      "zIndex": 61,
+      "data": {
+        "content": "",
+        "id": "branch-1758514588608-x4adjdj",
+        "evaluationType": "CONDITION",
+        "replies": [
+          {
+            "value": "cond_1758514588609",
+            "display": "Condition 2"
+          },
+          {
+            "value": "cond_1758514606520-i3hjegh",
+            "display": "Condition 2"
+          },
+          {
+            "display": "Condition 4",
+            "value": "cond_1758514702879-cu13m5p"
+          }
+        ],
+        "conditions": [
+          {
+            "value": "VL",
+            "slot": "contMvtSts",
+            "operator": "==",
+            "id": "cond-1758514606520-4svjm5e"
+          },
+          {
+            "id": "cond-1758514607632-eoiz4dm",
+            "slot": "contMvtSts",
+            "value": "OC",
+            "operator": "=="
+          }
+        ]
+      },
+      "selected": false,
+      "type": "branch",
+      "height": 289,
+      "position": {
+        "y": -149.0507399780165,
+        "x": 1741.335564477933
+      }
+    },
+    {
+      "width": 252,
+      "positionAbsolute": {
+        "x": 3246.6517430124636,
+        "y": -590.9035351426921
+      },
+      "type": "message",
+      "id": "message-1761816746453-83gj20z",
+      "height": 215,
+      "dragging": false,
+      "selected": false,
+      "zIndex": 63,
+      "data": {
+        "content": "# 선박 출항 후 Vessel Change 요청에 대한 가이드\n\n이미 선적이 **완료**되고 선박이 출항한 뒤에 화주로부터 선박을 변경하고자 하는 상황을 의미하며, 이 경우는 물류, 운송, 세관, 문서, 비용 등 여러 측면에서 큰 영향이 발생하므로, 물리적으로 **불가**하므로 Customer의 요청을 **거절**합니다.\n\n**그럼에도 불구하고 불가피한 사유로 재요청이 접수될 경우에 따라 아래의 Process로 검토할 수 있습니다.**\n\n**1. Destination 변경 사유**\n · Destination의 변경으로 인한 사유인 경우에는 COD(Change of Destination) Process에 근거하여 변경해야 함.\n · 출항 이후 가장 적절한 Calling Port 등에서 T/S를 하여 변경하여야 함.\n · 해당 T/S Port에서 발생되는 Re-handling 비용 등을 감안하여야 함.\n\n**2. Arrival Date 관련 (도착일자를 늦춰야 하는 경우)**\n · Destination 변경은 아니나, 도착일자를 늦춰야 할 경우에도 가장 적절한 Port에서 내려 체화를 한 후에 도착 날짜에 맞게 Vessel을 정정함.\n · 이는 Re-handling 비용과 체화료가 발생할 수 있으므로 신중해야 함.\n\n**3. 화물의 불량 등으로 재작업이 필요한 경우 및 기타**\n · 위의 두 가지 경우(1, 2)에도 Origin과 Destination 사이 Vessel Schedule 상에 중간 경유 Port가 없다면, 혹은 화물의 불량 등으로 재작업이 필요한 경우에는 화물은 **Ship-back(Re-export)**의 절차로 수행되어야 함.\n\n**4. 세관 문제**\n · 사전 세관 신고 등의 비엘(B/L)과 세관 문제 또한 적절한 조치가 필요함.\n\n시나리오를 종료합니다.",
+        "id": "message-1758516276978-czmmmsw",
+        "replies": []
+      },
+      "position": {
+        "x": 3246.6517430124636,
+        "y": -590.9035351426921
+      }
+    },
+    {
+      "height": 245,
+      "id": "branch-1761874586667-64hbqbj",
+      "data": {
+        "replies": [
+          {
+            "value": "cond_1761874586668",
+            "display": "Condition 1"
+          }
+        ],
+        "conditions": [
+          {
+            "value": "N",
+            "valueType": "value",
+            "operator": "==",
+            "id": "cond-1761874586667",
+            "slot": "isSuccess"
+          }
+        ],
+        "evaluationType": "CONDITION",
+        "id": "branch-1761874586667-64hbqbj"
+      },
+      "selected": false,
+      "position": {
+        "y": 816.5581787209185,
+        "x": 12585.1
+      },
+      "width": 252,
+      "type": "branch",
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 12585.1,
+        "y": 816.5581787209185
+      }
+    },
+    {
+      "type": "message",
+      "positionAbsolute": {
+        "x": 13274,
+        "y": 690
+      },
+      "zIndex": 64,
+      "width": 252,
+      "height": 215,
+      "position": {
+        "x": 13274,
+        "y": 690
+      },
+      "id": "message-1761874639975-d3sr6vn",
+      "dragging": false,
+      "data": {
+        "content": "시나리오를 종료합니다.",
+        "replies": [],
+        "id": "message-1758527046097-6xqm31x"
+      },
+      "selected": false
+    },
+    {
+      "dragging": false,
+      "position": {
+        "x": -88.89999999999964,
+        "y": -79.44182127908152
+      },
+      "id": "delay-1761874892607-dqoe2du",
+      "width": 252,
+      "type": "delay",
+      "height": 111,
+      "positionAbsolute": {
+        "x": -88.89999999999964,
+        "y": -79.44182127908152
+      },
+      "data": {
+        "id": "delay-1761874892607-dqoe2du",
+        "duration": 2000
+      },
+      "selected": false
+    },
+    {
+      "id": "delay-1761874926385-6p4g3op",
+      "type": "delay",
+      "selected": false,
+      "positionAbsolute": {
+        "y": 314.5581787209185,
+        "x": -1284.8999999999996
+      },
+      "width": 252,
+      "dragging": false,
+      "position": {
+        "y": 314.5581787209185,
+        "x": -1284.8999999999996
+      },
+      "data": {
+        "id": "delay-1761874926385-6p4g3op",
+        "duration": 2000
+      },
+      "height": 111
+    },
+    {
+      "width": 252,
+      "height": 215,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 2538.6517430124636,
+        "y": 75.09646485730786
+      },
+      "position": {
+        "y": 75.09646485730786,
+        "x": 2538.6517430124636
+      },
+      "zIndex": 65,
+      "data": {
+        "replies": [],
+        "id": "message-1758516276978-czmmmsw",
+        "content": "현재 해당 Booking({{bkgNr}}) 의 Container 가 이미 Full Container Return Terminal에 반입 완료 되었습니다.",
+        "chainNext": false
+      },
+      "type": "message",
+      "id": "message-1761884971184-1z5aven",
+      "selected": false
+    },
+    {
+      "type": "delay",
+      "width": 252,
+      "position": {
+        "y": -59.44182127908152,
+        "x": 1249.1000000000004
+      },
+      "positionAbsolute": {
+        "x": 1249.1000000000004,
+        "y": -59.44182127908152
+      },
+      "height": 111,
+      "dragging": false,
+      "zIndex": 66,
+      "selected": false,
+      "id": "delay-1761885390966-5c27e0s",
+      "data": {
+        "duration": 3000,
+        "id": "delay-1761874892607-dqoe2du"
+      }
+    },
+    {
+      "data": {
+        "id": "delay-1761874892607-dqoe2du",
+        "duration": 3000
+      },
+      "zIndex": 67,
+      "type": "delay",
+      "id": "delay-1761885417030-huk74tq",
+      "dragging": false,
+      "selected": false,
+      "position": {
+        "y": -61.44182127908152,
+        "x": 2119.1000000000004
+      },
+      "width": 252,
+      "height": 111,
+      "positionAbsolute": {
+        "y": -61.44182127908152,
+        "x": 2119.1000000000004
+      }
+    },
+    {
+      "position": {
+        "y": 90.55817872091848,
+        "x": 2121.1000000000004
+      },
+      "selected": false,
+      "dragging": false,
+      "type": "delay",
+      "width": 252,
+      "id": "delay-1761886681416-5aa78sb",
+      "zIndex": 68,
+      "positionAbsolute": {
+        "x": 2121.1000000000004,
+        "y": 90.55817872091848
+      },
+      "height": 111,
+      "data": {
+        "duration": 3000,
+        "id": "delay-1761874892607-dqoe2du"
+      }
+    },
+    {
+      "selected": false,
+      "data": {
+        "duration": 2000,
+        "id": "delay-1761888968625-x0d7522"
+      },
+      "width": 252,
+      "positionAbsolute": {
+        "x": 3407.7699562654307,
+        "y": 170.31437976537177
+      },
+      "id": "delay-1761888968625-x0d7522",
+      "type": "delay",
+      "position": {
+        "x": 3407.7699562654307,
+        "y": 170.31437976537177
+      },
+      "height": 111,
+      "dragging": false
+    },
+    {
+      "zIndex": 69,
+      "height": 111,
+      "id": "delay-1761888991531-th9rsq4",
+      "dragging": false,
+      "position": {
+        "x": 4449.769956265431,
+        "y": 200.31437976537177
+      },
+      "width": 252,
+      "data": {
+        "id": "delay-1761888968625-x0d7522",
+        "duration": 2000
+      },
+      "type": "delay",
+      "positionAbsolute": {
+        "y": 200.31437976537177,
+        "x": 4449.769956265431
+      },
+      "selected": false
+    },
+    {
+      "dragging": false,
+      "data": {
+        "id": "message-1761889395994-6jh5ihy",
+        "replies": [],
+        "content": "### B/L Charge 완료"
+      },
+      "type": "message",
+      "position": {
+        "x": 12232.076772845221,
+        "y": 538.3143797653718
+      },
+      "width": 252,
+      "id": "message-1761889395994-6jh5ihy",
+      "positionAbsolute": {
+        "y": 538.3143797653718,
+        "x": 12232.076772845221
+      },
+      "height": 215,
+      "selected": false
+    },
+    {
+      "data": {
+        "duration": 3000,
+        "id": "delay-1761889397647-84fbt3s"
+      },
+      "height": 111,
+      "position": {
+        "x": 12139.22302880434,
+        "y": 860.3143797653718
+      },
+      "dragging": false,
+      "width": 252,
+      "positionAbsolute": {
+        "y": 860.3143797653718,
+        "x": 12139.22302880434
+      },
+      "selected": false,
+      "id": "delay-1761889397647-84fbt3s",
+      "type": "delay"
+    },
+    {
+      "height": 111,
+      "width": 252,
+      "position": {
+        "y": 128.55817872091848,
+        "x": 2905.1000000000004
+      },
+      "positionAbsolute": {
+        "y": 128.55817872091848,
+        "x": 2905.1000000000004
+      },
+      "zIndex": 70,
+      "data": {
+        "duration": 3000,
+        "id": "delay-1761874892607-dqoe2du"
+      },
+      "id": "delay-1761891053406-rx7u8in",
+      "dragging": false,
+      "type": "delay",
+      "selected": false
+    },
+    {
+      "id": "message-1761891687599-oaj6owy",
+      "width": 252,
+      "position": {
+        "x": 2579.1000000000004,
+        "y": -439.4418212790815
+      },
+      "data": {
+        "replies": [],
+        "chainNext": false,
+        "content": "요청하신 Booking({{bkgNr}})의 선박이 이미 출항하여, Vessel 을 변경할 수 없습니다.\n다만, Customer 의 불가피한 Irregular 성 사유라면, 아래의 Process 를 검토해 볼 수 있습니다.",
+        "id": "message-1761891687599-oaj6owy"
+      },
+      "height": 215,
+      "dragging": false,
+      "type": "message",
+      "selected": false,
+      "positionAbsolute": {
+        "y": -439.4418212790815,
+        "x": 2579.1000000000004
+      }
+    },
+    {
+      "id": "delay-1761891703403-g1wubkx",
+      "height": 111,
+      "type": "delay",
+      "data": {
+        "duration": 3000,
+        "id": "delay-1761874892607-dqoe2du"
+      },
+      "zIndex": 71,
+      "position": {
+        "y": -539.4418212790815,
+        "x": 2917.1000000000004
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 252,
+      "positionAbsolute": {
+        "x": 2917.1000000000004,
+        "y": -539.4418212790815
+      }
+    },
+    {
+      "selected": false,
+      "id": "delay-1761898707057-x3wn59s",
+      "width": 252,
+      "type": "delay",
+      "position": {
+        "x": 12604.603703413395,
+        "y": 628.2657735493469
+      },
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 12604.603703413395,
+        "y": 628.2657735493469
+      },
+      "zIndex": 73,
+      "height": 111,
+      "data": {
+        "duration": 2000,
+        "id": "delay-1761889397647-84fbt3s"
+      }
+    },
+    {
+      "width": 252,
+      "height": 193,
+      "positionAbsolute": {
+        "x": 8134.862406964065,
+        "y": 395.03973554952603
+      },
+      "dragging": false,
+      "position": {
+        "x": 8134.862406964065,
+        "y": 395.03973554952603
+      },
+      "selected": false,
+      "type": "api",
+      "data": {
+        "body": "{\n  \"header\": {\n  },\n  \"comUDCInDto\": {\n    \"obj01\": \"CLT0064\"\n  }\n}",
+        "chainNext": false,
+        "headers": "{\"Content-Type\":\"application/json\",\n\"Accept\":\"application/json\",\n\"X-API-KEY\":\"6458f478e47abbea0079a1fe7e5f1417\",\n\"X-TEN-ID\":\"2000\"\n}",
+        "apis": [],
+        "method": "POST",
+        "url": "http://202.20.84.65:8080/oceans/api/rpa/bcma004/execUiPathRpaManual",
+        "isMulti": false,
+        "responseMapping": [],
+        "id": "api-1762332799109-i7h3o9u"
+      },
+      "id": "api-1762332799109-i7h3o9u"
+    },
+    {
+      "position": {
+        "y": 523.5581787209185,
+        "x": 9279.1
+      },
+      "height": 245,
+      "type": "branch",
+      "width": 252,
+      "id": "branch-1762332862434-313o7v3",
+      "positionAbsolute": {
+        "x": 9279.1,
+        "y": 523.5581787209185
+      },
+      "selected": false,
+      "dragging": false,
+      "data": {
+        "replies": [
+          {
+            "value": "cond_1762332862434",
+            "display": "완료"
+          }
+        ],
+        "content": "Booking No.({{bkgNr}})이 성공적으로 완료되었습니다.",
+        "evaluationType": "BUTTON",
+        "conditions": [
+          {
+            "slot": "",
+            "id": "cond-1762332862434",
+            "value": "",
+            "valueType": "value",
+            "operator": "=="
+          }
+        ],
+        "id": "branch-1762332862434-313o7v3"
+      }
+    },
+    {
+      "dragging": false,
+      "positionAbsolute": {
+        "y": 592.3890445576952,
+        "x": 8596.588791238955
+      },
+      "selected": false,
+      "id": "delay-1762391133966-a01ehwf",
+      "height": 111,
+      "position": {
+        "y": 592.3890445576952,
+        "x": 8596.588791238955
+      },
+      "width": 252,
+      "data": {
+        "id": "delay-1762391133966-a01ehwf",
+        "chainNext": false,
+        "duration": 25000
+      },
+      "type": "delay"
+    },
+    {
+      "height": 215,
+      "type": "message",
+      "id": "message-1762394566354-jk3iouh",
+      "data": {
+        "content": "여러 건의 Job Order를 자동으로 처리 중입니다..",
+        "chainNext": true,
+        "id": "message-1762394566354-jk3iouh",
+        "replies": []
+      },
+      "position": {
+        "y": 211.37783194504755,
+        "x": 7723.1753572715315
+      },
+      "positionAbsolute": {
+        "y": 211.37783194504755,
+        "x": 7723.1753572715315
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 252
+    },
+    {
+      "data": {
+        "isMulti": false,
+        "id": "api-1760418742666-fkzjojp",
+        "body": "{\n    \"bkdBlCondDto\": {\n        \"dspBlNr\": \"{{dspBlNr}}\",\n        \"bkgNr\": \"{{bkgNr}}\",\n        \"attrCntn1\": \"VUUMDF\"\n    }\n}",
+        "url": "http://202.20.84.65:8080/oceans/api/agt/agt9001/searchCargoTrackingInfo",
+        "responseMapping": [
+          {
+            "slot": "vvdFullName",
+            "path": "result.vvdFullName"
+          }
+        ],
+        "headers": "{\"Content-Type\":\"application/json\",\n\"Accept\":\"application/json\",\n\"X-API-KEY\":\"6458f478e47abbea0079a1fe7e5f1417\",\n\"X-TEN-ID\":\"2000\"\n}",
+        "apis": [],
+        "method": "POST"
+      },
+      "height": 193,
+      "dragging": false,
+      "width": 252,
+      "type": "api",
+      "selected": false,
+      "positionAbsolute": {
+        "y": -132,
+        "x": -742
+      },
+      "position": {
+        "x": -742,
+        "y": -132
+      },
+      "id": "api-1762405523724-spbuhjy",
+      "zIndex": 74
+    },
+    {
+      "height": 215,
+      "type": "message",
+      "dragging": false,
+      "position": {
+        "y": 173.94870729136346,
+        "x": 1162.2401247887374
+      },
+      "data": {
+        "chainNext": false,
+        "replies": [],
+        "content": "현재 해당 Booking({{bkgNr}})은 Empty 상차가 완료되었습니다.\n\n본 Container Movement Status는 PoC 대상에 포함되지 않으므로, 추후 진행에 따라 확인하실 수 있습니다.",
+        "id": "message-1762414872377-dsbn463"
+      },
+      "width": 252,
+      "positionAbsolute": {
+        "x": 1162.2401247887374,
+        "y": 173.94870729136346
+      },
+      "selected": false,
+      "id": "message-1762414872377-dsbn463"
+    },
+    {
+      "height": 215,
+      "width": 252,
+      "dragging": false,
+      "data": {
+        "content": "현재 해당 Booking({{bkgNr}})은 Empty 상차가 완료되었습니다.\n\n본 Container Movement Status는 PoC 대상에 포함되지 않으므로, 추후 진행에 따라 확인하실 수 있습니다.",
+        "id": "message-1762414872377-dsbn463",
+        "replies": [],
+        "chainNext": false
+      },
+      "zIndex": 75,
+      "positionAbsolute": {
+        "x": 2101.8401247887373,
+        "y": 239.94870729136346
+      },
+      "id": "message-1762414903069-oe2txi8",
+      "selected": false,
+      "position": {
+        "x": 2101.8401247887373,
+        "y": 239.94870729136346
+      },
+      "type": "message"
+    }
+  ]
+}

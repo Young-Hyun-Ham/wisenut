@@ -1,0 +1,472 @@
+// app/store/actions/chatResponseHandler.js
+import { processFlowiseStream } from "../../lib/streamProcessors";
+import { locales } from "../../lib/locales";
+import { apiFetch } from "../../lib/apiClient";
+import { queryClient } from "../../queryClient";
+
+// 자동 팝업을 트리거할 타겟 URL 정의
+const TARGET_AUTO_OPEN_URL = "http://172.20.130.91:9110/oceans/BPM_P1002.do?tenId=2000&stgId=TST&pgmNr=BKD_M3201";
+// FastAPI 서버 주소
+const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:8000";
+const FASTAPI_URL = `${API_BASE_URL}/api/chat`;
+const DEFAULT_TITLE = "New Chat";
+
+// URL 포함 여부 확인 및 새 창 열기 헬퍼 함수
+const checkAndOpenUrl = (text) => {
+  if (typeof text === 'string' && text.includes(TARGET_AUTO_OPEN_URL)) {
+    if (typeof window !== 'undefined') {
+      console.log(`[AutoOpen] Target URL detected. Opening: ${TARGET_AUTO_OPEN_URL}`);
+      window.open(TARGET_AUTO_OPEN_URL, '_blank', 'noopener,noreferrer');
+    }
+  }
+};
+
+// responseHandlers는 이 스코프 내에서만 사용되므로 여기에 정의
+const responseHandlers = {
+  scenario_list: (data, getFn) => {
+    getFn().addMessage("bot", { text: data.message, scenarios: data.scenarios });
+  },
+  canvas_trigger: (data, getFn) => {
+    getFn().addMessage("bot", {
+      text:
+        locales[getFn().language]?.scenarioStarted(data.scenarioId) ||
+        `Starting '${data.scenarioId}'.`,
+    });
+    getFn().openScenarioPanel(data.scenarioId);
+  },
+  toast: (data, getFn) => {
+    getFn().showEphemeralToast(data.message, data.toastType || "info");
+  },
+  llm_response_with_slots: (data, getFn) => {
+    getFn().addMessage("bot", { text: data.message });
+    checkAndOpenUrl(data.message);
+    if (data.slots && Object.keys(data.slots).length > 0) {
+      getFn().setExtractedSlots(data.slots);
+    }
+  },
+  // --- 👇 [추가] text 타입 (FastAPI용) 핸들러 ---
+  text: (data, getFn) => {
+    const responseText = data.message || data.text || "(No Content)";
+    getFn().addMessage("bot", { text: responseText });
+    checkAndOpenUrl(responseText);
+    // 슬롯이 있다면 업데이트 (FastAPI 응답에 slots가 포함된다면)
+    if (data.slots && Object.keys(data.slots).length > 0) {
+      getFn().setExtractedSlots(data.slots);
+    }
+  },
+  // --- 👆 [추가] ---
+  error: (data, getFn) => {
+    getFn().addMessage("bot", {
+      text:
+        data.message ||
+        locales[getFn().language]?.errorUnexpected ||
+        "An error occurred.",
+    });
+  },
+};
+
+/**
+ * 사용자 메시지 처리 및 봇 응답 요청/처리
+ * (chatSlice.js에서 분리됨)
+ * @param {function} get - Zustand 스토어의 get 함수
+ * @param {function} set - Zustand 스토어의 set 함수
+ * @param {object} messagePayload - 사용자 입력 페이로드 (e.g., { text: "..." })
+ */
+export async function handleResponse(get, set, messagePayload) {
+  set({ isLoading: true, llmRawResponse: null });
+  const {
+    language,
+    addMessage,
+    updateLastMessage,
+    setExtractedSlots,
+    llmProvider,
+    currentConversationId,
+    // conversations, // 👈 [삭제] React Query로 이관되어 스토어에 없음
+    // updateConversationTitle, // 👈 [삭제] 스토어 액션에서 제거됨
+    setForceScrollToBottom, 
+    useFastApi, 
+  } = get();
+
+  const textForUser = messagePayload.displayText || messagePayload.text;
+
+  // 사용자가 메시지를 보내면 무조건 맨 아래로 스크롤 강제 이동
+  setForceScrollToBottom(true);
+
+  // 👇 [수정] conversations 의존성 제거로 인해 자동 제목 수정 로직 삭제
+  // (필요 시 ChatInput 컴포넌트나 백엔드에서 처리해야 함)
+  /*
+  const defaultTitle = locales[language]?.["newChat"] || "New Conversation";
+  const isFirstUserMessage =
+    messages.filter((m) => m.id !== "initial").length === 0;
+  const currentConvo = currentConversationId
+    ? conversations.find((c) => c.id === currentConversationId)
+    : null;
+  const needsTitleUpdate =
+    isFirstUserMessage &&
+    textForUser &&
+    (!currentConvo || currentConvo.title === defaultTitle);
+  */
+
+  if (textForUser) {
+    await addMessage("user", { text: textForUser });
+  }
+
+  const conversationIdForBotResponse = get().currentConversationId;
+
+  if (!conversationIdForBotResponse) {
+    console.error("[handleResponse] Failed to determine conversationId for bot response.");
+    set({ isLoading: false });
+    return;
+  }
+
+  // 👇 [수정] 제목 업데이트 호출 제거
+  /*
+  if (needsTitleUpdate) {
+    const newTitle = textForUser.substring(0, 100);
+    await updateConversationTitle(conversationIdForBotResponse, newTitle);
+  }
+  */
+
+  // 말풍선 표시 여부 결정 (커스텀 액션 등은 숨김)
+  const isCustomAction = messagePayload.text === "GET_SCENARIO_LIST"; 
+  const shouldShowBubble = !isCustomAction;
+
+  const thinkingText = locales[language]?.["statusRequesting"] || "Requesting...";
+  const tempBotMessageId = `temp_pending_${conversationIdForBotResponse}_${Date.now()}`;
+  const tempBotMessage = {
+    id: tempBotMessageId,
+    sender: "bot",
+    text: thinkingText,
+    isStreaming: true,
+    feedback: null,
+  };
+
+  // 조건부로 임시 메시지 및 pending 상태 추가
+  if (shouldShowBubble) {
+    set((state) => ({
+      messages: [...state.messages, tempBotMessage],
+      pendingResponses: new Set(state.pendingResponses).add(conversationIdForBotResponse),
+    }));
+  }
+
+  let lastBotMessageId = tempBotMessageId;
+  let finalStreamText = "";
+  let isStream = false;
+  let titleUpdated = false;
+
+  const updateTitleIfDefault = async (conversationId, question) => {
+    if (titleUpdated || !conversationId) return;
+    const trimmed = (question || "").trim();
+    if (!trimmed) return;
+    titleUpdated = true;
+    try {
+      const currentResponse = await apiFetch(
+        `${API_BASE_URL}/conversations/${conversationId}`
+      );
+      if (!currentResponse.ok) return;
+      const currentData = await currentResponse.json();
+      const currentTitle = currentData?.title || DEFAULT_TITLE;
+      if (currentTitle !== DEFAULT_TITLE) return;
+      const nextTitle = trimmed.length > 100 ? trimmed.slice(0, 100) : trimmed;
+      await apiFetch(`${API_BASE_URL}/conversations/${conversationId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: nextTitle }),
+      });
+      queryClient.invalidateQueries({ queryKey: ["conversations"] });
+    } catch (error) {
+      console.warn("[handleResponse] Failed to update conversation title:", error);
+    }
+  };
+
+  // 20초 타임아웃 설정
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => {
+    controller.abort();
+  }, 20000);
+
+  try {
+    let response;
+
+    if (useFastApi) {
+      console.log(`[handleResponse] Using FastAPI Backend: ${FASTAPI_URL}`);
+      response = await apiFetch(FASTAPI_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          conversation_id: conversationIdForBotResponse,
+          content: messagePayload.text,
+          language: language,
+          slots: get().slots, // 기존 슬롯 전달
+        }),
+        signal: controller.signal,
+      });
+    } else {
+      // 기존 Firebase API 호출
+      response = await apiFetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: { text: messagePayload.text },
+          scenarioState: null,
+          slots: get().slots,
+          language: language,
+          llmProvider: llmProvider,
+          flowiseApiUrl: get().flowiseApiUrl,
+        }),
+        signal: controller.signal,
+      });
+    }
+
+    clearTimeout(timeoutId); // 응답 시작 시 타임아웃 해제
+
+    if (!response.ok) {
+      const errorData = await response
+        .json()
+        .catch(() => ({ message: `Server error: ${response.status}` }));
+      throw new Error(errorData.message || `Server error: ${response.status}`);
+    }
+
+    if (response.headers.get("Content-Type")?.includes("text/event-stream")) {
+      isStream = true;
+      console.log("[handleResponse] Processing text/event-stream response.");
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let streamProcessor;
+
+      if (llmProvider === "flowise")
+        streamProcessor = processFlowiseStream(reader, decoder, language);
+      else
+        throw new Error(
+          `Unsupported LLM provider for streaming: ${llmProvider}`
+        );
+
+      for await (const result of streamProcessor) {
+        if (conversationIdForBotResponse === get().currentConversationId) {
+          if (
+            result.type === "text" ||
+            result.type === "button" ||
+            result.type === "chart"
+          ) {
+            updateLastMessage(result);
+          }
+        }
+        if (result.type === "slots") setExtractedSlots(result.data);
+        else if (
+          result.type === "metadata_question" &&
+          !titleUpdated &&
+          conversationIdForBotResponse
+        ) {
+          await updateTitleIfDefault(conversationIdForBotResponse, result.data);
+        }
+        else if (result.type === "rawResponse")
+          set({ llmRawResponse: result.data });
+        else if (result.type === "finalText") finalStreamText = result.data;
+        else if (result.type === "error") throw result.data;
+      }
+    } else {
+      isStream = false;
+      const data = await response.json();
+      set({ llmRawResponse: data });
+
+      // 말풍선을 띄웠던 경우에만 제거 시도
+      if (shouldShowBubble) {
+        set((state) => ({
+          messages: state.messages.filter((m) => m.id !== tempBotMessageId),
+        }));
+      }
+
+      if (data.type === "error") {
+        throw new Error(data.message || "API returned an unknown error.");
+      }
+
+      const handler = responseHandlers[data.type];
+      if (handler) {
+        if (conversationIdForBotResponse === get().currentConversationId) {
+          handler(data, get);
+        } else {
+          set((state) => ({
+            completedResponses: new Set(state.completedResponses).add(
+              conversationIdForBotResponse
+            ),
+          }));
+        }
+      } else {
+        const responseText = data.response || data.text || data.message;
+        if (responseText) {
+          // 일반 텍스트 응답에서 URL 체크
+          checkAndOpenUrl(responseText);
+
+          if (conversationIdForBotResponse === get().currentConversationId) {
+            await addMessage("bot", { text: responseText });
+          } else {
+            const botMessage = {
+              id: `temp_${Date.now()}`,
+              sender: "bot",
+              text: responseText,
+              isStreaming: false,
+              feedback: null,
+            };
+            set((state) => ({
+              completedResponses: new Set(state.completedResponses).add(
+                conversationIdForBotResponse
+              ),
+            }));
+          }
+        } else {
+          console.warn(
+            `[ChatStore] Unhandled non-stream response type or empty response:`,
+            data
+          );
+          await addMessage("bot", {
+            text: locales[language]?.["errorUnexpected"] || "(No content)",
+          });
+        }
+      }
+      set({ isLoading: false });
+    }
+  } catch (error) {
+    console.error("[handleResponse] Error:", error);
+
+    let errorMessage;
+    if (error.name === 'AbortError') {
+        errorMessage = "응답을 찾지 못 했습니다";
+    } else {
+        errorMessage = error.message ||
+          locales[language]?.["errorLLMFail"] ||
+          locales["en"]?.["errorLLMFail"] ||
+          "There was a problem with the response. Please try again later.";
+    }
+
+    const isStillOnSameConversation =
+      conversationIdForBotResponse === get().currentConversationId;
+
+    if (isStillOnSameConversation) {
+      set((state) => {
+        const lastMessageIndex = state.messages.length - 1;
+        const lastMessage = state.messages[lastMessageIndex];
+
+        // 말풍선이 존재하고 스트리밍 중이었다면 교체
+        if (
+          lastMessage &&
+          lastMessage.id === lastBotMessageId &&
+          lastMessage.isStreaming
+        ) {
+          const updatedMessage = {
+            ...lastMessage,
+            text: errorMessage,
+            isStreaming: false,
+          };
+
+          const newSet = new Set(state.pendingResponses);
+          newSet.delete(conversationIdForBotResponse);
+          return {
+            messages: [
+              ...state.messages.slice(0, lastMessageIndex),
+              updatedMessage,
+            ],
+            isLoading: false,
+            pendingResponses: newSet,
+          };
+        }
+
+        // 말풍선이 없었다면 새로 추가
+        addMessage("bot", { text: errorMessage });
+        const newSet = new Set(state.pendingResponses);
+        newSet.delete(conversationIdForBotResponse);
+        return { isLoading: false, pendingResponses: newSet };
+      });
+    } else {
+      set((state) => {
+        const newSet = new Set(state.pendingResponses);
+        newSet.delete(conversationIdForBotResponse);
+        const newCompletedSet = new Set(state.completedResponses);
+        newCompletedSet.add(conversationIdForBotResponse);
+        return {
+          isLoading: false,
+          pendingResponses: newSet,
+          completedResponses: newCompletedSet,
+        };
+      });
+    }
+
+    if (!isStream) {
+      set((state) => {
+        const newSet = new Set(state.pendingResponses);
+        newSet.delete(conversationIdForBotResponse);
+        const newCompletedSet = new Set(state.completedResponses);
+        newCompletedSet.add(conversationIdForBotResponse);
+        return {
+          isLoading: false,
+          pendingResponses: newSet,
+          completedResponses: newCompletedSet,
+        };
+      });
+    }
+  } finally {
+    if (isStream) {
+      const isStillOnSameConversation =
+        conversationIdForBotResponse === get().currentConversationId;
+
+      if (isStillOnSameConversation) {
+        set((state) => {
+          const lastMessageIndex = state.messages.length - 1;
+          const lastMessage = state.messages[lastMessageIndex];
+
+          if (
+            lastMessage &&
+            lastMessage.id === lastBotMessageId &&
+            lastMessage.isStreaming
+          ) {
+             const finalText =
+              (llmProvider === "flowise" ? finalStreamText : lastMessage.text) ||
+              "";
+            const finalMessageText =
+              finalText.trim() === "" ||
+              finalText.trim() === thinkingText.trim()
+                ? locales[language]?.["errorLLMFail"] ||
+                  "(Response failed. Please try again later.)"
+                : finalText;
+            
+            checkAndOpenUrl(finalMessageText);
+
+            const finalMessage = {
+              ...lastMessage,
+              text: finalMessageText,
+              isStreaming: false,
+              feedback: null,
+            };
+
+            const newSet = new Set(state.pendingResponses);
+            newSet.delete(conversationIdForBotResponse);
+            return {
+              messages: [
+                ...state.messages.slice(0, lastMessageIndex),
+                finalMessage,
+              ],
+              isLoading: false,
+              pendingResponses: newSet,
+            };
+          }
+           const newSet = new Set(state.pendingResponses);
+          newSet.delete(conversationIdForBotResponse);
+          if (state.isLoading) return { isLoading: false, pendingResponses: newSet };
+          return {};
+        });
+      } else {
+         set((state) => {
+             if (finalStreamText) {
+                 checkAndOpenUrl(finalStreamText);
+             }
+             const newSet = new Set(state.pendingResponses);
+            newSet.delete(conversationIdForBotResponse);
+            return {
+                isLoading: false,
+                pendingResponses: newSet,
+            };
+         });
+      }
+    }
+  }
+}

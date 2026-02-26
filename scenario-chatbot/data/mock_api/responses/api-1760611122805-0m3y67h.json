@@ -1,0 +1,8 @@
+{
+  "mock": true,
+  "node_id": "api-1760611122805-0m3y67h",
+  "url": "http://202.20.84.65:8080/oceans/api/agt/agt9001/searchVvdInfoList",
+  "result": {
+    "vvdInfo": {}
+  }
+}

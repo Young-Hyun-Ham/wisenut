@@ -1,0 +1,148 @@
+{
+  "nodes": [
+    {
+      "id": "message-1766973433074-hqoj5og",
+      "type": "message",
+      "position": {
+        "x": -491.0000000000001,
+        "y": 12.999999999999986
+      },
+      "data": {
+        "id": "message-1766973433074-hqoj5og",
+        "content": "분기 테스트 시작",
+        "replies": [],
+        "chainNext": false
+      },
+      "width": 252,
+      "height": 217,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": -491.0000000000001,
+        "y": 12.999999999999986
+      }
+    },
+    {
+      "id": "branch-1766973446589-q9d1pfh",
+      "type": "branch",
+      "position": {
+        "x": -39,
+        "y": -17.000000000000014
+      },
+      "data": {
+        "id": "branch-1766973446589-q9d1pfh",
+        "evaluationType": "BUTTON",
+        "conditions": [
+          {
+            "id": "cond-1766973446589",
+            "slot": "",
+            "operator": "==",
+            "value": "",
+            "valueType": "value"
+          }
+        ],
+        "replies": [
+          {
+            "display": "1번 버튼",
+            "value": "cond_1766973446589"
+          },
+          {
+            "display": "2번 버튼",
+            "value": "cond_1766973458673-399k6bv"
+          }
+        ],
+        "content": "버튼을 눌러보세요"
+      },
+      "width": 252,
+      "height": 291,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -39,
+        "y": -17.000000000000014
+      },
+      "dragging": false
+    },
+    {
+      "id": "message-1766973469667-up4yays",
+      "type": "message",
+      "position": {
+        "x": 332.00000000000006,
+        "y": -90.00000000000003
+      },
+      "data": {
+        "id": "message-1766973469667-up4yays",
+        "content": "1번 버튼을 눌렀군요",
+        "replies": [],
+        "chainNext": false
+      },
+      "width": 252,
+      "height": 217,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 332.00000000000006,
+        "y": -90.00000000000003
+      },
+      "dragging": false
+    },
+    {
+      "id": "message-1766973474436-pkzy56j",
+      "type": "message",
+      "position": {
+        "x": 331.00000000000006,
+        "y": 173.00000000000006
+      },
+      "data": {
+        "id": "message-1766973474436-pkzy56j",
+        "content": "2번 버튼을 눌렀군요",
+        "replies": [],
+        "chainNext": false
+      },
+      "width": 252,
+      "height": 217,
+      "selected": true,
+      "positionAbsolute": {
+        "x": 331.00000000000006,
+        "y": 173.00000000000006
+      },
+      "dragging": false
+    }
+  ],
+  "lastUsedAt": null,
+  "startNodeId": null,
+  "edges": [
+    {
+      "source": "message-1766973433074-hqoj5og",
+      "sourceHandle": null,
+      "target": "branch-1766973446589-q9d1pfh",
+      "targetHandle": null,
+      "id": "reactflow__edge-message-1766973433074-hqoj5og-branch-1766973446589-q9d1pfh"
+    },
+    {
+      "source": "branch-1766973446589-q9d1pfh",
+      "sourceHandle": "cond_1766973446589",
+      "target": "message-1766973469667-up4yays",
+      "targetHandle": null,
+      "id": "reactflow__edge-branch-1766973446589-q9d1pfhcond_1766973446589-message-1766973469667-up4yays"
+    },
+    {
+      "source": "branch-1766973446589-q9d1pfh",
+      "sourceHandle": "cond_1766973458673-399k6bv",
+      "target": "message-1766973474436-pkzy56j",
+      "targetHandle": null,
+      "id": "reactflow__edge-branch-1766973446589-q9d1pfhcond_1766973458673-399k6bv-message-1766973474436-pkzy56j"
+    }
+  ],
+  "updatedAt": {
+    "type": "firestore/timestamp/1.0",
+    "seconds": 1766973498,
+    "nanoseconds": 538000000
+  },
+  "createdAt": {
+    "type": "firestore/timestamp/1.0",
+    "seconds": 1766973430,
+    "nanoseconds": 685000000
+  },
+  "name": "circlebell_test",
+  "job": "Process",
+  "description": ""
+}

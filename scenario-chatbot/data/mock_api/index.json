@@ -1,0 +1,14 @@
+{
+  "http://202.20.84.65:8080/oceans/api/agt/agt9001/checkBkgCntrSts": "responses/api-1758268293735-8qwr58l.json",
+  "http://202.20.84.65:8080/oceans/api/agt/agt9001/udcBiz": "responses/api-1760418742666-fkzjojp.json",
+  "http://202.20.84.65:8080/oceans/api/agt/agt9001/searchVvdInfoList": "responses/api-1760611122805-0m3y67h.json",
+  "http://202.20.84.65:8080/oceans/api/agt/agt9001/searchBkgInfo": "responses/api-1760665507699-hfevj86.json",
+  "http://202.20.84.65:8080/oceans/api/agt/agt9001/bkgVesselChange": "responses/api-1760925258003-mrxtbcu.json",
+  "http://202.20.84.65:8080/oceans/api/agt/agt9001/sendMail": "responses/api-1761026338422-n08ttz1.json",
+  "http://202.20.84.65:8080/oceans/api/agt/agt9001/verifyJobOrder": "responses/api-1761785382118-ghtm7lq.json",
+  "http://202.20.84.65:8080/oceans/api/agt/agt9001/calculateAmount": "responses/api-1761787525968-ugv3rbq.json",
+  "http://202.20.84.65:8080/oceans/api/agt/agt9001/issueJobOrder": "responses/api-1761787825778-wk07ext.json",
+  "http://202.20.84.65:8080/oceans/api/agt/agt9001/createBlCharge": "responses/api-1761813655660-ve31lfz.json",
+  "http://202.20.84.65:8080/oceans/api/rpa/bcma004/execUiPathRpaManual": "responses/api-1762332799109-i7h3o9u.json",
+  "http://202.20.84.65:8080/oceans/api/agt/agt9001/searchCargoTrackingInfo": "responses/api-1762405523724-spbuhjy.json"
+}

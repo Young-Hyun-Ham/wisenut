@@ -1,0 +1,28 @@
+
+services:
+  # 프론트엔드 서비스의 환경 변수를 덮어씁니다.
+  chatbot-admin:
+    environment:
+      VITE_ADMIN_BACKEND_URL: http://localhost:8080
+
+  # 트래픽을 관찰할 mitmproxy 서비스를 추가합니다.
+  mitmproxy:
+    image: mitmproxy/mitmproxy:10.2.4
+    container_name: mitmproxy
+    # 명령어:
+    # - mitmweb: 웹 UI를 실행합니다.
+    # - --web-host 0.0.0.0: 모든 IP에서 웹 UI 접근을 허용합니다.
+    # - --web-port 8081: 웹 UI 포트를 8081로 설정합니다.
+    # - --listen-port 8080: 프록시 서버 포트를 8080으로 설정합니다.
+    # - --mode reverse:http://chatbot-backend:8083: 8080 포트로 들어온 모든 요청을 chatbot-backend:8083으로 전달합니다.
+    command: >
+      mitmweb
+        --web-host 0.0.0.0 --web-port 8081
+        --listen-port 8080
+        --mode reverse:http://chatbot-admin-backend:8082
+        --set console_eventlog_verbosity=info
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    networks:
+      - default

@@ -1,0 +1,778 @@
+# chatbot-admin-backend OpenAPI (Design First)
+
+## 개요
+- 목적: 제품화용 `chatbot-admin-backend`의 설계 우선(OpenAPI 기반) 개발을 위한 스펙 초안
+- 인증: Bearer JWT (관리자/운영자 권한 포함)
+- 범위: **시나리오/노드/템플릿/설정/운영 데이터 관리**
+- 비고: chatbot-backend와 데몬 분리(서버/배포 분리)
+
+## OpenAPI 스펙 (YAML)
+```yaml
+openapi: 3.0.3
+info:
+  title: Chatbot Admin Backend API
+  version: 0.1.0
+  description: |
+    제품화 대상 chatbot-admin-backend API 설계 초안.
+    - 인증: Bearer JWT (admin role)
+servers:
+  - url: http://localhost:8100
+    description: local
+  - url: https://admin-api.example.com
+    description: production
+
+tags:
+  - name: Auth
+  - name: AdminUsers
+  - name: Scenarios
+  - name: Templates
+  - name: Categories
+  - name: Settings
+  - name: Posts
+  - name: System
+
+security:
+  - bearerAuth: []
+
+paths:
+  /health:
+    get:
+      tags: [System]
+      summary: 헬스 체크
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+
+  /auth/admin-login:
+    post:
+      tags: [Auth]
+      summary: 관리자 로그인(정식 인증 연계)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TokenResponse"
+
+  /admin/users:
+    get:
+      tags: [AdminUsers]
+      summary: 사용자 목록 조회(관리자)
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 50
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+
+  /scenarios:
+    get:
+      tags: [Scenarios]
+      summary: 시나리오 목록 조회(관리자)
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ScenarioSummary"
+
+    post:
+      tags: [Scenarios]
+      summary: 시나리오 생성
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScenarioDetail"
+      responses:
+        "201":
+          description: 생성됨
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScenarioDetail"
+
+  /scenarios/{scenarioId}:
+    get:
+      tags: [Scenarios]
+      summary: 시나리오 상세 조회(관리자)
+      parameters:
+        - name: scenarioId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScenarioDetail"
+
+    patch:
+      tags: [Scenarios]
+      summary: 시나리오 수정
+      parameters:
+        - name: scenarioId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScenarioDetail"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScenarioDetail"
+
+    delete:
+      tags: [Scenarios]
+      summary: 시나리오 삭제
+      parameters:
+        - name: scenarioId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: 삭제됨
+
+  /scenarios/{scenarioId}/clone:
+    post:
+      tags: [Scenarios]
+      summary: 시나리오 복제
+      parameters:
+        - name: scenarioId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        "201":
+          description: 생성됨
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScenarioDetail"
+
+  /scenarios/{scenarioId}/rename:
+    post:
+      tags: [Scenarios]
+      summary: 시나리오 이름 변경
+      parameters:
+        - name: scenarioId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScenarioDetail"
+
+  /templates/api:
+    get:
+      tags: [Templates]
+      summary: API 템플릿 목록 조회
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Template"
+
+    post:
+      tags: [Templates]
+      summary: API 템플릿 생성
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Template"
+      responses:
+        "201":
+          description: 생성됨
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Template"
+
+  /templates/api/{templateId}:
+    patch:
+      tags: [Templates]
+      summary: API 템플릿 수정
+      parameters:
+        - name: templateId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Template"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Template"
+
+    delete:
+      tags: [Templates]
+      summary: API 템플릿 삭제
+      parameters:
+        - name: templateId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: 삭제됨
+
+  /templates/form:
+    get:
+      tags: [Templates]
+      summary: 폼 템플릿 목록 조회
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Template"
+
+    post:
+      tags: [Templates]
+      summary: 폼 템플릿 생성
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Template"
+      responses:
+        "201":
+          description: 생성됨
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Template"
+
+  /templates/form/{templateId}:
+    patch:
+      tags: [Templates]
+      summary: 폼 템플릿 수정
+      parameters:
+        - name: templateId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Template"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Template"
+
+    delete:
+      tags: [Templates]
+      summary: 폼 템플릿 삭제
+      parameters:
+        - name: templateId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: 삭제됨
+
+  /scenario-categories:
+    get:
+      tags: [Categories]
+      summary: 시나리오 카테고리 조회
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ScenarioCategory"
+
+    put:
+      tags: [Categories]
+      summary: 시나리오 카테고리 저장
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/ScenarioCategory"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  updated:
+                    type: boolean
+                    example: true
+
+  /settings/global:
+    get:
+      tags: [Settings]
+      summary: 글로벌 설정 조회
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Settings"
+
+  /settings/node-colors:
+    get:
+      tags: [Settings]
+      summary: 노드 색상 조회
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NodeColorSettings"
+    put:
+      tags: [Settings]
+      summary: 노드 색상 저장
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NodeColorSettings"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NodeColorSettings"
+
+  /settings/node-text-colors:
+    get:
+      tags: [Settings]
+      summary: 노드 텍스트 색상 조회
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NodeTextColorSettings"
+    put:
+      tags: [Settings]
+      summary: 노드 텍스트 색상 저장
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NodeTextColorSettings"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NodeTextColorSettings"
+
+  /settings/node-visibility:
+    get:
+      tags: [Settings]
+      summary: 노드 표시 설정 조회
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NodeVisibilitySettings"
+    put:
+      tags: [Settings]
+      summary: 노드 표시 설정 저장
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NodeVisibilitySettings"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NodeVisibilitySettings"
+
+  /posts:
+    get:
+      tags: [Posts]
+      summary: 게시글 목록 조회
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Post"
+    post:
+      tags: [Posts]
+      summary: 게시글 생성
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostCreate"
+      responses:
+        "201":
+          description: 생성됨
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+
+  /posts/{postId}:
+    patch:
+      tags: [Posts]
+      summary: 게시글 수정
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostUpdate"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+    delete:
+      tags: [Posts]
+      summary: 게시글 삭제
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: 삭제됨
+
+  /files:
+    post:
+      tags: [Posts]
+      summary: 파일 업로드
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "201":
+          description: 업로드됨
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FileUploadResponse"
+
+  /files/{fileId}:
+    delete:
+      tags: [Posts]
+      summary: 파일 삭제
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: 삭제됨
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+
+    TokenResponse:
+      type: object
+      properties:
+        user:
+          $ref: "#/components/schemas/User"
+        access_token:
+          type: string
+        expires_in:
+          type: integer
+
+    ScenarioSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+
+    ScenarioDetail:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        nodes:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+
+    ScenarioCategory:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        subCategories:
+          type: array
+          items:
+            $ref: "#/components/schemas/ScenarioSubCategory"
+
+    ScenarioSubCategory:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/ScenarioSummary"
+
+    Template:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        nodes:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+
+    Settings:
+      type: object
+      properties:
+        theme:
+          type: string
+          example: light
+        locale:
+          type: string
+          example: ko
+        llmProvider:
+          type: string
+          example: flowise
+    NodeColorSettings:
+      type: object
+      properties:
+        colors:
+          type: object
+          additionalProperties:
+            type: string
+    NodeTextColorSettings:
+      type: object
+      properties:
+        colors:
+          type: object
+          additionalProperties:
+            type: string
+    NodeVisibilitySettings:
+      type: object
+      properties:
+        visibleNodeTypes:
+          type: array
+          items:
+            type: string
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+        author:
+          type: string
+        authorId:
+          type: string
+        authorPhotoURL:
+          type: string
+        text:
+          type: string
+        fileUrl:
+          type: string
+        fileName:
+          type: string
+        fileType:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+    PostCreate:
+      type: object
+      properties:
+        text:
+          type: string
+        fileId:
+          type: string
+    PostUpdate:
+      type: object
+      properties:
+        text:
+          type: string
+    FileUploadResponse:
+      type: object
+      properties:
+        fileId:
+          type: string
+        fileUrl:
+          type: string
+```

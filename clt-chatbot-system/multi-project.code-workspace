@@ -1,0 +1,10 @@
+{
+	"folders": [
+		{"path": "."},
+		{"path": "./01.workspaces/apps/chatbot-front"},
+		{"path": "./01.workspaces/apps/chatbot-backend"},
+		{"path": "./01.workspaces/apps/chatbot-admin"},
+		{"path": "./01.workspaces/apps/chatbot-admin-backend"}
+	],
+	"settings": {}
+}

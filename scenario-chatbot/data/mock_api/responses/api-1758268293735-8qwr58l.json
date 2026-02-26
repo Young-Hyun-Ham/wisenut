@@ -1,0 +1,11 @@
+{
+  "mock": true,
+  "node_id": "api-1758268293735-8qwr58l",
+  "url": "http://202.20.84.65:8080/oceans/api/agt/agt9001/checkBkgCntrSts",
+  "result": {
+    "sailingDtCondition": "sailingDtCondition",
+    "cntrCondition": "dummy-cntrCondition",
+    "contMvtSts": "dummy-contMvtSts",
+    "contNr": "dummy-contNr"
+  }
+}
