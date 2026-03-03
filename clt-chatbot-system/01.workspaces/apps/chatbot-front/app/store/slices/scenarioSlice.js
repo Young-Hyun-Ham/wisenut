@@ -7,7 +7,11 @@ const FASTAPI_BASE_URL =
   process.env.API_BASE_URL || "http://localhost:8000";
 
 const parseSseEvents = (rawText) => {
-  const blocks = rawText
+  if (!rawText || typeof rawText !== "string") return [];
+
+  // 브라우저/프록시 환경에 따라 CRLF(\r\n)로 내려올 수 있어 정규화한다.
+  const normalized = rawText.replace(/\r\n/g, "\n");
+  const blocks = normalized
     .split("\n\n")
     .map((block) => block.trim())
     .filter(Boolean);
@@ -15,8 +19,15 @@ const parseSseEvents = (rawText) => {
   return blocks
     .map((block) => {
       const lines = block.split("\n");
-      const event = lines.find((line) => line.startsWith("event:"))?.slice(6).trim();
-      const dataLine = lines.filter((line) => line.startsWith("data:")).map((line) => line.slice(5).trim()).join("\n");
+      const event = lines
+        .find((line) => line.startsWith("event:"))
+        ?.slice(6)
+        .trim();
+      const dataLine = lines
+        .filter((line) => line.startsWith("data:"))
+        .map((line) => line.slice(5).trim())
+        .join("\n")
+        .trim();
       return { event, data: dataLine };
     })
     .filter((item) => item.event === "message" && item.data);
@@ -74,6 +85,10 @@ const callLangGraph = async (scenarioId, conversationId, userAction = null) => {
 
   const sseText = await response.text();
   const parsedEvents = parseSseEvents(sseText);
+  if (parsedEvents.length === 0) {
+    console.warn("[callLangGraph] SSE message 이벤트가 파싱되지 않았습니다.", sseText);
+  }
+
   const outputs = parsedEvents
     .map((evt) => {
       try {

@@ -42,22 +42,28 @@ const extractScenarioItems = (scenarios) => {
   return items;
 };
 
-const getScenarioIdByTitle = (scenarios, title) => {
+const resolveScenarioId = (scenarios, scenarioRef) => {
   const items = extractScenarioItems(scenarios);
   if (items.length === 0) {
     console.warn(
-      `[handleShortcutClick] Scenario list is empty while matching title: ${title}`
+      `[handleShortcutClick] Scenario list is empty while matching ref: ${scenarioRef}`
     );
     return null;
   }
-  const matches = items.filter((item) => item.title === title);
-  if (matches.length > 1) {
+
+  // 1) shortcut value가 이미 scenario id인 경우 우선 매칭
+  const byId = items.find((item) => item.id === scenarioRef);
+  if (byId?.id) return byId.id;
+
+  // 2) 구버전 데이터 호환: value가 title인 경우 title 매칭
+  const byTitleMatches = items.filter((item) => item.title === scenarioRef);
+  if (byTitleMatches.length > 1) {
     console.warn(
-      `[handleShortcutClick] Duplicate scenario title detected: ${title}`,
-      matches
+      `[handleShortcutClick] Duplicate scenario title detected: ${scenarioRef}`,
+      byTitleMatches
     );
   }
-  return matches[0]?.id || null;
+  return byTitleMatches[0]?.id || null;
 };
 
 // 초기 메시지 함수 (chatSlice가 관리)
@@ -391,7 +397,7 @@ export const createChatSlice = (set, get) => {
           return;
         }
 
-        const mappedScenarioId = getScenarioIdByTitle(
+        const mappedScenarioId = resolveScenarioId(
           scenarios,
           scenarioTitle
         );
