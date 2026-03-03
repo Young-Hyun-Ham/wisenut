@@ -14,7 +14,7 @@ from .base import Base
 class User(Base):
     __tablename__ = "user"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(String, primary_key=True)
     email = Column(String)
     name = Column(String, nullable=False)
     role = Column(String, nullable=False, default="user")
@@ -26,7 +26,7 @@ class User(Base):
 class Conversation(Base):
     __tablename__ = "conversation"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(String, primary_key=True)
     user_id = Column(UUID(as_uuid=True), ForeignKey("user.id"))
     title = Column(String)
     pinned = Column(Boolean, nullable=False, default=False)
@@ -37,7 +37,7 @@ class Conversation(Base):
 class Message(Base):
     __tablename__ = "message"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(String, primary_key=True)
     conversation_id = Column(UUID(as_uuid=True), ForeignKey("conversation.id"))
     user_id = Column(UUID(as_uuid=True), ForeignKey("user.id"))
     sender = Column(String, nullable=False)
@@ -51,7 +51,7 @@ class Message(Base):
 class Scenario(Base):
     __tablename__ = "scenario"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(String, primary_key=True)
     name = Column(String, nullable=False)
     description = Column(Text)
     job = Column(String)
@@ -67,7 +67,7 @@ class ScenarioSession(Base):
     __tablename__ = "scenario_session"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
-    scenario_id = Column(UUID(as_uuid=True), ForeignKey("scenario.id"))
+    scenario_id = Column(String, ForeignKey("scenario.id"))
     user_id = Column(UUID(as_uuid=True), ForeignKey("user.id"))
     conversation_id = Column(UUID(as_uuid=True), ForeignKey("conversation.id"))
     status = Column(String)
@@ -82,7 +82,7 @@ class ScenarioSession(Base):
 class Notification(Base):
     __tablename__ = "notification"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(String, primary_key=True)
     user_id = Column(UUID(as_uuid=True), ForeignKey("user.id"))
     conversation_id = Column(UUID(as_uuid=True), ForeignKey("conversation.id"))
     scenario_session_id = Column(UUID(as_uuid=True), ForeignKey("scenario_session.id"))
