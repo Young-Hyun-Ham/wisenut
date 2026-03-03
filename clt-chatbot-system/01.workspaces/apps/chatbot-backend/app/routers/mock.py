@@ -121,6 +121,7 @@ def _serialize_session(session: ScenarioSession) -> Dict[str, Any]:
         "state": session.context or {},
         "slots": session.slots or {},
         "status": session.status,
+        "messages": session.messages or [],
         "created_at": session.started_at.isoformat() if session.started_at else None,
         "updated_at": session.last_active_at.isoformat()
         if session.last_active_at
@@ -245,6 +246,7 @@ def create_scenario_session(
         status="starting",
         slots=slots,
         context={},
+        messages=[],
         started_at=now,
         last_active_at=now,
     )
@@ -279,6 +281,8 @@ def update_scenario_session(
         session.slots = payload.get("slots")
     if "status" in payload:
         session.status = payload.get("status")
+    if "messages" in payload:
+        session.messages = payload.get("messages") or []
     session.last_active_at = datetime.now(timezone.utc)
     db.commit()
     db.refresh(session)
@@ -360,6 +364,7 @@ def create_scenario_event(
     return {
         **result,
         "status": session.status,
+        "messages": session.messages or [],
         "sessionId": str(session.id),
         "created_at": now_iso(),
     }

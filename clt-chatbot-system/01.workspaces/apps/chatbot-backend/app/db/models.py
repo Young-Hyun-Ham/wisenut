@@ -74,6 +74,7 @@ class ScenarioSession(Base):
     current_node_id = Column(String)
     slots = Column(JSONB)
     context = Column(JSONB)
+    messages = Column(JSONB, nullable=False, server_default=text("'[]'::jsonb"))
     started_at = Column(DateTime(timezone=True))
     last_active_at = Column(DateTime(timezone=True))
     ended_at = Column(DateTime(timezone=True))
