@@ -6,6 +6,87 @@ import { getErrorKey } from "../../lib/errorHandler";
 const FASTAPI_BASE_URL =
   process.env.API_BASE_URL || "http://localhost:8000";
 
+const parseSseEvents = (rawText) => {
+  const blocks = rawText
+    .split("\n\n")
+    .map((block) => block.trim())
+    .filter(Boolean);
+
+  return blocks
+    .map((block) => {
+      const lines = block.split("\n");
+      const event = lines.find((line) => line.startsWith("event:"))?.slice(6).trim();
+      const dataLine = lines.filter((line) => line.startsWith("data:")).map((line) => line.slice(5).trim()).join("\n");
+      return { event, data: dataLine };
+    })
+    .filter((item) => item.event === "message" && item.data);
+};
+
+const mapLangGraphOutputToNode = (output) => {
+  if (!output) return null;
+
+  if (output.type === "interrupt") {
+    const data = output.data || {};
+    if (data.type === "button") {
+      return {
+        id: data.node_id || `branch-${Date.now()}`,
+        type: "branch",
+        data: {
+          evaluationType: "BUTTON",
+          replies: data.replies || [],
+        },
+      };
+    }
+
+    if (data.type === "form") {
+      return {
+        id: data.node_id || `form-${Date.now()}`,
+        type: "form",
+        data: data.data || {},
+      };
+    }
+
+    return null;
+  }
+
+  if (!output.type) return null;
+  return {
+    id: output.data?.id || `${output.type}-${Date.now()}`,
+    type: output.type,
+    data: output.data || {},
+  };
+};
+
+const callLangGraph = async (scenarioId, conversationId, userAction = null) => {
+  const response = await apiFetch(`${FASTAPI_BASE_URL}/langgraph/chat/${scenarioId}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      conversation_id: conversationId,
+      user_action: userAction,
+    }),
+  });
+
+  if (!response.ok) {
+    const message = await response.text();
+    throw new Error(message || "Failed to call langgraph endpoint.");
+  }
+
+  const sseText = await response.text();
+  const parsedEvents = parseSseEvents(sseText);
+  const outputs = parsedEvents
+    .map((evt) => {
+      try {
+        return JSON.parse(evt.data)?.output;
+      } catch {
+        return null;
+      }
+    })
+    .filter(Boolean);
+
+  return outputs;
+};
+
 export const createScenarioSlice = (set, get) => ({
   scenarioStates: {},
   activeScenarioSessionId: null,
@@ -138,96 +219,42 @@ export const createScenarioSlice = (set, get) => ({
         setActivePanel("scenario", newScenarioSessionId);
       }, 100);
 
-      const response = await apiFetch(`${FASTAPI_BASE_URL}/scenario-sessions/${newScenarioSessionId}/events`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            message: { text: scenarioId },
-            scenarioSessionId: newScenarioSessionId,
-            slots: initialSlots,
-            language: language,
-          }),
+      const outputs = await callLangGraph(scenarioId, conversationId);
+      const messages = [];
+      const ended = outputs.length > 0 && outputs[outputs.length - 1]?.type !== "interrupt";
+      const latestNode = mapLangGraphOutputToNode(outputs[outputs.length - 1]);
+
+      outputs.forEach((output) => {
+        const mappedNode = mapLangGraphOutputToNode(output);
+        if (!mappedNode || mappedNode.type === "setSlot" || mappedNode.type === "set-slot" || mappedNode.type === "delay" || mappedNode.type === "api") {
+          return;
         }
-      );
-      if (!response.ok) {
-        const errorData = await response
-          .json()
-          .catch(() => ({ message: `Server error: ${response.statusText}` }));
-        throw new Error(
-          errorData.message || `Server error: ${response.statusText}`
-        );
-      }
-      const data = await response.json();
-
-      handleEvents(data.events, newScenarioSessionId, conversationId);
-
-      let updatePayload = {};
-
-      if (data.type === "scenario_start" || data.type === "scenario") {
-        updatePayload.slots = { ...initialSlots, ...(data.slots || {}) };
-        updatePayload.messages = [];
-        updatePayload.state = null;
-
-        if (data.nextNode) {
-          if (data.nextNode.type !== "setSlot" && data.nextNode.type !== "set-slot") {
-            updatePayload.messages.push({
-              id: data.nextNode.id,
-              sender: "bot",
-              node: data.nextNode,
-            });
-          }
-          const isFirstNodeSlotFillingOrForm =
-            data.nextNode.type === "slotfilling" ||
-            data.nextNode.type === "form" ||
-            (data.nextNode.type === "branch" &&
-              data.nextNode.data?.evaluationType !== "CONDITION");
-          updatePayload.state = {
-            scenarioId: scenarioId,
-            currentNodeId: data.nextNode.id,
-            awaitingInput: isFirstNodeSlotFillingOrForm,
-          };
-        } else if (data.message) {
-          updatePayload.messages.push({
-            id: "end-message",
-            sender: "bot",
-            text: data.message,
-          });
-          updatePayload.status = data.status || "completed";
-        }
-        updatePayload.status = data.status || "active";
-
-        get()._updateScenarioState(newScenarioSessionId, {
-          scenarioId,
-          messages: updatePayload.messages,
-          slots: updatePayload.slots,
-          state: updatePayload.state,
-          status: updatePayload.status,
+        messages.push({
+          id: mappedNode.id,
+          sender: "bot",
+          node: mappedNode,
         });
+      });
 
-        await updateScenarioSession(newScenarioSessionId, updatePayload);
+      const updatePayload = {
+        messages,
+        slots: initialSlots,
+        state: ended
+          ? null
+          : {
+              scenarioId,
+              currentNodeId: latestNode?.id,
+              awaitingInput: true,
+            },
+        status: ended ? "completed" : "active",
+      };
 
-        if (
-          data.nextNode &&
-          data.nextNode.type !== "slotfilling" &&
-          data.nextNode.type !== "form" &&
-          !(
-            data.nextNode.type === "branch" &&
-            data.nextNode.data?.evaluationType !== "CONDITION"
-          )
-        ) {
-          await get().continueScenarioIfNeeded(
-            data.nextNode,
-            newScenarioSessionId,
-            data.scenarioState,
-            data.slots
-          );
-        }
-      } else if (data.type === "error") {
-        throw new Error(data.message || "Failed to start scenario from API.");
-      } else {
-        throw new Error(`Unexpected response type from API: ${data.type}`);
-      }
+      get()._updateScenarioState(newScenarioSessionId, {
+        scenarioId,
+        ...updatePayload,
+      });
+
+      await updateScenarioSession(newScenarioSessionId, updatePayload);
     } catch (error) {
       console.error(`Error opening scenario panel for ${scenarioId}:`, error);
       const errorKey = getErrorKey(error);
@@ -440,70 +467,45 @@ export const createScenarioSlice = (set, get) => ({
             }
         }
 
-        const scenarioStateToSend = payload.scenarioState ?? currentScenario.state;
         const baseSlots = payload.slots ?? currentScenario.slots ?? {};
-        const response = await apiFetch(`${FASTAPI_BASE_URL}/scenario-sessions/${scenarioSessionId}/events`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              message: {
-                sourceHandle: payload.sourceHandle,
-                text: payload.userInput
-              },
-              scenarioState: scenarioStateToSend,
-              slots: { ...baseSlots, ...(payload.formData || {}) },
-              language: language,
-              scenarioSessionId: scenarioSessionId,
-            }),
-        });
-        if (!response.ok) {
-            const errorData = await response.json().catch(() => ({ message: `Server error: ${response.statusText}` }));
-            throw new Error(errorData.message || `Server error: ${response.statusText}`);
-        }
-        const data = await response.json();
+        const userAction = payload.formData || payload.sourceHandle || payload.userInput || null;
+        const outputs = await callLangGraph(currentScenario.scenarioId, currentConversationId, userAction);
+        const latestOutput = outputs[outputs.length - 1];
 
-        handleEvents(data.events, scenarioSessionId, currentConversationId);
-
-        if (data.nextNode && data.nextNode.type !== 'setSlot' && data.nextNode.type !== 'set-slot') {
-            newMessages.push({ id: data.nextNode.id, sender: 'bot', node: data.nextNode });
-        } else if (data.message && data.type !== 'scenario_validation_fail') {
-            newMessages.push({ id: `bot-end-${Date.now()}`, sender: 'bot', text: data.message });
-        }
-
-        let updatePayload = {
-            messages: newMessages,
-        };
-
-        console.log('data.type>>>>>>>>>>>', data.type)
-
-        if (data.type === 'scenario_validation_fail') {
-            showEphemeralToast(data.message, 'error');
-            updatePayload.status = 'active';
-        } else if (data.type === 'scenario_end') {
-            const finalStatus = data.slots?.apiFailed ? 'failed' : 'completed';
-            updatePayload.status = finalStatus;
-            updatePayload.state = null;
-            updatePayload.slots = data.slots || currentScenario.slots;
-            get()._updateScenarioState(scenarioSessionId, {
-                messages: newMessages,
-                slots: updatePayload.slots,
-                state: null,
-                status: finalStatus,
-            });
-            await updateScenarioSession(scenarioSessionId, updatePayload);
-            
-            endScenario(scenarioSessionId, finalStatus); 
-            
+        outputs.forEach((output) => {
+          const mappedNode = mapLangGraphOutputToNode(output);
+          if (!mappedNode || mappedNode.type === 'setSlot' || mappedNode.type === 'set-slot' || mappedNode.type === 'delay' || mappedNode.type === 'api') {
             return;
-        } else if (data.type === 'scenario') {
-            updatePayload.status = 'active';
-            updatePayload.state = data.scenarioState;
-            updatePayload.slots = data.slots || currentScenario.slots;
-        } else if (data.type === 'error') {
-            throw new Error(data.message || "Scenario step failed.");
-        } else {
-            throw new Error(`Unexpected response type from API: ${data.type}`);
+          }
+          newMessages.push({ id: mappedNode.id, sender: 'bot', node: mappedNode });
+        });
+
+        let updatePayload = { messages: newMessages };
+        const isInterrupted = latestOutput?.type === 'interrupt';
+
+        if (!isInterrupted) {
+          updatePayload.status = 'completed';
+          updatePayload.state = null;
+          updatePayload.slots = { ...baseSlots, ...(payload.formData || {}) };
+          get()._updateScenarioState(scenarioSessionId, {
+            messages: newMessages,
+            slots: updatePayload.slots,
+            state: null,
+            status: 'completed',
+          });
+          await updateScenarioSession(scenarioSessionId, updatePayload);
+          endScenario(scenarioSessionId, 'completed');
+          return;
         }
+
+        const latestNode = mapLangGraphOutputToNode(latestOutput);
+        updatePayload.status = 'active';
+        updatePayload.state = {
+          scenarioId: currentScenario.scenarioId,
+          currentNodeId: latestNode?.id,
+          awaitingInput: true,
+        };
+        updatePayload.slots = { ...baseSlots, ...(payload.formData || {}) };
 
         get()._updateScenarioState(scenarioSessionId, {
             messages: newMessages,
@@ -513,20 +515,6 @@ export const createScenarioSlice = (set, get) => ({
         });
 
         await updateScenarioSession(scenarioSessionId, updatePayload);
-
-        if (data.type === 'scenario' && data.nextNode) {
-            const isInteractive = data.nextNode.type === 'slotfilling' ||
-                                  data.nextNode.type === 'form' ||
-                                  (data.nextNode.type === 'branch' && data.nextNode.data?.evaluationType !== 'CONDITION');
-            if (!isInteractive) {
-            await get().continueScenarioIfNeeded(
-              data.nextNode,
-              scenarioSessionId,
-              data.scenarioState,
-              data.slots
-            );
-            }
-        }
 
     } catch (error) {
         console.error(`Error handling scenario response for ${scenarioSessionId}:`, error);

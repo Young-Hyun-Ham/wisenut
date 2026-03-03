@@ -1,5 +1,4 @@
 import json
-
 from functools import lru_cache
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -11,14 +10,15 @@ from langgraph.checkpoint.memory import MemorySaver
 from app.lib.graph_factory import GraphFactory
 from app.lib.graph_registry import GraphRegistry
 from app.lib.scenario_repo import ScenarioNotFound, ScenarioRepository
+from app.db.deps import get_db
+from sqlalchemy.orm import Session
 
 router = APIRouter()
 _last_interrupt_node: dict[str, str] = {}
 
 
-@lru_cache
-def get_scenario_repo() -> ScenarioRepository:
-    return ScenarioRepository()
+def get_scenario_repo(db: Session = Depends(get_db)) -> ScenarioRepository:
+    return ScenarioRepository(db)
 
 
 @lru_cache
