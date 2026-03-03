@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .notifications.bus import NotificationEventBus
 from .notifications.sources import create_pg_notify_source
-from .routers import health, auth, users, mock, notifications, chat, conversations
+from .routers import health, auth, users, mock, notifications, chat, conversations, langgraphChat
 from .middleware.reqres_logger import RequestResponseLoggerMiddleware, _parse_endpoints
 
 app = FastAPI(
@@ -40,6 +40,8 @@ app.include_router(conversations.router)
 app.include_router(mock.router)
 app.include_router(notifications.router)
 app.include_router(chat.router)
+app.include_router(langgraphChat.router)
+
 
 
 @app.on_event("startup")
