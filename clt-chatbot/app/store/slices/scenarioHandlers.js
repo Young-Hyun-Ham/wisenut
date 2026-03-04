@@ -344,6 +344,7 @@ export const createScenarioHandlersSlice = (set, get) => ({
       console.log(`[openScenarioPanel] First node:`, firstNode);
 
       // ✅ [NEW] 시나리오 상태 초기화 (nodes/edges 포함) - 반드시 setActivePanel 전에!
+      const isLangGraphEngine = SCENARIO_ENGINE === 'langgraph';
       set(state => {
         const updatedState = {
           scenarioStates: {
@@ -358,20 +359,22 @@ export const createScenarioHandlersSlice = (set, get) => ({
               start_node_id: firstNodeId,
               status: 'active',
               slots: initialSlots || {},
-              messages: firstNode ? [{
-                id: firstNode.id,
-                sender: 'bot',
-                text: firstNode.data?.content || firstNode.data?.title || '', // 🔴 [NEW] title 폴백 추가
-                node: firstNode,
-                type: 'scenario_message',  // ✅ 메타데이터 추가
-              }] : [],
+              messages: isLangGraphEngine
+                ? []
+                : (firstNode ? [{
+                    id: firstNode.id,
+                    sender: 'bot',
+                    text: firstNode.data?.content || firstNode.data?.title || '', // 🔴 [NEW] title 폴백 추가
+                    node: firstNode,
+                    type: 'scenario_message',  // ✅ 메타데이터 추가
+                  }] : []),
               state: {
                 scenario_id: scenarioId,
-                current_node_id: firstNodeId,
-                awaiting_input: isInteractiveNode(firstNode),
+                current_node_id: isLangGraphEngine ? null : firstNodeId,
+                awaiting_input: isLangGraphEngine ? false : isInteractiveNode(firstNode),
               },
-              isLoading: false,  // ✅ 로딩 상태 해제
-              engine: SCENARIO_ENGINE === 'langgraph' ? 'langgraph' : 'legacy',
+              isLoading: isLangGraphEngine,  // LangGraph는 즉시 stream 호출
+              engine: isLangGraphEngine ? 'langgraph' : 'legacy',
               langgraphThreadId: conversationId,
               pendingInterrupt: null,
             },
