@@ -1,0 +1,1022 @@
+/* cutiefunny/clt-chatbot/clt-chatbot-9973bfd6ea085df5f5470357978fff2421e29109/app/components/Chat.module.css */
+.chatContainer {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.header {
+  background-color: transparent;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-grow: 1;
+}
+
+.headerIcon {
+  width: 38px;
+  height: 38px;
+}
+
+.headerTextContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.headerTitle {
+  font-weight: bold;
+  font-size: 16px;
+  color: var(--text-color); /* Themed */
+  line-height: 1.2;
+  flex-grow: 1;
+}
+
+.scenarioHeaderTitle {
+  font-weight: bold;
+  font-size: 14px;
+  color: var(--text-color); /* Themed */
+  line-height: 1.2;
+  flex-grow: 1;
+}
+
+.headerSubtitle {
+  font-size: 11px;
+  color: #8a8a8e;
+  line-height: 1.2;
+}
+
+.headerButtons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.headerRestartButton {
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 14px; /* 116.667% */
+  letter-spacing: -0.12px;
+  color: var(--Gray-07, #5e7599);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-radius: 8px;
+  border: 1px solid var(--Gray-04, #babcd1);
+  background: var(--White-Opacity-48, rgba(255, 255, 255, 0.48));
+}
+
+.headerCloseButton {
+  padding: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-radius: 100px;
+  background: transparent;
+}
+
+.headerCloseButton:hover {
+  background-color: var(--button-hover-bg);
+}
+
+.headerExpandButton svg {
+  transition: transform 0.2s ease-in-out;
+}
+
+.headerExpandButtonActive svg {
+  transform: rotate(180deg);
+}
+
+.headerRestartButton:hover {
+  background-color: var(--button-hover-bg); /* Themed */
+}
+
+.dangerButton {
+  background-color: #d32f2f;
+  color: white;
+  border-color: #d32f2f;
+}
+.dangerButton:hover {
+  background-color: #b71c1c;
+  border-color: #b71c1c;
+}
+
+.settingControl {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.settingLabel {
+  font-size: 14px;
+  color: var(--text-color);
+  white-space: nowrap;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 20px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+input:checked + .slider {
+  background-color: var(--Purple-03, #634de2);
+}
+input:checked + .slider:before {
+  transform: translateX(14px);
+}
+.separator {
+  width: 1px;
+  height: 16px;
+  background-color: var(--panel-border-color);
+}
+
+.themeToggleButton {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  border: 1px solid var(--Gray-03, #d8e0eb);
+  background: var(--White-Opacity-48, rgba(255, 255, 255, 0.48));
+  cursor: pointer;
+}
+
+.themeControl {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--panel-border-color);
+  border-radius: 8px;
+  padding: 2px;
+}
+.themeButton {
+  padding: 2px 8px;
+  font-size: 0.8rem;
+  background-color: transparent;
+  color: var(--text-color);
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+.themeButton.active {
+  background-color: var(--panel-bg-color);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.history {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  min-width: 480px;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  -webkit-mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
+}
+
+.mainChatDimmed > .messageRow {
+  opacity: 0.4;
+  transition: opacity 0.4s ease-out;
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .history {
+    max-width: 624px;
+  }
+}
+@media (min-width: 768px) {
+  .history {
+    max-width: 736px;
+  }
+}
+@media (min-width: 1024px) {
+  .history {
+    max-width: 896px;
+  }
+}
+@media (min-width: 1280px) {
+  .history {
+    max-width: 1008px;
+  }
+}
+@media (min-width: 1536px) {
+  .history {
+    max-width: 1046px;
+  }
+}
+
+.messageRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.userRow {
+  justify-content: flex-end;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  margin-top: 10px;
+  flex-shrink: 0;
+}
+
+.message {
+  border-radius: 16px;
+  width: fit-content;
+  max-width: 100%;
+  word-wrap: break-word;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  text-align: left;
+  box-shadow: 0 6px 16px 0 #dfe2fe;
+  position: relative;
+}
+
+/* --- 👇 [추가] 3단계 너비 클래스 --- */
+/* 30% 너비 */
+.width30 {
+  width: 30%;
+  min-width: 200px; /* 너무 좁아지는 것 방지 */
+  max-width: 30%;
+}
+
+/* 60% 너비 */
+.width60 {
+  width: 60%;
+  max-width: 60%;
+}
+/* --- 👆 [추가] --- */
+
+/* 100% 단계 (90% 너비) */
+.gridMessage,
+.iframeMessage {
+  width: 100%;
+  max-width: 100%;
+  min-width: 248px;
+  flex: 0 0 100%;
+  box-sizing: border-box;
+}
+
+.botMessage .messageContentWrapper {
+  padding: 16px 20px 16px 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.botMessage .scenarioMessageContentWrapper {
+  padding: 12px 20px;
+  display: flex;
+  gap: 12px;
+}
+
+.botMessage .scenarioFormMessageContentWrapper {
+  gap: 12px;
+}
+
+.botMessage .messageContent {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  margin: 2px 0px;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: -0.14px;
+  /* max-width: calc(100% - 32px); */
+  max-width: 100%;
+  width: 100%;
+}
+
+.botMessage {
+  color: var(--text-color); /* Themed */
+  transition: background-color 0.2s;
+  width: 100%;
+  max-width: 100%;
+}
+
+.botMessageRichContent {
+  width: 100%;
+  max-width: 100%;
+  flex: 0 0 100%;
+  min-width: var(--bot-rich-content-min-width, 0);
+}
+
+.botMessageRichContent .messageContentWrapper,
+.botMessageRichContent .messageContent {
+  width: 100%;
+  min-width: calc(100% - 100px);
+}
+
+.botMessage svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.botMessage .messageActionArea {
+  border-top: 1px solid var(--panel-border-color);
+  padding: 8px 16px;
+  display: flex;
+  gap: 8px;
+}
+
+/* --- 👇 [수정] .actionButton에 color 및 transition 추가 --- */
+.messageActionArea .actionButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s; /* color transition 추가 */
+  color: #babcd1; /* 아이콘 기본 색상 (하드코딩했던 색상) */
+}
+/* --- 👆 [수정] --- */
+
+.messageActionArea .actionButton svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* --- 👇 [수정] .actionButton:hover에 color 추가 --- */
+.messageActionArea .actionButton:hover {
+  background-color: var(--button-hover-bg);
+  color: var(--action-button-hover-color); /* globals.css에 정의된 hover 색상 */
+}
+/* --- 👆 [수정] --- */
+
+.userMessage {
+  padding: 12px 20px;
+  color: var(--White, #fff); /* Themed */
+  border-top-right-radius: 4px;
+  border-radius: var(--2, 16px);
+  background: #8362E9 !important;
+  box-shadow: 0 6px 16px 0 #DFE2FE;
+  font-size: 14px;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
+.copyFeedback {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  animation: fadeInOut 1.5s ease-in-out forwards;
+  pointer-events: none;
+}
+
+.scenarioList {
+  --option-button-min-width: 160px;
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.optionButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  min-width: var(--option-button-min-width, 160px);
+  width: 100%;
+  padding: 12px 16px 12px 24px;
+  border-radius: 12px;
+  border: 1px solid var(--panel-border-color); /* Themed */
+  background-color: rgba(255, 255, 255, 0.1); /* Adjusted for dark mode */
+  color: var(--text-color); /* Themed */
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 14px; /* 116.667% */
+  letter-spacing: -0.12px;
+  transition: background-color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+  text-align: center; /* 버튼 텍스트 중앙 정렬 */
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.optionButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+.optionButtonText {
+  flex-grow: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.optionButton:hover {
+  background-color: #f0f2f5; /* Themed */
+}
+
+.optionButton:disabled {
+  cursor: not-allowed;
+  background-color: var(--button-hover-bg);
+  border-color: var(--panel-border-color);
+}
+.optionButton.selected {
+  border-color: #806bf5;
+  color: #282166;
+}
+
+.optionButton.selected svg path {
+  fill: #806bf5;
+}
+
+.optionButton.dimmed {
+  opacity: 0.5;
+  background-color: transparent;
+}
+.optionButton:disabled:hover {
+  border-color: var(--panel-border-color);
+}
+.optionButton.selected:disabled:hover {
+  border-color: #806bf5;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* --- 👇 [추가] 숨겨진 파일 input 스타일 --- */
+.formFileInput {
+  display: none;
+}
+/* --- 👆 [추가] --- */
+
+/* --- 👇 [수정] 폼 헤더 및 엑셀 버튼 스타일 --- */
+.formHeader {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px; /* h3에서 패딩 이동 */
+  gap: 8px;
+}
+
+.formHeader h3 {
+  padding: 0; /* h3 패딩 리셋 */
+  margin: 0; /* h3 마진 리셋 */
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px; /* 125% */
+  letter-spacing: -0.24px;
+}
+
+.excelUploadButton {
+  height: 36px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--Gray-07, #5e7599);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-radius: 6px;
+  border: 1px solid var(--Gray-04, #babcd1);
+  background: var(--White-Opacity-48, rgba(255, 255, 255, 0.48));
+}
+
+.excelUploadButton:hover {
+  background-color: var(--button-hover-bg);
+}
+
+.excelUploadButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+/* --- 👆 [수정] --- */
+
+.formContainerSeparator {
+  position: relative;
+  height: 1px;
+  overflow: hidden;
+}
+
+.formContainerSeparator::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--panel-border-color);
+}
+
+.formElement {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  /* padding: 12px 20px; */
+  width: 100%;
+}
+
+/* --- 👇 [수정] formActionArea에 gap 추가 --- */
+.formActionArea {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0px 20px 12px 20px;
+  gap: 8px; /* 버튼 사이 간격 추가 */
+  align-items: center; /* 버튼 정렬 */
+}
+/* --- 👆 [수정] --- */
+
+.formLabel {
+  color: var(--Gray-05, #8d9eba);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px; /* 116.667% */
+  letter-spacing: -0.18px;
+}
+
+.formInput,
+.formContainer select {
+  width: 100%;
+  padding: 8px 12px 8px 16px;
+  border: 1px solid var(--panel-border-color); /* Themed */
+  color: var(--text-color); /* Themed */
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: -0.21px;
+}
+
+.selectWrapper {
+  position: relative;
+}
+
+.selectWrapper select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  padding-right: 36px;
+}
+
+.selectWrapper svg {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.formInput[type="date"] {
+  color-scheme: var(--date-input-scheme);
+}
+
+/* --- 👇 [수정] formSubmitButton에서 align-self 제거 --- */
+.formSubmitButton {
+  /* align-self: flex-end; */ /* 부모(formActionArea)가 정렬을 제어하므로 제거 */
+  padding: 8px 16px;
+  color: var(--White, #fff); /* Themed */
+  border-radius: 8px;
+  background: var(
+    --Color-Light-Gradation-01,
+    linear-gradient(90deg, #BCA8FF 0%, #6941DF 100%)
+  );
+  cursor: pointer;
+}
+/* --- 👆 [수정] --- */
+
+.formSubmitButton:hover {
+  background-color: var(--login-button-hover-bg); /* Themed */
+}
+
+.formSubmitButton:disabled {
+  background-color: var(--button-hover-bg); /* Themed */
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.iframeContainer {
+  padding: 0;
+  background-color: transparent;
+  overflow: hidden; /* 추가: 내용이 넘칠 경우 숨김 */
+}
+
+.iframeContainer iframe {
+  display: block; /* 기본 스타일 유지 */
+}
+
+@keyframes wobble {
+  0%,
+  100% {
+    transform: translateX(0%);
+  }
+  15% {
+    transform: translateX(-10px) rotate(-3deg);
+  }
+  30% {
+    transform: translateX(8px) rotate(2deg);
+  }
+  45% {
+    transform: translateX(-6px) rotate(-1deg);
+  }
+  60% {
+    transform: translateX(4px) rotate(0.5deg);
+  }
+  75% {
+    transform: translateX(-2px) rotate(0deg);
+  }
+}
+
+.highlightedMessage {
+  animation: wobble 0.8s ease-in-out;
+}
+
+.scenarioStatusMessage {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.statusContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.statusBadge {
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+}
+
+.statusActive {
+  background-color: #f39c12; /* Incomplete */
+}
+
+.statusCompleted {
+  background-color: #3498db; /* Done */
+}
+
+.statusFailed {
+  background-color: #e74c3c; /* Failed */
+}
+
+.statusGenerating {
+  background-color: #27ae60; /* Generating */
+}
+
+.history {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.3s ease-out;
+}
+.history:hover {
+  scrollbar-color: #c1c1c1 transparent;
+}
+body.dark .history:hover {
+  scrollbar-color: #555 transparent;
+}
+.history::-webkit-scrollbar {
+  width: 8px;
+}
+.history::-webkit-scrollbar-track {
+  background: transparent;
+}
+.history::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 4px;
+  transition: background-color 0.3s ease-out;
+}
+.history:hover::-webkit-scrollbar-thumb {
+  background-color: #c1c1c1;
+}
+body.dark .history:hover::-webkit-scrollbar-thumb {
+  background-color: #555;
+}
+
+.scenarioChatContainer {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.scenarioChatContainer .history {
+  min-width: 0;
+  max-width: none;
+  width: 100%;
+}
+
+.scenarioHeader {
+  border-bottom: 1px solid var(--panel-border-color);
+  padding: 10px 15px;
+  background-color: transparent;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.scenarioBubbleContainer {
+  display: flex;
+  flex-direction: column;
+  width: 496;
+  max-width: 496px;
+  height: 48px; /* 헤더 높이와 동일하게 고정 */
+  border-radius: 16px;
+  overflow: hidden;
+  transition: opacity 0.4s ease-out, border-color 0.2s ease-out;
+  cursor: pointer; /* 클릭 가능하도록 커서 변경 */
+}
+
+.focusedBubble {
+  border: var(--stroke-weight-1, 1px) solid
+    var(--Color-Light-Gradation-03, #3051ea) !important;
+}
+
+.scenarioBubbleContainer .header {
+  flex-shrink: 0;
+  padding: 12px 20px;
+  height: 48px; /* 헤더 높이 유지 */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 양 끝 정렬 */
+}
+
+.scenarioBubbleContainer.dimmed {
+  opacity: 0.4;
+}
+
+.scenarioBadge {
+  margin-left: auto;
+  padding: 4px 8px;
+  border-radius: 12px;
+  color: white;
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 12px; /* 120% */
+  letter-spacing: -0.1px;
+}
+
+.scenarioBadge.inprogress {
+  background: var(--Blue-01, #b2ebf2);
+  color: var(--Blue-02, #005762);
+}
+.scenarioBadge.done {
+  background: var(--Gray-03, #d8e0eb);
+  color: var(--Gray-07, #5e7599);
+}
+.scenarioBadge.incomplete {
+  background: var(--Yellow-01, #fff6aa);
+  color: var(--Yellow-02, #f57f17);
+}
+.scenarioBadge.failed {
+  background: var(--Error-01, #ffdbdb);
+  color: var(--Error-02, #ff4f4f);
+}
+.scenarioBadge.generating {
+  background: var(--Green-01, #c6eec2);
+  color: var(--Green-02, #00770a);
+}
+.scenarioBadge.canceled {
+  background: var(--Error-01, #ffdbdb);
+  color: var(--Error-02, #ff4f4f);
+}
+
+.formGridTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  border: 1px solid var(--panel-border-color);
+  border-radius: 8px; /* 테이블 전체에 radius 적용 */
+  overflow: hidden; /* radius 적용 위해 추가 */
+}
+
+.formGridTable th {
+  /* 헤더 스타일 추가 */
+  font-weight: 600; /* 헤더 폰트 두께 */
+  color: var(--text-color);
+  border-bottom: 1px solid var(--panel-border-color);
+  position: relative;
+}
+
+.formGridTable th:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 16px;
+  background-color: var(--panel-border-color);
+}
+
+.formGridTable tr {
+  transition: background-color 0.2s ease-out; /* hover 효과 트랜지션 */
+}
+
+.formGridTable tbody tr:hover {
+  background-color: var(--button-hover-bg);
+}
+
+.formGridTable tr:last-child {
+  border-bottom: none;
+}
+
+.formGridTable tbody tr:hover {
+}
+
+.formGridTable td,
+.formGridTable th {
+  /* th 스타일도 함께 적용 */
+  padding: 6px 4px 6px 10px;
+  text-align: left; /* 기본 정렬 왼쪽으로 변경 */
+  font-size: 13px;
+}
+
+body.dark .formGridTable th {
+  /* 다크모드 헤더 */
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+body.dark .formGridTable td {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark .formGridTable tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 폼 입력 필드 그룹 */
+.formInputGroup {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px; /* 필드 사이의 간격 */
+  width: 100%;
+  padding: 12px 20px;
+}
+
+@keyframes scalePop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.popAnimation {
+  animation: scalePop 0.3s ease-in-out;
+}
+
+/* --- 👇 [수정] 활성화된 피드백 버튼 스타일 --- */
+.messageActionArea .actionButton.activeFeedback {
+  color: var(--Purple-03, #634de2); /* 활성 아이콘 색상 */
+}
+
+/* --- [추가] 활성 버튼 hover 시에도 색상 유지 --- */
+.messageActionArea .actionButton.activeFeedback:hover {
+  color: var(--Purple-03, #634de2);
+}
+/* --- 👆 [수정] --- */
+
+/* --- 👇 [추가] 봇 메시지 체이닝 스타일 --- */
+.chainedMessageItem {
+  width: 100%;
+}
+
+/* 체인된 아이템 사이에 간격 추가 (첫 번째 자식 제외) */
+.chainedMessageItem:not(:first-child) {
+  margin-top: 12px;
+  padding-top: 12px;
+  /* --- 👇 [수정] 구분선(border-top) 제거 --- */
+  /* border-top: 1px solid var(--panel-border-color); */
+  /* --- 👆 [수정] --- */
+}
+
+/* 폼 렌더러가 체인에 포함될 때 상단 패딩 제거 */
+.chainedMessageItem .formContainer {
+  /* padding-top: 0; (FormRenderer 루트에 패딩이 없으므로 불필요) */
+}
+.chainedMessageItem:not(:first-child) .formContainer {
+  /* padding-top: 12px; (FormRenderer 루트에 패딩이 없으므로 불필요) */
+}
+
+/* --- 👆 [추가] --- */
+
+/* Link Node Button Style */
+.linkButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #667eea;
+  background: transparent;
+  border: 1.5px solid #667eea;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.linkButton:hover {
+  transform: translateY(-2px);
+  background-color: rgba(102, 126, 234, 0.08);
+  border-color: #764ba2;
+  color: #764ba2;
+}
+
+.linkButton:active {
+  transform: translateY(0);
+  background-color: rgba(102, 126, 234, 0.12);
+}
+
+.linkButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+

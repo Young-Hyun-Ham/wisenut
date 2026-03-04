@@ -1,0 +1,337 @@
+// app/components/ConversationItem.jsx
+"use client";
+import { useState, useRef, useEffect } from "react";
+import { useTranslations } from "../hooks/useTranslations";
+import styles from "./HistoryPanel.module.css";
+import KebabMenuIcon from "./icons/KebabMenuIcon";
+import PinIcon from "./icons/PinIcon";
+import ArrowDropDownIcon from "./icons/ArrowDropDownIcon";
+import PinOutlinedIcon from "./icons/PinOutlinedIcon";
+import CloseIcon from "./icons/CloseIcon";
+import { useChatStore } from "../store";
+// --- 👇 [추가] ScenarioStatusBadge 임포트 ---
+import ScenarioStatusBadge from "./ScenarioStatusBadge";
+// --- 👆 [추가] ---
+
+// --- 👇 [추가] 완료 뱃지 아이콘 (기존 정의 유지) ---
+const DoneBadgeIcon = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M8 1.5C4.41015 1.5 1.5 4.41015 1.5 8C1.5 11.5899 4.41015 14.5 8 14.5C11.5899 14.5 14.5 11.5899 14.5 8C14.5 4.41015 11.5899 1.5 8 1.5ZM6.8 11L4 8.2L4.9 7.3L6.8 9.2L11.1 4.9L12 5.8L6.8 11Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+// --- 👆 [추가] ---
+
+const CheckIcon = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M20 6L9 17L4 12"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const PencilIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+  >
+    <path
+      d="M11.7167 7.51667L12.4833 8.28333L4.93333 15.8333H4.16667V15.0667L11.7167 7.51667ZM14.7167 2.5C14.5083 2.5 14.2917 2.58333 14.1333 2.74167L12.6083 4.26667L15.7333 7.39167L17.2583 5.86667C17.5833 5.54167 17.5833 5.01667 17.2583 4.69167L15.3083 2.74167C15.1417 2.575 14.9333 2.5 14.7167 2.5ZM11.7167 5.15833L2.5 14.375V17.5H5.625L14.8417 8.28333L11.7167 5.15833Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+const TrashIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+  >
+    <path
+      d="M13.3346 7.5V15.8333H6.66797V7.5H13.3346ZM12.0846 2.5H7.91797L7.08464 3.33333H4.16797V5H15.8346V3.33333H12.918L12.0846 2.5ZM15.0013 5.83333H5.0013V15.8333C5.0013 16.75 5.7513 17.5 6.66797 17.5H13.3346C14.2513 17.5 15.0013 16.75 15.0013 15.8333V5.83333Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+// --- 👇 [제거] ScenarioStatusBadge (ScenarioStatusBadge.jsx로 이동) ---
+// const ScenarioStatusBadge = ({ ... }) => { ... };
+// --- 👆 [제거] ---
+
+export default function ConversationItem({
+  convo,
+  isActive,
+  onClick,
+  onDelete,
+  onUpdateTitle,
+  onPin,
+  isExpanded,
+  scenarios,
+  onToggleExpand,
+  onScenarioClick,
+  unreadScenarioSessions,
+  hasUnreadScenarios,
+  isPending,
+  hasCompletedResponse,
+}) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [title, setTitle] = useState(convo.title);
+  const inputRef = useRef(null);
+  const menuRef = useRef(null);
+  const { t } = useTranslations();
+  const { hideCompletedScenarios, hideDelayInHours, activeScenarioSessionId } =
+    useChatStore();
+
+  // 🔴 [NEW] filteredScenarios와 hasScenarios를 먼저 계산
+  const filteredScenarios = scenarios
+    ? scenarios.filter((s) => {
+        if (hideCompletedScenarios && s.status === "completed") {
+          const completedTime = s.updatedAt?.toDate?.() || s.updatedAt;
+          if (!completedTime) return false;
+
+          const now = new Date();
+          const hoursPassed = (now - completedTime) / (1000 * 60 * 60);
+
+          return hoursPassed < hideDelayInHours;
+        }
+        return true;
+      })
+    : null;
+
+  const hasScenarios = filteredScenarios && filteredScenarios.length > 0;
+
+  useEffect(() => {
+    if (isEditing) {
+      inputRef.current?.focus();
+      inputRef.current?.select();
+    }
+  }, [isEditing]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // 🔴 [NEW] 대화가 활성화되고 시나리오가 있으면 자동으로 확장
+  useEffect(() => {
+    if (isActive && hasScenarios && !isExpanded) {
+      console.log(`[ConversationItem] Auto-expanding scenarios for ${convo.id}`);
+      onToggleExpand?.(convo.id);
+    }
+  }, [isActive, hasScenarios, isExpanded, convo.id, onToggleExpand]);
+
+  const handleUpdate = () => {
+    if (title.trim() && title.trim() !== convo.title) {
+      onUpdateTitle(convo.id, title.trim());
+    }
+    setIsEditing(false);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleUpdate();
+    } else if (e.key === "Escape") {
+      setTitle(convo.title);
+      setIsEditing(false);
+    }
+  };
+
+  const handleRename = (e) => {
+    e.stopPropagation();
+    setTitle(convo.title);
+    setIsEditing(true);
+    setIsMenuOpen(false);
+  };
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    onDelete(e, convo.id);
+    setIsMenuOpen(false);
+  };
+
+  const handlePin = (e) => {
+    e.stopPropagation();
+    onPin(convo.id, !convo.pinned);
+    setIsMenuOpen(false);
+  };
+
+  return (
+    <div className={styles.conversationItemWrapper}>
+      <div
+        className={`${styles.conversationItem} ${
+          isExpanded ? styles.active : ""
+        }`}
+        onClick={() => {
+          if (isEditing) return;
+          onClick(convo.id);
+        }}
+      >
+        <div className={styles.convoMain}>
+          {isPending && !isEditing && (
+            <span className={styles.loadingIndicator}>
+              <img
+                src="/images/Loading.gif"
+                alt="Loading..."
+                width="16"
+                height="16"
+                style={{ display: "block" }}
+              />
+            </span>
+          )}
+
+          {!isPending && hasCompletedResponse && !isEditing && (
+            <span className={styles.doneIndicator}>
+              <DoneBadgeIcon />
+            </span>
+          )}
+
+          {hasUnreadScenarios && !isEditing && (
+            <div className={styles.unreadDot}></div>
+          )}
+          
+          {convo.pinned && !isEditing && (
+            <span className={styles.pinIndicator}>
+              <PinIcon />
+            </span>
+          )}
+
+          {isEditing ? (
+            <input
+              ref={inputRef}
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              onBlur={handleUpdate}
+              onKeyDown={handleKeyDown}
+              className={styles.titleInput}
+              onClick={(e) => e.stopPropagation()}
+            />
+          ) : (
+            <span className={styles.convoTitle}>
+              {convo.title || t("newChat")}
+            </span>
+          )}
+        </div>
+
+        {isEditing ? (
+          <div className={styles.editConfirmButton}>
+            <button
+              className={styles.actionButton}
+              style={{ opacity: 1 }}
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsEditing(false);
+              }}
+            >
+              <CloseIcon />
+            </button>
+            <button
+              className={styles.actionButton + " " + styles.confirm}
+              style={{ opacity: 1 }}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleUpdate();
+              }}
+            >
+              <CheckIcon />
+            </button>
+          </div>
+        ) : (
+          <div className={styles.menuContainer} ref={menuRef}>
+            <button
+              className={styles.menuButton}
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMenuOpen(!isMenuOpen);
+              }}
+              data-open={isMenuOpen}
+            >
+              <KebabMenuIcon />
+            </button>
+            {isMenuOpen && (
+              <div className={styles.dropdownMenu}>
+                <button onClick={handlePin}>
+                  {convo.pinned ? t("unpin") : t("pin")}
+                </button>
+                <button onClick={handleRename}>{t("rename")}</button>
+                <button onClick={handleDelete}>{t("delete")}</button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+      {isExpanded && (
+        <div className={styles.scenarioSubList}>
+          {filteredScenarios ? (
+            filteredScenarios.length > 0 ? (
+              filteredScenarios.map((scenario) => {
+                const hasUnread = unreadScenarioSessions?.has(
+                  scenario.sessionId
+                );
+                const isSelected =
+                  scenario.sessionId === activeScenarioSessionId;
+                return (
+                  <div
+                    key={scenario.sessionId}
+                    className={`${styles.scenarioItem} ${
+                      isSelected ? styles.selected : ""
+                    }`}
+                    onClick={() => onScenarioClick(convo.id, scenario)}
+                  >
+                    {hasUnread && <div className={styles.unreadDot}></div>}
+                    <span className={styles.scenarioTitle}>
+                      {scenario.title || scenario.scenarioId}
+                    </span>
+                    {/* --- 👇 [수정] 컴포넌트 사용 --- */}
+                    <ScenarioStatusBadge
+                      status={scenario.status}
+                      t={t}
+                      isSelected={isSelected} // isSelected prop 전달
+                    />
+                    {/* --- 👆 [수정] --- */}
+                  </div>
+                );
+              })
+            ) : (
+              <div className={styles.noScenarios}>{t("noScenariosFound")}</div>
+            )
+          ) : (
+            <div className={styles.noScenarios}>{t("loadingScenarios")}</div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}

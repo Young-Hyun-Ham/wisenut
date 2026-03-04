@@ -1,0 +1,90 @@
+/* modalOverlay, modalContent, modalHeader, modalBody, closeButton 스타일 제거 */
+
+.noNotifications {
+    text-align: center;
+    color: #8a8a8e;
+    padding: 20px 0;
+}
+
+.notificationList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.notificationItem {
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid;
+    background-color: var(--bot-message-bg);
+    position: relative;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.unreadItem {
+    background-color: var(--user-message-bg);
+}
+.unreadItem::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -12px;
+    width: 6px;
+    height: 6px;
+    background-color: #2196F3;
+    border-radius: 50%;
+}
+
+.notificationItem.success {
+    border-left-color: #4CAF50;
+}
+.notificationItem.error {
+    border-left-color: #f44336;
+}
+.notificationItem.info {
+    border-left-color: #2196F3;
+}
+
+.timestamp {
+    display: block;
+    font-size: 0.75rem;
+    color: #8a8a8e;
+    margin-bottom: 4px;
+}
+
+.message {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.deleteButton {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: none;
+    border: none;
+    color: var(--action-button-color);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s, background-color 0.2s;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notificationItem:hover .deleteButton {
+    opacity: 0.7;
+}
+
+.deleteButton:hover {
+    opacity: 1;
+    background-color: var(--button-hover-bg);
+    color: #d32f2f;
+}

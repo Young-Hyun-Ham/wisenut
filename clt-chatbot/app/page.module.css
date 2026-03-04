@@ -1,0 +1,123 @@
+/* app/page.module.css */
+.main {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainArea {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  height: 100%;
+  transition: padding-left 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.sharedHeader {
+  flex-shrink: 0;
+  padding: 8px;
+}
+
+.contentAndInputWrapper {
+  flex-grow: 1; /* 남은 공간을 모두 차지하도록 */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  /* --- 👇 [수정] left 와 transform 제거, width transition 유지 --- */
+  transition: width 0.3s ease-in-out;
+  /* --- 👆 [수정] --- */
+  z-index: 1;
+  /* width 계산 방식은 page.js의 레이아웃에서 처리 */
+}
+
+.chatAreaWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* --- 👇 [삭제] .mainPanelShiftedLeft 클래스 제거 --- */
+/* .mainPanelShiftedLeft { ... } */
+/* --- 👆 [삭제] --- */
+
+/* --- 👇 [수정] Scenario Panel 스타일 --- */
+.scenarioPanel {
+  /* position: absolute; 제거 */
+  /* top: 0; 제거 */
+  /* right: 0; 제거 */
+  flex-shrink: 0; /* 너비가 줄어들지 않도록 */
+  width: 0; /* 초기 상태: 너비 0 */
+  height: calc(100% - 16px);
+  background-color: rgba(255, 255, 255, 0.64);
+  margin: 0;
+  border-radius: 16px;
+  background: var(--White-Opacity-64, rgba(255, 255, 255, 0.64));
+  /* Shadow_Glass/Light/Shadow_Glass 01 */
+  box-shadow: 0 6px 16px 0 #dfe2fe;
+  transition: width 0.3s ease-in-out, transform 0.3s ease-in-out,
+    opacity 0.3s ease-in-out, margin 0.3s ease-in-out;
+  transform: translateX(32px);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden; /* 너비 0일 때 내용 숨김 */
+}
+
+.scenarioPanelOpen {
+  width: 784px;
+  margin: 0 16px 16px 16px;
+  border: var(--stroke-weight-2, 2px) solid
+    var(--Color-Light-Gradation-03, #3051ea);
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scenarioPanelExpanded {
+  width: 1064px;
+  margin: 0 16px 16px 16px;
+  border: var(--stroke-weight-2, 2px) solid
+    var(--Color-Light-Gradation-03, #3051ea);
+}
+
+/* --- 👆 [수정] --- */
+
+/* 기존 스타일 유지 */
+.panelsWrapper {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.mainContent {
+  width: 100%;
+  display: flex;
+  transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  flex-shrink: 0;
+}
+
+.inactivePanel {
+  opacity: 0.6;
+  transition: opacity 0.3s ease-in-out;
+}
+
+body {
+  --history-panel-width: 60px; /* 기본값 */
+  --scenario-panel-width: 40%; /* 시나리오 패널 너비 변수 */
+}
+body.history-panel-open {
+  --history-panel-width: 320px;
+}
