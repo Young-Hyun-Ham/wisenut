@@ -56,6 +56,7 @@ class Scenario(Base):
     description = Column(Text)
     job = Column(String)
     version = Column(String)
+    start_node_id = Column(String)
     nodes = Column(JSONB)
     edges = Column(JSONB)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)

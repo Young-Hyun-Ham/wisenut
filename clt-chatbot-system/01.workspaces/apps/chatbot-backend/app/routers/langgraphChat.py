@@ -81,7 +81,11 @@ def langgraphChat(
     except json.JSONDecodeError:
         raise HTTPException(status_code=422, detail="scenario parse failed")
 
+    print(f"[langgraphChat scenario.data ======================>] {scenario}")
     graph = registry.get_graph(scenario_id, scenario.data, scenario.mtime)
+    print(f"[langgraphChat nodes ======================>] {graph.nodes}")
+    print(f"[langgraphChat edges ======================>] {graph.builder.edges}")
+    print(f"[langgraphChat mermaid ======================>] {graph.get_graph().draw_mermaid()}")
     input_obj = Command(resume=body.user_action) if body.user_action is not None else {}
     resume_from_node_id = (
         _last_interrupt_node.get(body.conversation_id)

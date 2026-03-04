@@ -28,10 +28,11 @@ export default function ScenarioEditorPage() {
     const [collapsedPaths, setCollapsedPaths] = useState(new Set());
 
     const availableScenarios = scenarios
-        .flatMap((category) => category.items || [])
+        // .flatMap((category) => category.items || [])
         .map((item) => item.id)
         .filter(Boolean);
-
+    console.log("Scenarios fetched from API:", scenarios)
+    console.log("Available scenarios for shortcuts:", availableScenarios)
     useEffect(() => {
         if (!scenarioCategories.length) {
             setCategories(null);

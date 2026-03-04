@@ -31,6 +31,7 @@ class ScenarioRepository:
         raw_data: Dict[str, Any] = {
             "nodes": row.nodes or [],
             "edges": row.edges or [],
+            "start_node_id": row.start_node_id or None,
         }
 
         # mtime은 GraphRegistry 캐시 키로 사용되므로 DB 업데이트 시 변경 가능한 값을 사용한다.

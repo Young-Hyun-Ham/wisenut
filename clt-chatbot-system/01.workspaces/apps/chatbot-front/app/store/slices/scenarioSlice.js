@@ -201,7 +201,7 @@ export const createScenarioSlice = (set, get) => ({
         conversationId = newConversation.id;
         await get().loadConversation?.(conversationId);
       }
-
+      console.log(`[openScenarioPanel] Starting scenario ${scenarioId} in conversation ${conversationId} with initial slots:`, initialSlots)
       const sessionResponse = await apiFetch(`${FASTAPI_BASE_URL}/scenario-sessions`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

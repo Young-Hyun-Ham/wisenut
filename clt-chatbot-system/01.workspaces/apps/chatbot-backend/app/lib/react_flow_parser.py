@@ -29,8 +29,9 @@ class ReactFlowNode:
 def parse_react_flow_data(raw_data: dict)-> List[ReactFlowNode]:
     nodes_data = raw_data.get('nodes', [])
     edges_data = raw_data.get('edges', [])
-    startNodeId = raw_data.get('startNodeId')
-    
+    startNodeId = raw_data.get('start_node_id')
+    print(f"[parse_react_flow_data] raw_data=================> : {raw_data}")
+    print(f"[parse_react_flow_data] startNodeId: {startNodeId}")
     # 1. 필요한 필드만 추출하여 객체 생성 (position, width 등 제외)
     nodes_map = {}
     for n in nodes_data:
