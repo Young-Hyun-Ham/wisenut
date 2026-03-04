@@ -4,7 +4,7 @@
 import { locales } from "../../lib/locales";
 import { getErrorKey } from "../../lib/errorHandler";
 import { logger } from "../../lib/logger";
-import { FASTAPI_BASE_URL } from "../../lib/constants";
+import { FASTAPI_BASE_URL, SCENARIO_ENGINE } from "../../lib/constants";
 import { evaluateCondition } from "../../lib/scenarioHelpers";
 import { getDeepValue, interpolateMessage } from "../../lib/chatbotEngine";
 import { buildApiUrl, buildFetchOptions, interpolateObjectStrings } from "../../lib/nodeHandlers";
@@ -129,6 +129,30 @@ const isAutoPassthroughNode = (node) => {
     node.type === 'delay' ||
     node.type === 'api'
   );
+};
+
+const normalizeLangGraphNode = (output) => {
+  if (!output) return null;
+
+  if (output.type === 'message' || output.type === 'form' || output.type === 'branch' || output.type === 'link' || output.type === 'api' || output.type === 'setSlot' || output.type === 'set-slot' || output.type === 'delay') {
+    const data = output.data || {};
+    const nodeId = data.id || output.id || `lg-node-${Date.now()}`;
+    return {
+      id: nodeId,
+      type: output.type,
+      data,
+    };
+  }
+
+  if (output.data && output.type) {
+    return {
+      id: output.data?.id || output.id || `lg-node-${Date.now()}`,
+      type: output.type,
+      data: output.data,
+    };
+  }
+
+  return null;
 };
 
 export const createScenarioHandlersSlice = (set, get) => ({
@@ -346,6 +370,9 @@ export const createScenarioHandlersSlice = (set, get) => ({
                 awaiting_input: isInteractiveNode(firstNode),
               },
               isLoading: false,  // ✅ 로딩 상태 해제
+              engine: SCENARIO_ENGINE === 'langgraph' ? 'langgraph' : 'legacy',
+              langgraphThreadId: conversationId,
+              pendingInterrupt: null,
             },
           },
         };
@@ -369,6 +396,16 @@ export const createScenarioHandlersSlice = (set, get) => ({
       console.log(`[openScenarioPanel] Activating scenario panel with session ID:`, newScenarioSessionId);
       await setActivePanel("scenario", newScenarioSessionId);
       console.log(`[openScenarioPanel] ✅ Scenario panel activated`);
+
+      if (SCENARIO_ENGINE === 'langgraph') {
+        await get().startLangGraphScenario({
+          scenarioSessionId: newScenarioSessionId,
+          scenarioId,
+          conversationId,
+          userAction: null,
+        });
+        return;
+      }
 
       // ✅ [NEW] 자동 진행 필요 여부 판정
       const shouldAutoProgress = firstNode && (isAutoPassthroughNode(firstNode) || !isInteractiveNode(firstNode));
@@ -435,6 +472,182 @@ export const createScenarioHandlersSlice = (set, get) => ({
     }
   },
 
+  startLangGraphScenario: async ({ scenarioSessionId, scenarioId, conversationId, userAction = null, userInputText = null }) => {
+    const { scenarioStates, language, showEphemeralToast, endScenario } = get();
+    const targetScenario = scenarioStates?.[scenarioSessionId];
+    if (!targetScenario) return;
+
+    set(state => ({
+      scenarioStates: {
+        ...state.scenarioStates,
+        [scenarioSessionId]: {
+          ...state.scenarioStates[scenarioSessionId],
+          isLoading: true,
+          pendingInterrupt: null,
+          state: {
+            ...(state.scenarioStates[scenarioSessionId]?.state || {}),
+            awaiting_input: false,
+          },
+        }
+      }
+    }));
+
+    try {
+      await get().streamScenario({
+        scenarioId,
+        conversationId,
+        userAction,
+        onMessage: (output) => {
+          const parsedNode = normalizeLangGraphNode(output);
+          const slotData = output?.slot || {};
+          const botText = output?.data?.content || output?.data?.title || output?.data?.message || '';
+
+          set(state => {
+            const prev = state.scenarioStates[scenarioSessionId] || {};
+            const nextMessages = [...(prev.messages || [])];
+
+            if (userInputText && nextMessages.length > 0) {
+              const last = nextMessages[nextMessages.length - 1];
+              if (last?.sender === 'user' && last?.text === userInputText) {
+                // noop
+              }
+            }
+
+            if (botText || parsedNode) {
+              nextMessages.push({
+                id: parsedNode?.id || `bot-${Date.now()}`,
+                sender: 'bot',
+                text: botText,
+                node: parsedNode,
+                type: 'scenario_message',
+              });
+            }
+
+            return {
+              scenarioStates: {
+                ...state.scenarioStates,
+                [scenarioSessionId]: {
+                  ...prev,
+                  messages: nextMessages,
+                  slots: { ...(prev.slots || {}), ...slotData },
+                  state: {
+                    ...(prev.state || {}),
+                    current_node_id: parsedNode?.id || prev?.state?.current_node_id,
+                    awaiting_input: false,
+                  },
+                }
+              }
+            };
+          });
+        },
+        onInterrupt: (interruptData) => {
+          const interruptType = interruptData?.type;
+          const interruptNode = {
+            id: interruptData?.node_id || `interrupt-${Date.now()}`,
+            type: interruptType === 'form' ? 'form' : 'branch',
+            data: interruptType === 'form'
+              ? (interruptData?.data || {})
+              : {
+                  evaluationType: 'BUTTON',
+                  replies: interruptData?.replies || [],
+                },
+          };
+
+          const interruptText = interruptType === 'form'
+            ? (interruptData?.data?.title || '입력 정보를 작성해주세요.')
+            : (interruptData?.message || '아래 항목을 선택해주세요.');
+
+          set(state => {
+            const prev = state.scenarioStates[scenarioSessionId] || {};
+            const nextMessages = [...(prev.messages || []), {
+              id: interruptNode.id,
+              sender: 'bot',
+              text: interruptText,
+              node: interruptNode,
+              type: 'scenario_message',
+            }];
+
+            return {
+              scenarioStates: {
+                ...state.scenarioStates,
+                [scenarioSessionId]: {
+                  ...prev,
+                  messages: nextMessages,
+                  pendingInterrupt: {
+                    node_id: interruptData?.node_id,
+                    type: interruptType,
+                    replies: interruptData?.replies || [],
+                    elements: interruptData?.data?.elements || [],
+                  },
+                  state: {
+                    ...(prev.state || {}),
+                    current_node_id: interruptNode.id,
+                    awaiting_input: true,
+                  },
+                  isLoading: false,
+                }
+              }
+            };
+          });
+        },
+        onEnd: () => {
+          const latest = get().scenarioStates?.[scenarioSessionId];
+          if (latest?.pendingInterrupt) {
+            set(state => ({
+              scenarioStates: {
+                ...state.scenarioStates,
+                [scenarioSessionId]: {
+                  ...state.scenarioStates[scenarioSessionId],
+                  isLoading: false,
+                }
+              }
+            }));
+            return;
+          }
+
+          set(state => ({
+            scenarioStates: {
+              ...state.scenarioStates,
+              [scenarioSessionId]: {
+                ...state.scenarioStates[scenarioSessionId],
+                isLoading: false,
+                status: 'completed',
+                state: null,
+              }
+            }
+          }));
+          endScenario(scenarioSessionId, 'completed');
+        },
+        onError: (_error, message) => {
+          showEphemeralToast(message, 'error');
+          set(state => ({
+            scenarioStates: {
+              ...state.scenarioStates,
+              [scenarioSessionId]: {
+                ...state.scenarioStates[scenarioSessionId],
+                isLoading: false,
+              }
+            }
+          }));
+        },
+      });
+    } catch (error) {
+      console.error(`[startLangGraphScenario] stream failed for ${scenarioSessionId}:`, error);
+      const errorKey = getErrorKey(error);
+      const message = locales[language]?.[errorKey] || 'Failed to run LangGraph scenario.';
+      showEphemeralToast(message, 'error');
+      set(state => ({
+        scenarioStates: {
+          ...state.scenarioStates,
+          [scenarioSessionId]: {
+            ...state.scenarioStates[scenarioSessionId],
+            isLoading: false,
+          }
+        }
+      }));
+    }
+  },
+
   handleScenarioResponse: async (payload) => {
     const { scenarioSessionId } = payload;
     const { user, currentConversationId, language, endScenario, showEphemeralToast } = get();
@@ -454,6 +667,46 @@ export const createScenarioHandlersSlice = (set, get) => ({
     }
 
     const existingMessages = Array.isArray(currentScenario.messages) ? currentScenario.messages : [];
+
+    if (currentScenario.engine === 'langgraph') {
+      const nextMessages = [...existingMessages];
+      if (payload.userInput) {
+        nextMessages.push({
+          id: `user-${Date.now()}`,
+          sender: 'user',
+          text: payload.userInput,
+          type: 'scenario_message',
+        });
+      }
+
+      const nextSlots = payload.formData
+        ? { ...currentScenario.slots, ...payload.formData }
+        : currentScenario.slots;
+
+      set(state => ({
+        scenarioStates: {
+          ...state.scenarioStates,
+          [scenarioSessionId]: {
+            ...state.scenarioStates[scenarioSessionId],
+            messages: nextMessages,
+            slots: nextSlots,
+            pendingInterrupt: null,
+            isLoading: true,
+          }
+        }
+      }));
+
+      const userAction = payload.formData || payload.sourceHandle || payload.userInput || null;
+      await get().startLangGraphScenario({
+        scenarioSessionId,
+        scenarioId: currentScenario.scenario_id,
+        conversationId: currentScenario.langgraphThreadId || currentConversationId,
+        userAction,
+        userInputText: payload.userInput || null,
+      });
+      return;
+    }
+
     const currentNodeId = currentScenario.state?.current_node_id;
     const currentNode = getNodeById(nodes, currentNodeId);
 

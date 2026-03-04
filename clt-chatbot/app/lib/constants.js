@@ -9,6 +9,8 @@
 
 // FastAPI 베이스 URL
 export const FASTAPI_BASE_URL = "http://202.20.84.65:8083/api/v1";
+export const LANGGRAPH_BASE_URL = process.env.NEXT_PUBLIC_LANGGRAPH_BASE_URL || "http://localhost:8000";
+export const SCENARIO_ENGINE = process.env.NEXT_PUBLIC_SCENARIO_ENGINE || "legacy";
 
 // 기본 API 파라미터
 export const API_DEFAULTS = {

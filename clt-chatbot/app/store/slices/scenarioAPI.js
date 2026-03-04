@@ -4,7 +4,7 @@
 import { locales } from "../../lib/locales";
 import { getErrorKey } from "../../lib/errorHandler";
 import { logger } from "../../lib/logger";
-import { FASTAPI_BASE_URL } from "../../lib/constants";
+import { FASTAPI_BASE_URL, LANGGRAPH_BASE_URL } from "../../lib/constants";
 
 export const createScenarioAPISlice = (set, get) => ({
   loadAvailableScenarios: async () => {
@@ -188,4 +188,112 @@ export const createScenarioAPISlice = (set, get) => ({
       return false;
     }
   },
+
+  streamScenario: async ({ scenarioId, conversationId, userAction = null, onMessage, onInterrupt, onEnd, onError }) => {
+    const { language } = get();
+
+    try {
+      const response = await fetch(`${LANGGRAPH_BASE_URL}/api/v1/chat/${scenarioId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "text/event-stream",
+        },
+        body: JSON.stringify({
+          conversation_id: conversationId,
+          user_action: userAction,
+        }),
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`LangGraph request failed (${response.status}): ${text}`);
+      }
+
+      if (!response.body) {
+        throw new Error('LangGraph SSE body is empty.');
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder('utf-8');
+      let buffer = '';
+
+      const parseEventBlock = (block) => {
+        const lines = block.split(/\r?\n/);
+        let eventName = 'message';
+        const dataLines = [];
+
+        for (const line of lines) {
+          if (line.startsWith('event:')) {
+            eventName = line.slice(6).trim();
+          }
+          if (line.startsWith('data:')) {
+            dataLines.push(line.slice(5).trim());
+          }
+        }
+
+        const dataText = dataLines.join('\n');
+        return { eventName, dataText };
+      };
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) {
+          break;
+        }
+
+        buffer += decoder.decode(value, { stream: true });
+        const chunks = buffer.split(/\n\n/);
+        buffer = chunks.pop() || '';
+
+        for (const chunk of chunks) {
+          if (!chunk.trim()) continue;
+          const { eventName, dataText } = parseEventBlock(chunk);
+
+          if (eventName === 'end') {
+            onEnd?.();
+            continue;
+          }
+
+          if (eventName !== 'message' || !dataText) {
+            continue;
+          }
+
+          let parsed;
+          try {
+            parsed = JSON.parse(dataText);
+          } catch (parseError) {
+            console.warn('[streamScenario] Failed to parse event data:', dataText, parseError);
+            continue;
+          }
+
+          const output = parsed?.output;
+          if (output?.type === 'interrupt') {
+            onInterrupt?.(output.data || {});
+          } else {
+            onMessage?.(output || parsed);
+          }
+        }
+      }
+
+      if (buffer.trim()) {
+        const { eventName, dataText } = parseEventBlock(buffer);
+        if (eventName === 'end') {
+          onEnd?.();
+        } else if (eventName === 'message' && dataText) {
+          const parsed = JSON.parse(dataText);
+          const output = parsed?.output;
+          if (output?.type === 'interrupt') onInterrupt?.(output.data || {});
+          else onMessage?.(output || parsed);
+        }
+      }
+    } catch (error) {
+      logger.error('[streamScenario] Error while streaming LangGraph scenario:', error);
+      const errorKey = getErrorKey(error);
+      const message = locales[language]?.[errorKey] || 'LangGraph scenario stream failed.';
+      onError?.(error, message);
+      throw error;
+    }
+  },
+
 });

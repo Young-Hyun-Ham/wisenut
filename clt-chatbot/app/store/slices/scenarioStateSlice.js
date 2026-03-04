@@ -9,6 +9,7 @@ export const createScenarioStateSlice = (set, get) => ({
   availableScenarios: [],
   unsubscribeScenariosMap: {},
   isDelayLoading: false,
+  activeLangGraphStreams: {},
 
   setScenarioSlots: (sessionId, newSlots) => {
     set(state => {
@@ -34,4 +35,35 @@ export const createScenarioStateSlice = (set, get) => ({
   setDelayLoading: (isLoading) => {
     set({ isDelayLoading: isLoading });
   },
+
+  setScenarioEngine: (sessionId, engine) => {
+    set(state => {
+      if (!sessionId || !state.scenarioStates[sessionId]) return state;
+      return {
+        scenarioStates: {
+          ...state.scenarioStates,
+          [sessionId]: {
+            ...state.scenarioStates[sessionId],
+            engine,
+          }
+        }
+      };
+    });
+  },
+
+  setPendingInterrupt: (sessionId, pendingInterrupt = null) => {
+    set(state => {
+      if (!sessionId || !state.scenarioStates[sessionId]) return state;
+      return {
+        scenarioStates: {
+          ...state.scenarioStates,
+          [sessionId]: {
+            ...state.scenarioStates[sessionId],
+            pendingInterrupt,
+          }
+        }
+      };
+    });
+  },
+
 });
