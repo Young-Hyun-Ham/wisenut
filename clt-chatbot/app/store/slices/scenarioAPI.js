@@ -189,7 +189,7 @@ export const createScenarioAPISlice = (set, get) => ({
     }
   },
 
-  streamScenario: async ({ scenarioId, conversationId, userAction = null, onMessage, onInterrupt, onEnd, onError }) => {
+  streamScenario: async ({ scenarioId, conversationId, userAction = null, scenarioData = null, onMessage, onInterrupt, onEnd, onError }) => {
     const { language } = get();
 
     try {
@@ -202,6 +202,7 @@ export const createScenarioAPISlice = (set, get) => ({
         body: JSON.stringify({
           conversation_id: conversationId,
           user_action: userAction,
+          scenario_data: scenarioData,
         }),
       });
 

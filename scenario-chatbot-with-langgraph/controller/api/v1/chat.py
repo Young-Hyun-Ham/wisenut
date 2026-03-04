@@ -32,6 +32,7 @@ def get_graph_registry() -> GraphRegistry:
 class ChatRequest(BaseModel):
     conversation_id: str
     user_action: object | None = None
+    scenario_data: dict | None = None
 
 
 async def _sse_stream(
@@ -95,16 +96,26 @@ def chat(
         raise HTTPException(status_code=409, detail="conversation already processing")
     _conversation_locks[body.conversation_id] = now_ts + _LOCK_TTL_SECONDS
 
-    try:
-        scenario = repo.get_scenario(scenario_id)
-    except ScenarioNotFound:
-        _conversation_locks.pop(body.conversation_id, None)
-        raise HTTPException(status_code=404, detail="scenario not found")
-    except json.JSONDecodeError:
-        _conversation_locks.pop(body.conversation_id, None)
-        raise HTTPException(status_code=422, detail="scenario parse failed")
+    if body.scenario_data is not None:
+        scenario_payload = body.scenario_data
+        if not isinstance(scenario_payload.get("nodes"), list):
+            _conversation_locks.pop(body.conversation_id, None)
+            raise HTTPException(status_code=422, detail="scenario_data.nodes must be array")
+        if not isinstance(scenario_payload.get("edges", []), list):
+            _conversation_locks.pop(body.conversation_id, None)
+            raise HTTPException(status_code=422, detail="scenario_data.edges must be array")
+        graph = registry.get_graph(scenario_id, scenario_payload, now_ts)
+    else:
+        try:
+            scenario = repo.get_scenario(scenario_id)
+        except ScenarioNotFound:
+            _conversation_locks.pop(body.conversation_id, None)
+            raise HTTPException(status_code=404, detail="scenario not found")
+        except json.JSONDecodeError:
+            _conversation_locks.pop(body.conversation_id, None)
+            raise HTTPException(status_code=422, detail="scenario parse failed")
 
-    graph = registry.get_graph(scenario_id, scenario.data, scenario.mtime)
+        graph = registry.get_graph(scenario_id, scenario.data, scenario.mtime)
     input_obj = Command(resume=body.user_action) if body.user_action is not None else {}
     resume_from_node_id = (
         _last_interrupt_node.get(body.conversation_id)

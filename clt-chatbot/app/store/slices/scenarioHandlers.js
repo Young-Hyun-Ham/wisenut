@@ -355,6 +355,7 @@ export const createScenarioHandlersSlice = (set, get) => ({
               title: scenarioData.name,
               nodes: scenarioData.nodes,
               edges: scenarioData.edges || [],
+              start_node_id: firstNodeId,
               status: 'active',
               slots: initialSlots || {},
               messages: firstNode ? [{
@@ -403,6 +404,11 @@ export const createScenarioHandlersSlice = (set, get) => ({
           scenarioId,
           conversationId,
           userAction: null,
+          scenarioData: {
+            nodes: scenarioData.nodes || [],
+            edges: scenarioData.edges || [],
+            start_node_id: firstNodeId,
+          },
         });
         return;
       }
@@ -472,7 +478,7 @@ export const createScenarioHandlersSlice = (set, get) => ({
     }
   },
 
-  startLangGraphScenario: async ({ scenarioSessionId, scenarioId, conversationId, userAction = null, userInputText = null }) => {
+  startLangGraphScenario: async ({ scenarioSessionId, scenarioId, conversationId, userAction = null, userInputText = null, scenarioData = null }) => {
     const { scenarioStates, language, showEphemeralToast, endScenario } = get();
     const targetScenario = scenarioStates?.[scenarioSessionId];
     if (!targetScenario) return;
@@ -497,6 +503,7 @@ export const createScenarioHandlersSlice = (set, get) => ({
         scenarioId,
         conversationId,
         userAction,
+        scenarioData,
         onMessage: (output) => {
           const parsedNode = normalizeLangGraphNode(output);
           const slotData = output?.slot || {};
@@ -702,6 +709,11 @@ export const createScenarioHandlersSlice = (set, get) => ({
         scenarioId: currentScenario.scenario_id,
         conversationId: currentScenario.langgraphThreadId || currentConversationId,
         userAction,
+        scenarioData: {
+          nodes: currentScenario.nodes || [],
+          edges: currentScenario.edges || [],
+          start_node_id: currentScenario.start_node_id || null,
+        },
         userInputText: payload.userInput || null,
       });
       return;
