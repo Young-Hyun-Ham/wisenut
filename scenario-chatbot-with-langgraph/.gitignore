@@ -11,4 +11,5 @@ __pycache__/
 
 tmp/
 
-data/run_*.jsonl
+data/run_trace.jsonl
+data/run_events.jsonl
