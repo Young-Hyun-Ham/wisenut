@@ -256,6 +256,20 @@ export const createScenarioAPISlice = (set, get) => ({
             continue;
           }
 
+          if (eventName === 'error') {
+            let errorMessage = 'LangGraph stream returned an error event.';
+            if (dataText) {
+              try {
+                const errorPayload = JSON.parse(dataText);
+                errorMessage = errorPayload?.error || errorMessage;
+              } catch {
+                errorMessage = dataText;
+              }
+            }
+            onError?.(new Error(errorMessage), errorMessage);
+            continue;
+          }
+
           if (eventName !== 'message' || !dataText) {
             continue;
           }
@@ -281,6 +295,17 @@ export const createScenarioAPISlice = (set, get) => ({
         const { eventName, dataText } = parseEventBlock(buffer);
         if (eventName === 'end') {
           onEnd?.();
+        } else if (eventName === 'error') {
+          let errorMessage = 'LangGraph stream returned an error event.';
+          if (dataText) {
+            try {
+              const errorPayload = JSON.parse(dataText);
+              errorMessage = errorPayload?.error || errorMessage;
+            } catch {
+              errorMessage = dataText;
+            }
+          }
+          onError?.(new Error(errorMessage), errorMessage);
         } else if (eventName === 'message' && dataText) {
           const parsed = JSON.parse(dataText);
           const output = parsed?.output;

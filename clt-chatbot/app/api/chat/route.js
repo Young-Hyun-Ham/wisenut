@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { getScenario, getNextNode, interpolateMessage, findActionByTrigger, getScenarioList, runScenario, getScenarioCategories } from '../../lib/chatbotEngine';
 import { getLlmResponse } from '../../lib/llm';
 import { locales } from '../../lib/locales';
+import { SCENARIO_ENGINE } from '../../lib/constants';
 // --- 👇 [수정] getErrorKey 임포트 제거 ---
 // import { getErrorKey } from '../../lib/errorHandler';
 
@@ -97,6 +98,17 @@ export async function POST(request) {
 
     // 1. 시나리오 진행 중
     if (scenarioSessionId && scenarioState && scenarioState.scenarioId) {
+      if (SCENARIO_ENGINE === 'langgraph') {
+        return NextResponse.json(
+          {
+            type: 'error',
+            message:
+              locales[language]?.errorUnexpected ||
+              'Legacy scenario route is disabled when SCENARIO_ENGINE=langgraph.',
+          },
+          { status: 400 }
+        );
+      }
       const scenario = await getScenario(scenarioState.scenarioId);
       const result = await runScenario(scenario, scenarioState, message, slots, scenarioSessionId, language);
       return NextResponse.json(result);

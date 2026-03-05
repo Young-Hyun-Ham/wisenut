@@ -28,7 +28,7 @@ async def _first_message_payload(response, predicate=None):
 
 
 def test_chat_interrupt_and_resume_with_button_choice():
-    response = chat("scenario99", ChatRequest(conversation_id="conv-99", user_input="hi"))
+    response = chat("scenario99", ChatRequest(conversation_id="conv-99"))
     assert response.media_type == "text/event-stream"
 
     payload = anyio.run(
@@ -47,7 +47,6 @@ def test_chat_interrupt_and_resume_with_button_choice():
         "scenario99",
         ChatRequest(
             conversation_id="conv-99",
-            user_input="hi",
             user_action=selected_value,
         ),
     )
@@ -62,7 +61,7 @@ def test_chat_interrupt_and_resume_with_button_choice():
 
 
 def test_form_interrupt_schema_normalized():
-    response = chat("scenario01", ChatRequest(conversation_id="conv-01", user_input="hi"))
+    response = chat("scenario01", ChatRequest(conversation_id="conv-01"))
     assert response.media_type == "text/event-stream"
 
     payload = anyio.run(

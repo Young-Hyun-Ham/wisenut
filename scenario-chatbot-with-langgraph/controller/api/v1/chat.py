@@ -15,8 +15,7 @@ from lib.scenario_repo import ScenarioNotFound, ScenarioRepository
 
 router = APIRouter()
 _last_interrupt_node: dict[str, str] = {}
-_conversation_locks: dict[str, float] = {}
-_LOCK_TTL_SECONDS = 5.0
+_conversation_locks: set[str] = set()
 
 
 @lru_cache
@@ -78,7 +77,7 @@ async def _sse_stream(
         error_payload = {"conversation_id": conversation_id, "error": str(exc)}
         yield f"event: error\ndata: {json.dumps(error_payload, ensure_ascii=False)}\n\n"
     finally:
-        _conversation_locks.pop(conversation_id, None)
+        _conversation_locks.discard(conversation_id)
 
     yield "event: end\ndata: done\n\n"
 
@@ -90,29 +89,27 @@ def chat(
     repo: ScenarioRepository = Depends(get_scenario_repo),
     registry: GraphRegistry = Depends(get_graph_registry),
 ):
-    now_ts = time.time()
-    lock_until = _conversation_locks.get(body.conversation_id, 0.0)
-    if lock_until > now_ts:
+    if body.conversation_id in _conversation_locks:
         raise HTTPException(status_code=409, detail="conversation already processing")
-    _conversation_locks[body.conversation_id] = now_ts + _LOCK_TTL_SECONDS
+    _conversation_locks.add(body.conversation_id)
 
     if body.scenario_data is not None:
         scenario_payload = body.scenario_data
         if not isinstance(scenario_payload.get("nodes"), list):
-            _conversation_locks.pop(body.conversation_id, None)
+            _conversation_locks.discard(body.conversation_id)
             raise HTTPException(status_code=422, detail="scenario_data.nodes must be array")
         if not isinstance(scenario_payload.get("edges", []), list):
-            _conversation_locks.pop(body.conversation_id, None)
+            _conversation_locks.discard(body.conversation_id)
             raise HTTPException(status_code=422, detail="scenario_data.edges must be array")
-        graph = registry.get_graph(scenario_id, scenario_payload, now_ts)
+        graph = registry.get_graph(scenario_id, scenario_payload, time.time())
     else:
         try:
             scenario = repo.get_scenario(scenario_id)
         except ScenarioNotFound:
-            _conversation_locks.pop(body.conversation_id, None)
+            _conversation_locks.discard(body.conversation_id)
             raise HTTPException(status_code=404, detail="scenario not found")
         except json.JSONDecodeError:
-            _conversation_locks.pop(body.conversation_id, None)
+            _conversation_locks.discard(body.conversation_id)
             raise HTTPException(status_code=422, detail="scenario parse failed")
 
         graph = registry.get_graph(scenario_id, scenario.data, scenario.mtime)

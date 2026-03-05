@@ -197,5 +197,4 @@
 - [ ] `scenarioHandlers.openScenarioPanel`에서 LangGraph 실행 분기 추가
 - [ ] interrupt 상태 저장 및 입력 submit 핸들러 연결
 - [ ] 에러 fallback(legacy 엔진 또는 사용자 안내) 적용
-- [ ] QA 테스트 케이스 문서화
 
