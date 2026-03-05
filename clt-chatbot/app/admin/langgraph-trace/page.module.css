@@ -1,0 +1,311 @@
+.page {
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #f3f8ff 0%, #eefdf8 100%);
+  color: #1d2a33;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.header p {
+  margin: 6px 0 0;
+  color: #49606f;
+}
+
+.headerActions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.ok {
+  background: #ddf7e5;
+  color: #0f6a33;
+}
+
+.disconnected {
+  background: #ffe6e6;
+  color: #8d2323;
+}
+
+.switchLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.flushBtn,
+.backLink {
+  border: 1px solid #c0d2de;
+  background: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  text-decoration: none;
+  color: #223542;
+}
+
+.flushBtn:disabled {
+  opacity: 0.5;
+}
+
+.warningBox {
+  margin-top: 14px;
+  background: #fff4da;
+  color: #7d5600;
+  border: 1px solid #eccf85;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.warningBox p {
+  margin: 0;
+}
+
+.kpiGrid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.kpiGrid article {
+  background: #ffffff;
+  border: 1px solid #d5e3ed;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.kpiGrid h3 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: #4d6472;
+}
+
+.kpiGrid strong {
+  font-size: 22px;
+}
+
+.trendCard {
+  margin-top: 14px;
+  background: #fff;
+  border: 1px solid #d5e3ed;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.trendCard h3 {
+  margin: 0 0 10px;
+}
+
+.bars {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.barItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 38px;
+}
+
+.bar {
+  width: 20px;
+  background: linear-gradient(180deg, #0f9f7f 0%, #0573b8 100%);
+  border-radius: 6px;
+}
+
+.barItem span {
+  font-size: 11px;
+  color: #425667;
+}
+
+.filters {
+  margin-top: 14px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filters select,
+.filters input {
+  border: 1px solid #bfd0dc;
+  border-radius: 8px;
+  padding: 7px 10px;
+  background: #fff;
+}
+
+.checkLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mainGrid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
+  gap: 12px;
+}
+
+.left,
+.right {
+  background: #fff;
+  border: 1px solid #d5e3ed;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.tabs button {
+  border: 1px solid #bfd0dc;
+  border-radius: 8px;
+  background: #f7fbff;
+  padding: 6px 10px;
+}
+
+.tabs .active {
+  background: #0d6ab8;
+  color: #fff;
+  border-color: #0d6ab8;
+}
+
+.tableWrap {
+  overflow: auto;
+}
+
+.tableWrap table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.tableWrap th,
+.tableWrap td {
+  border-bottom: 1px solid #edf3f7;
+  padding: 8px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.ellipsis {
+  display: inline-block;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.linkBtn {
+  border: 0;
+  background: transparent;
+  color: #0a67b4;
+  cursor: pointer;
+  padding: 0;
+}
+
+.pagination {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.pagination button {
+  border: 1px solid #bfd0dc;
+  background: #fff;
+  border-radius: 8px;
+  padding: 4px 10px;
+}
+
+.right h3 {
+  margin: 0;
+}
+
+.runId {
+  margin: 8px 0;
+  font-weight: 700;
+  color: #0a67b4;
+}
+
+.summary p,
+.empty {
+  margin: 4px 0;
+  font-size: 13px;
+}
+
+.timeline {
+  margin-top: 10px;
+  max-height: 520px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.timelineItem {
+  border: 1px solid #dceaf3;
+  background: #f9fcff;
+  border-radius: 10px;
+  padding: 8px;
+}
+
+.timelineItem p {
+  margin: 2px 0;
+  font-size: 12px;
+}
+
+.timelineItem pre {
+  background: #15202b;
+  color: #d7e3ed;
+  border-radius: 8px;
+  padding: 8px;
+  overflow: auto;
+  font-size: 11px;
+}
+
+.errorItem {
+  border-color: #ecb3b3;
+  background: #fff6f6;
+}
+
+@media (max-width: 1200px) {
+  .kpiGrid {
+    grid-template-columns: repeat(3, minmax(120px, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .kpiGrid {
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+  }
+}
+

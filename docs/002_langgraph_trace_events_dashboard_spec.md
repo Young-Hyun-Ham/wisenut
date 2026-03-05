@@ -1,11 +1,15 @@
 ﻿# 002. LangGraph Trace/Events 실시간 대시보드 구현 지시서
 
 ## 1) 배경/목표
+- 본 문서는 **코드 수정 전에 개발자가 그대로 구현 착수할 수 있는 수준의 작업 가이드**를 제공한다.
+- 범위는 다음 두 프로젝트만 사용한다.
+  - `clt-chatbot`
+  - `scenario-chatbot-with-langgraph`
 - LangGraph 실행 내역을 운영 중 실시간으로 확인할 수 있는 관측 대시보드를 구축한다.
 - 입력 소스는 JSONL 로그 파일 2종이다.
   - `run_trace.jsonl`: 실행 단위(trace) 중심 로그
   - `run_events.jsonl`: 실행 중 발생 이벤트(events) 로그
-- 실행 로그 파일 위치는 `/data` 폴더에 존재 한다.
+- 실행 로그 파일 위치는 백엔드 scenario-chatbot-with-langgraph 프로젝트에 `/data` 폴더에 존재 한다.
 - 목표는 "현재 어떤 run이 진행 중이고, 어디서 지연/실패가 발생했는지"를 즉시 파악할 수 있는 UI를 제공하는 것이다.
 
 ## 2) 구현 범위
