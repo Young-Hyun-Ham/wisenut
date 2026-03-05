@@ -17,6 +17,27 @@ function toNumberOrNull(value) {
   return Number.isFinite(n) ? n : null;
 }
 
+function inferNodeType(raw = {}, payload = null) {
+  if (raw.node_type) return String(raw.node_type);
+  if (payload?.type) return String(payload.type);
+  const et = String(raw.event_type || raw.type || "").toLowerCase();
+  if (et.includes("llm")) return "llm";
+  if (et.includes("tool")) return "tool";
+  if (et.includes("interrupt")) return payload?.type ? String(payload.type) : "interrupt";
+  if (et.includes("node")) return "node";
+  if (et.includes("stream") || et.includes("run_")) return "control";
+  return "unknown";
+}
+
+function inferStatus(raw = {}) {
+  if (raw.status) return String(raw.status);
+  const et = String(raw.event_type || raw.type || "").toLowerCase();
+  if (et === "run_end") return "completed";
+  if (et === "error") return "failed";
+  if (et === "cancelled") return "cancelled";
+  return "running";
+}
+
 export function getTraceFilePath() {
   return (
     process.env.LANGGRAPH_TRACE_PATH ||
@@ -49,8 +70,10 @@ export function normalizeTraceRecord(raw = {}) {
     run_id: String(raw.run_id || raw.runId || raw.id || "unknown"),
     thread_id: raw.thread_id || raw.threadId || null,
     status: String(raw.status || "running"),
+    event_type: String(raw.event_type || "trace_status"),
     duration_ms: toNumberOrNull(raw.duration_ms ?? raw.durationMs),
     node: raw.node || raw.current_node || raw.last_node || null,
+    node_type: String(raw.node_type || "unknown"),
     input_tokens: toNumberOrNull(raw.input_tokens ?? raw.inputTokens),
     output_tokens: toNumberOrNull(raw.output_tokens ?? raw.outputTokens),
     model: raw.model || null,
@@ -61,14 +84,17 @@ export function normalizeTraceRecord(raw = {}) {
 export function normalizeEventRecord(raw = {}) {
   const payload =
     raw.payload && typeof raw.payload === "object" ? raw.payload : null;
+  const event_type = String(raw.event_type || raw.type || "unknown");
   return {
     ts: safeIso(raw.ts || raw.timestamp || raw.created_at),
     run_id: String(raw.run_id || raw.runId || raw.id || "unknown"),
-    event_type: String(raw.event_type || raw.type || "unknown"),
+    event_type,
     node: raw.node || raw.current_node || null,
+    node_type: inferNodeType(raw, payload),
     payload,
     latency_ms: toNumberOrNull(raw.latency_ms ?? raw.latencyMs),
     level: String(raw.level || (raw.error ? "error" : "info")),
+    status: inferStatus(raw),
   };
 }
 

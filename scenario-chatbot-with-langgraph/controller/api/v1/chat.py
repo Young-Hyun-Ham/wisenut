@@ -1,5 +1,6 @@
 import json
 import time
+import uuid
 
 from functools import lru_cache
 
@@ -31,6 +32,7 @@ def get_graph_registry() -> GraphRegistry:
 
 class ChatRequest(BaseModel):
     conversation_id: str
+    msg_id: str | None = None
     user_action: object | None = None
     scenario_data: dict | None = None
 
@@ -46,29 +48,36 @@ async def _sse_stream(
     config = {"configurable": {"thread_id": conversation_id}}
     skipping = resume_from_node_id is not None
     last_node_id: str | None = None
+    is_interrupted = False
 
     try:
         append_event(
             run_id=run_id,
             event_type="stream_start",
             node=resume_from_node_id,
+            node_type="control",
             payload={"resume": resume_from_node_id is not None},
             level="info",
+            status="running",
         )
         for event in graph.stream(input_obj, stream_mode="values", config=config):
             if "__interrupt__" in event:
                 payload = event["__interrupt__"][0].value
                 node_id = payload.get("node_id") if isinstance(payload, dict) else None
+                interrupt_type = payload.get("type") if isinstance(payload, dict) else None
                 if node_id:
                     _last_interrupt_node[conversation_id] = node_id
                     last_node_id = node_id
+                is_interrupted = True
 
                 append_event(
                     run_id=run_id,
                     event_type="interrupt",
                     node=node_id,
+                    node_type=interrupt_type or "unknown",
                     payload=payload if isinstance(payload, dict) else {"raw": str(payload)},
                     level="info",
+                    status="running",
                 )
 
                 yield (
@@ -99,30 +108,53 @@ async def _sse_stream(
                 run_id=run_id,
                 event_type=normalized_output["type"] or "message",
                 node=current_node_id,
+                node_type=normalized_output["type"] or "unknown",
                 payload=normalized_output,
                 latency_ms=normalized_output["data"].get("latency_ms")
                 if isinstance(normalized_output["data"], dict)
                 else None,
                 level="info",
+                status="running",
             )
             payload = {"conversation_id": conversation_id, "output": normalized_output}
             yield f"event: message\ndata: {json.dumps(payload, ensure_ascii=False)}\n\n"
         duration_ms = int((time.time() - started_at) * 1000)
-        append_trace(
-            run_id=run_id,
-            thread_id=conversation_id,
-            status="completed",
-            duration_ms=duration_ms,
-            node=last_node_id,
-        )
-        append_event(
-            run_id=run_id,
-            event_type="stream_end",
-            node=last_node_id,
-            payload={"status": "completed"},
-            latency_ms=duration_ms,
-            level="info",
-        )
+        if is_interrupted:
+            append_trace(
+                run_id=run_id,
+                thread_id=conversation_id,
+                status="running",
+                duration_ms=duration_ms,
+                node=last_node_id,
+            )
+            append_event(
+                run_id=run_id,
+                event_type="stream_pause",
+                node=last_node_id,
+                node_type="control",
+                payload={"status": "running", "reason": "interrupt"},
+                latency_ms=duration_ms,
+                level="info",
+                status="running",
+            )
+        else:
+            append_trace(
+                run_id=run_id,
+                thread_id=conversation_id,
+                status="completed",
+                duration_ms=duration_ms,
+                node=last_node_id,
+            )
+            append_event(
+                run_id=run_id,
+                event_type="run_end",
+                node=last_node_id,
+                node_type="control",
+                payload={"status": "completed"},
+                latency_ms=duration_ms,
+                level="info",
+                status="completed",
+            )
     except Exception as exc:
         duration_ms = int((time.time() - started_at) * 1000)
         append_trace(
@@ -137,9 +169,11 @@ async def _sse_stream(
             run_id=run_id,
             event_type="error",
             node=last_node_id,
+            node_type="unknown",
             payload={"message": str(exc)},
             latency_ms=duration_ms,
             level="error",
+            status="failed",
         )
         error_payload = {"conversation_id": conversation_id, "error": str(exc)}
         yield f"event: error\ndata: {json.dumps(error_payload, ensure_ascii=False)}\n\n"
@@ -156,14 +190,17 @@ def chat(
     repo: ScenarioRepository = Depends(get_scenario_repo),
     registry: GraphRegistry = Depends(get_graph_registry),
 ):
-    run_id = body.conversation_id
+    msg_id = body.msg_id or uuid.uuid4().hex
+    run_id = f"{body.conversation_id}:{msg_id}"
     started_at = time.time()
     if body.conversation_id in _conversation_locks:
         append_event(
             run_id=run_id,
             event_type="request_rejected",
+            node_type="control",
             payload={"reason": "conversation already processing"},
             level="warn",
+            status="running",
         )
         raise HTTPException(status_code=409, detail="conversation already processing")
     _conversation_locks.add(body.conversation_id)
@@ -204,8 +241,10 @@ def chat(
         append_event(
             run_id=run_id,
             event_type="scenario_loaded",
+            node_type="control",
             payload={"source": "request.scenario_data", "scenario_id": scenario_id},
             level="info",
+            status="running",
         )
         graph = registry.get_graph(scenario_id, scenario_payload, time.time())
     else:
@@ -213,8 +252,10 @@ def chat(
             append_event(
                 run_id=run_id,
                 event_type="scenario_read_start",
+                node_type="control",
                 payload={"scenario_id": scenario_id},
                 level="info",
+                status="running",
             )
             scenario = repo.get_scenario(scenario_id)
             append_trace(
@@ -226,8 +267,10 @@ def chat(
             append_event(
                 run_id=run_id,
                 event_type="scenario_loaded",
+                node_type="control",
                 payload={"source": "scenario_repo", "scenario_id": scenario_id},
                 level="info",
+                status="running",
             )
         except ScenarioNotFound:
             _conversation_locks.discard(body.conversation_id)

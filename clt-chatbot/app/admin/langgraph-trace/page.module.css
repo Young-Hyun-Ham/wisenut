@@ -242,6 +242,33 @@
   padding: 4px 10px;
 }
 
+.aggSection {
+  margin-top: 12px;
+  border: 1px solid #e6eff5;
+  border-radius: 10px;
+  padding: 10px;
+  background: #fbfdff;
+  overflow: auto;
+}
+
+.aggSection h3,
+.aggSection h4 {
+  margin: 0 0 8px;
+}
+
+.aggSection table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.aggSection th,
+.aggSection td {
+  border-bottom: 1px solid #eef4f8;
+  padding: 6px;
+  text-align: left;
+}
+
 .right h3 {
   margin: 0;
 }
@@ -308,4 +335,3 @@
     grid-template-columns: repeat(2, minmax(120px, 1fr));
   }
 }
-

@@ -35,7 +35,9 @@ export default function ScenarioBubble({ scenarioSessionId, messageData }) {
       );
     }
   );
-  
+  // 랭그래프에서 pk로 사용 될 run_id를 생성 할 떄 사용 될 messageId 데이터 
+  const setRunMessagesId = useChatStore((state) => state.setRunMessagesId);
+
   const endScenario = useChatStore((state) => state.endScenario);
   const setActivePanel = useChatStore((state) => state.setActivePanel);
   const activePanel = useChatStore((state) => state.activePanel);
@@ -173,6 +175,8 @@ export default function ScenarioBubble({ scenarioSessionId, messageData }) {
     
     // ✅ scenarioSessionId가 있으면 직접 활성화
     if (scenarioSessionId) {
+      console.log("==============>: ", messageData)
+      setRunMessagesId(messageData?.id || "");
       setActivePanel("scenario", scenarioSessionId);
     }
   };

@@ -66,17 +66,21 @@ def append_event(
     run_id: str,
     event_type: str,
     node: str | None = None,
+    node_type: str | None = None,
     payload: dict[str, Any] | None = None,
     latency_ms: int | None = None,
     level: str = "info",
+    status: str | None = None,
 ) -> None:
     record = {
         "ts": _utc_iso_now(),
         "run_id": run_id,
         "event_type": event_type,
         "node": node,
+        "node_type": node_type or "unknown",
         "payload": payload,
         "latency_ms": latency_ms,
         "level": level,
+        "status": status,
     }
     _append_jsonl(_resolve_path("LANGGRAPH_EVENTS_PATH", _DEFAULT_EVENTS_PATH), record)

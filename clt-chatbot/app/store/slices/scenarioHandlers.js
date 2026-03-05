@@ -10,6 +10,12 @@ import { getDeepValue, interpolateMessage } from "../../lib/chatbotEngine";
 import { buildApiUrl, buildFetchOptions, interpolateObjectStrings } from "../../lib/nodeHandlers";
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const createLangGraphMsgId = () => {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return `msg-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+};
 
 // ✅ 헬퍼 함수: 노드 ID로 노드 찾기
 const getNodeById = (nodes, nodeId) => {
@@ -156,6 +162,8 @@ const normalizeLangGraphNode = (output) => {
 };
 
 export const createScenarioHandlersSlice = (set, get) => ({
+  runMessagesId: "",
+  setRunMessagesId: (msgId) => set({ runMessagesId: msgId }),
   setScenarioSelectedOption: async (scenarioSessionId, messageNodeId, selectedValue) => {
     const { user, currentConversationId, scenarioStates, language, showEphemeralToast } = get();
     if (!user || !currentConversationId || !scenarioSessionId) return;
@@ -307,12 +315,14 @@ export const createScenarioHandlersSlice = (set, get) => ({
       setActivePanel("main");
       setForceScrollToBottom(true);
 
+      let msgId = "";
       if (showScenarioBubbles) {
-        await addMessage("user", {
+        msgId = await addMessage("user", {
           type: "scenario_bubble",
           scenarioSessionId: newScenarioSessionId,
         });
       }
+      get().setRunMessagesId(msgId);
 
       get().subscribeToScenarioSession(newScenarioSessionId);
 
@@ -406,6 +416,7 @@ export const createScenarioHandlersSlice = (set, get) => ({
           scenarioSessionId: newScenarioSessionId,
           scenarioId,
           conversationId,
+          messageId: msgId,
           userAction: null,
           scenarioData: {
             nodes: scenarioData.nodes || [],
@@ -481,7 +492,7 @@ export const createScenarioHandlersSlice = (set, get) => ({
     }
   },
 
-  startLangGraphScenario: async ({ scenarioSessionId, scenarioId, conversationId, userAction = null, userInputText = null, scenarioData = null }) => {
+  startLangGraphScenario: async ({ scenarioSessionId, scenarioId, conversationId, messageId, userAction = null, userInputText = null, scenarioData = null }) => {
     const { scenarioStates, language, showEphemeralToast, endScenario } = get();
     const targetScenario = scenarioStates?.[scenarioSessionId];
     if (!targetScenario) return;
@@ -505,6 +516,7 @@ export const createScenarioHandlersSlice = (set, get) => ({
       await get().streamScenario({
         scenarioId,
         conversationId,
+        msgId: messageId ?? createLangGraphMsgId(),
         userAction,
         scenarioData,
         onMessage: (output) => {
@@ -711,6 +723,7 @@ export const createScenarioHandlersSlice = (set, get) => ({
         scenarioSessionId,
         scenarioId: currentScenario.scenario_id,
         conversationId: currentScenario.langgraphThreadId || currentConversationId,
+        messageId: get().runMessagesId || createLangGraphMsgId(),
         userAction,
         scenarioData: {
           nodes: currentScenario.nodes || [],
