@@ -11,4 +11,4 @@ __pycache__/
 
 tmp/
 
-data/run_*.json
+data/run_*.jsonl
